@@ -1,0 +1,32 @@
+.bg-grey {
+    -fx-background-color:  #D3D3D3;
+}
+.button:hover {
+    -fx-background-color:  grey;
+}
+
+.check {
+    -fx-background-color: red, white;
+    -fx-background-insets: 0, 2;
+    -fx-padding: 2.0;
+}
+
+
+
+.selectedWeek {
+    -fx-background-color:  lightgrey;
+}
+
+.today {
+    -fx-background-color:  red;
+}
+
+.selectedDay {
+    -fx-background-color:  grey;
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+}
+
+.otherMonth {
+    -fx-text-fill: lightgrey;
+}

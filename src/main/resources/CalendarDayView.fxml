@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefWidth="850.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.CalendarDayViewController">
+   <children>
+      <VBox spacing="5.0">
+         <children>
+            <HBox maxWidth="850.0" minWidth="850.0" prefWidth="850.0" spacing="5.0">
+               <children>
+                  <Button fx:id="btnDayView" mnemonicParsing="false" onAction="#onbtnDayClicked" prefHeight="35.0" prefWidth="120.0" text="Day View" />
+                  <Button fx:id="btnWeekView" mnemonicParsing="false" onAction="#onbtnWeekClicked" prefHeight="35.0" prefWidth="120.0" text="Week View" />
+                  <Button fx:id="btnMonthView" mnemonicParsing="false" onAction="#onbtnMonthClicked" prefHeight="35.0" prefWidth="120.0" text="Month View" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox>
+                     <children>
+                        <VBox>
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onBtnTodayClicked" text="Today" />
+                              <HBox alignment="CENTER" />
+                           </children>
+                        </VBox>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Filters" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="35.0">
+                           <children>
+                              <VBox alignment="CENTER" spacing="5.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER" spacing="5.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#onPrevMonth" text="&lt;&lt;">
+                                                   <font>
+                                                      <Font size="8.0" />
+                                                   </font>
+                                                </Button>
+                                                <Label fx:id="lblMonth" alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Month" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Button mnemonicParsing="false" onAction="#onNextMonth" text="&gt;&gt;">
+                                                   <font>
+                                                      <Font size="8.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#onPrevYear" text="&lt;&lt;">
+                                                   <font>
+                                                      <Font size="8.0" />
+                                                   </font>
+                                                </Button>
+                                                <Label fx:id="lblYear" alignment="CENTER" prefWidth="80.0" text="Year">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Button mnemonicParsing="false" onAction="#onNextYear" text="&gt;&gt;">
+                                                   <font>
+                                                      <Font size="8.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <GridPane fx:id="gpMonth" alignment="CENTER" hgap="5.0" vgap="5.0">
+                                      <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="25.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="M" textAlignment="CENTER" />
+                                          <Label text="T" GridPane.columnIndex="1" />
+                                          <Label text="W" GridPane.columnIndex="2" />
+                                          <Label text="T" GridPane.columnIndex="3" />
+                                          <Label text="F" GridPane.columnIndex="4" />
+                                          <Label text="S" GridPane.columnIndex="5" />
+                                          <Label text="S" GridPane.columnIndex="6" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <HBox alignment="CENTER" spacing="30.0">
+                           <children>
+                              <Label text="M" textAlignment="CENTER" />
+                              <Label layoutX="10.0" layoutY="10.0" text="T" />
+                              <Label layoutX="21.0" layoutY="10.0" text="W" />
+                              <Label layoutX="28.0" layoutY="10.0" text="T" />
+                              <Label layoutX="39.0" layoutY="10.0" text="F" />
+                              <Label layoutX="46.0" layoutY="10.0" text="S" />
+                              <Label layoutX="52.0" layoutY="10.0" text="S" />
+                           </children>
+                           <padding>
+                              <Insets left="20.0" right="20.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="15.0">
+                           <children>
+                              <Button fx:id="btnPrev" mnemonicParsing="false" onAction="#onPrevWeekClicked" text="&lt;&lt;" />
+                              <Group fx:id="gpTogglebtn">
+                                 <children>
+                                    <ToggleButton mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="Days" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton layoutX="37.77777862548828" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
+                                    <ToggleButton layoutX="75.55555725097656" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
+                                    <ToggleButton layoutX="113.33332824707031" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
+                                    <ToggleButton layoutX="151.11111450195312" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
+                                    <ToggleButton layoutX="188.88888549804688" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
+                                    <ToggleButton layoutX="226.6666717529297" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
+                                 </children>
+                              </Group>
+                              <Button fx:id="btnNext" mnemonicParsing="false" onAction="#onNextWeekClicked" text="&gt;&gt;" />
+                           </children>
+                        </HBox>
+                        <ScrollPane prefHeight="350.0" prefWidth="300.0">
+                          <content>
+                            <AnchorPane>
+                                 <children>
+                                    <StackPane>
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Pane prefHeight="200.0" prefWidth="60.0" />
+                                                <HBox fx:id="hbBoxArea" prefHeight="200.0" prefWidth="283.0" spacing="5.0" />
+                                             </children>
+                                          </HBox>
+                                          <GridPane fx:id="gpDay" prefHeight="30.0" prefWidth="344.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.00002034505206" minWidth="10.0" prefWidth="55.11110432942709" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.88889948527014" minWidth="10.0" prefWidth="279.55556233723956" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label fx:id="lblSelectedDay" text="Day, date month year" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <ScrollPane>
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TreeView fx:id="tvRidesByDriver" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

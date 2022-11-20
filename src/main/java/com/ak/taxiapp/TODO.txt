@@ -1,0 +1,47 @@
+Fix edit ride - learn about factory
+change how time is displayed ie 01:01 and duration 2h not 2h0m and 2h05m
+Fix adding multiple stops to db
+Fix status and paid, add paid to driver
+allow for unkown client
+set duration to update end time
+remove status, paid and paid
+
+
+fix rides by client and driver
+add by month filter to them
+
+calendar
+set today btn -ok
+add filters - do this first
+create mini month view-ok
+add pick day functionality- broken needs redoing
+change month and year from top of mini calendar
+
+REWRITE AFTER THINKING
+maybe introduce new classes
+
+BUGS
+-today date in day view not in week
+-toggle buttons prevent unselect-ok
+-track selected day somehow to highlight selected day-ok
+-fix changing month via changing week-ok
+
+
+associate rec with ride click for info right click for edit
+fix by driver view - expand and no root, add time and color next to name
+
+add recs to week view
+add buttons to change week
+create mini month view
+change month and year from top of mini calendar
+add filters
+
+create month view
+
+generate pdf for from rides by client and driver
+save in file
+
+
+
+
+
