@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -150,21 +147,7 @@
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="15.0">
                            <children>
                               <Button fx:id="btnPrev" mnemonicParsing="false" onAction="#onPrevWeekClicked" text="&lt;&lt;" />
-                              <Group fx:id="gpTogglebtn">
-                                 <children>
-                                    <ToggleButton mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="Days" />
-                                       </toggleGroup>
-                                    </ToggleButton>
-                                    <ToggleButton layoutX="37.77777862548828" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
-                                    <ToggleButton layoutX="75.55555725097656" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
-                                    <ToggleButton layoutX="113.33332824707031" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
-                                    <ToggleButton layoutX="151.11111450195312" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
-                                    <ToggleButton layoutX="188.88888549804688" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
-                                    <ToggleButton layoutX="226.6666717529297" mnemonicParsing="false" onAction="#onTgBtnDayClicked" text="1" toggleGroup="$Days" />
-                                 </children>
-                              </Group>
+                              <HBox fx:id="hbDayBtns" />
                               <Button fx:id="btnNext" mnemonicParsing="false" onAction="#onNextWeekClicked" text="&gt;&gt;" />
                            </children>
                         </HBox>
@@ -180,7 +163,7 @@
                                                 <HBox fx:id="hbBoxArea" prefHeight="200.0" prefWidth="283.0" spacing="5.0" />
                                              </children>
                                           </HBox>
-                                          <GridPane fx:id="gpDay" prefHeight="30.0" prefWidth="344.0">
+                                          <GridPane fx:id="gpDayView" prefHeight="30.0" prefWidth="344.0">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.00002034505206" minWidth="10.0" prefWidth="55.11110432942709" />
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.88889948527014" minWidth="10.0" prefWidth="279.55556233723956" />

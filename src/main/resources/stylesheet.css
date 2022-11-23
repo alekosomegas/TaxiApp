@@ -14,11 +14,11 @@
 
 
 .selectedWeek {
-    -fx-background-color:  lightgrey;
+    -fx-background-color:  mistyrose;
 }
 
 .today {
-    -fx-background-color:  red;
+     -fx-text-fill:  red;
 }
 
 .selectedDay {

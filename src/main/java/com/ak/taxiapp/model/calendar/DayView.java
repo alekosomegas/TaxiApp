@@ -1,4 +1,4 @@
 package com.ak.taxiapp.model.calendar;
 
-public class DayView {
+public class DayView extends CalendarComponent {
 }
