@@ -131,7 +131,7 @@ public class WeekDisplay extends CalendarComponent{
         update();
         changeDateSelectionDisplay();
         // update the selected day in the mini calendar
-        updateMiniCalendar();
+        controller.updateMiniCalendar();
     }
 
     // ------------------------------------------------------------------ //
@@ -148,7 +148,7 @@ public class WeekDisplay extends CalendarComponent{
         // updates te label showing the date
         controller.updateSelectedDateLabel(CalendarModel.convertDate(calendarModel.getSelectedDate()));
         // update the selected day in the mini calendar
-        updateMiniCalendar();
+        controller.updateMiniCalendar();
     }
 
     //endregion
@@ -160,7 +160,7 @@ public class WeekDisplay extends CalendarComponent{
     /**
      * Changes the style of the button stored in the selectedWeekButton variable
      */
-    public void highlightSelected() {
+    private void highlightSelected() {
         selectedWeekButton.highlight();
         selectedWeekButton.getToggleButton().setSelected(true);
 //        selectedWeekButton.getToggleButton().setDisable(true);
@@ -185,17 +185,6 @@ public class WeekDisplay extends CalendarComponent{
     private void setSelectedWeekButton() {
         selectedWeekButton = weekButtonsAList.get(
                 calendarModel.getDayOfWeekIndex());
-    }
-
-    // ------------------------------------------------------------------ //
-    /**
-     * Sets the displayedCalendar date to selected date form the calendar and
-     * updates the mini calendar display
-     */
-    private void updateMiniCalendar() {
-        controller.miniMonthCalendar.displayedCalendar.setSelectedDate(CalendarModel.convertDate(calendarModel.getCalendar().getTime()));
-        controller.miniMonthCalendar.update();
-        controller.miniMonthCalendar.highlightSelectedWeek();
     }
 
     //endregion

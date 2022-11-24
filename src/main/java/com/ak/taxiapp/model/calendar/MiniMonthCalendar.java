@@ -54,10 +54,8 @@ public class MiniMonthCalendar extends CalendarComponent{
         // cast the controller to the CalendarDayViewController to use its functions
         this.controller = ((CalendarDayViewController) controllerGeneric);
         setCalendarModel(calendarModel);
-
         // start by using the current calendar as the displayed calendar
         displayedCalendar = new CalendarModel();
-
         monthLabelAList = new ArrayList<>(42);
     }
 
@@ -151,8 +149,7 @@ public class MiniMonthCalendar extends CalendarComponent{
         // updates date label
         controller.updateSelectedDateLabel(CalendarModel.convertDate(calendarModel.getSelectedDate()));
         // updates week display
-        controller.weekDisplay.update();
-        controller.weekDisplay.changeDateSelectionDisplay();
+        controller.updateWeekDisplay();
     }
 
     //endregion
@@ -212,21 +209,6 @@ public class MiniMonthCalendar extends CalendarComponent{
 
     // ------------------------------------------------------------------ //
     /**
-     * Finds the MonthLabel with the given date, return null if not found
-     * @param localDate the date to look for
-     * @return MonthLabel of the date giver
-     */
-    public MonthLabel findLabelWithDate(LocalDate localDate) {
-        for (MonthLabel monthLabel : monthLabelAList) {
-            if (monthLabel.getDate().compareTo(localDate) == 0) {
-                return monthLabel;
-            }
-        }
-        return null;
-    }
-
-    // ------------------------------------------------------------------ //
-    /**
      * Finds the index of the selected day from the selectedMonthLabel and its
      * day index to get the returned MonthLabel from the monthLabelAList
      * @return The MonthLabel of the label that represents the Monday of the week
@@ -245,7 +227,7 @@ public class MiniMonthCalendar extends CalendarComponent{
      * selectedMonthLabel and highlights it
      * @param monthLabel The monthLabel to select and highlight
      */
-    public void selectAndHighlightLabel(MonthLabel monthLabel) {
+    private void selectAndHighlightLabel(MonthLabel monthLabel) {
         // sets the selection to today, when is used the first time
         if(selectedMonthLabel == null) {
             selectedMonthLabel = monthLabel;}

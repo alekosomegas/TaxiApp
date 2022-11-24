@@ -2,6 +2,11 @@ package com.ak.taxiapp.model;
 
 import javafx.beans.property.*;
 
+import java.sql.SQLException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Ride extends Table {
     private IntegerProperty rides_id;
     private StringProperty ridesDate;
@@ -23,7 +28,14 @@ public class Ride extends Table {
     private IntegerProperty ridesPaid;
     private IntegerProperty ridesTotal;
 
-    public Ride() {
+    private Driver driver;
+    private LocalDate date;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private Duration duration;
+
+
+    public Ride() throws SQLException {
         this.rides_id = new SimpleIntegerProperty();
         this.ridesDate = new SimpleStringProperty();
         this.ridesTimeStart = new SimpleStringProperty();
@@ -43,6 +55,48 @@ public class Ride extends Table {
         this.ridesCredit = new SimpleIntegerProperty();
         this.ridesPaid = new SimpleIntegerProperty();
         this.ridesTotal = new SimpleIntegerProperty();
+
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public int getRides_id() {

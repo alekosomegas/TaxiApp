@@ -1,3 +1,6 @@
+// ------------------------------------------------------------------ //
+//region// ----------------------------- IMPORTS ---------------------------- //
+
 package com.ak.taxiapp.controller;
 
 import com.ak.taxiapp.TaxiApplication;
@@ -5,83 +8,115 @@ import com.ak.taxiapp.model.DriverDAO;
 import com.ak.taxiapp.model.Ride;
 import com.ak.taxiapp.model.RideDAO;
 import com.ak.taxiapp.model.calendar.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Objects;
 
+// endregion
+// ------------------------------------------------------------------ //
+
+//TODO:TIDY
 public class CalendarDayViewController extends Controller {
+    // ------------------------------------------------------------------ //
+    //region// ---------------------------- VARIABLES --------------------------- //
+
     public Button btnDayView;
     public Button btnWeekView;
     public Button btnMonthView;
-    public GridPane gpDayView;
     public Label lblSelectedDay;
     public TreeView<String> tvRidesByDriver;
-    public Group gpTogglebtn;
-    public ToggleGroup Days;
     public HBox hbBoxArea;
     public GridPane gpMonth;
     public Label lblMonth;
     public Label lblYear;
     public HBox hbDayBtns;
-    private ArrayList<ToggleButton> toggleButtons = new ArrayList<>();
-    private Calendar calendar = new GregorianCalendar();
-    private Calendar tempCalendar = (Calendar) calendar.clone(); // tracks the first day of the week -1
-    private Calendar tempCalendarMonth = (Calendar) calendar.clone();
-    private int startingDayIndex = adjustDayIndex(calendar.get(Calendar.DAY_OF_WEEK));
-    private int indexOfLblForMondayOfCurrentWeek;
-    private ToggleButton selectedDayBtn;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy");
-    private SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
-    private SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-    private ObservableList<Label> dateLabels = FXCollections.observableArrayList();
-    private Date selectedDateOld;
-    private Calendar selectedCalendar;
-    private int selectedTBtnIndex = startingDayIndex;
-    private int selctedDayNumb = calendar.get(Calendar.DAY_OF_MONTH);
-    private Toggle todayTogle = null;
-
-
-
+    private final Calendar calendar = new GregorianCalendar();
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy");
+    public StackPane spDayView;
+    public HBox hbDayView;
+    public Pane pnLines;
+    public Pane pnTimes;
     private CalendarModel calendarModel;
     private DayView dayView;
-    public MiniMonthCalendar miniMonthCalendar;
-    public WeekDisplay weekDisplay;
-    private LocalDate selectedDate;
+    private MiniMonthCalendar miniMonthCalendar;
+    private WeekDisplay weekDisplay;
+
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// ------------------------ GETTERS & SETTERS ----------------------- //
+
+
+
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// --------------------------- INITIALISE --------------------------- //
+
+    /**
+     * Creates new instances of all the Calendar Components, calls their built method
+     * and adds them to the corresponding FXML Nodes
+     */
+    @FXML
+    public void initialize() throws SQLException {
+        // Start by creating instances of components
+        loadComponents();
+        // Then build them by calling their build function
+        buildComponents();
+        // Use the FXML variables to display components
+        displayComponents();
+        // set the date label to today
+        updateSelectedDateLabel(calendar.getTime());
+
+        //TODO: refactor
+        initTreeView();
+//        initBoxArea();
+
+    }
+
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// ------------------------- INIT METHODS --------------------------- //
 
     /**
      * Creates the instances of the components assign them to global variables.
      */
     private void loadComponents() {
         this.calendarModel = new CalendarModel();
-
-        this.selectedDate = calendarModel.getTodayDate();
-
         // Create new instances;
-        this.dayView = new DayView();
+        this.dayView = new DayView(calendarModel, this);
         this.miniMonthCalendar = new MiniMonthCalendar(calendarModel, this);
         this.weekDisplay = new WeekDisplay(calendarModel, this);
     }
 
+    // ------------------------------------------------------------------ //
     /**
      * Uses the components built function
      */
     private void buildComponents() {
-        //dayView.built();
+        dayView.built();
         miniMonthCalendar.built();
         weekDisplay.built();
     }
 
+    // ------------------------------------------------------------------ //
     /**
      * Uses the values from each component
      * and FXML to display them
@@ -95,86 +130,7 @@ public class CalendarDayViewController extends Controller {
         }
     }
 
-    @FXML
-    public void initialize() throws SQLException {
-        // Start by creating instances of components
-        loadComponents();
-        // Then build them by calling their build function
-        buildComponents();
-        // Use the FXML variables to display components
-        displayComponents();
-
-
-        initGridPane();
-
-        tempCalendar.add(Calendar.DAY_OF_MONTH, -startingDayIndex -1); //first day -1
-
-
-        initToggleButtons();
-    
-        initTreeView();
-
-        initBoxArea();
-
-
-        uodateSelectedDate(calendar);
-        highlightSelectedDate();
-    }
-
-    public void updateSelectedDateLabel(Date date) {
-        lblSelectedDay.setText(dateFormat.format(date));
-
-    }
-    private void uodateSelectedDate(Calendar calendar) {
-        selectedDateOld = calendar.getTime();
-        lblSelectedDay.setText(dateFormat.format(selectedDateOld));
-        selectedCalendar = (Calendar) calendar.clone();
-    }
-
-    private int adjustDayIndex(int i) {
-        if (i == 1) {
-            return 6;
-        } else return i-2;
-    }
-
-    private void removeStyleFromAllDays(String style) {
-        for (Label lbl : dateLabels) {
-            lbl.getStyleClass().remove(style);
-        }
-    }
-
-    private void initBoxArea() throws SQLException {
-        for (Ride ride : Objects.requireNonNull(getRidesByDate())) {
-            double MINUTES_FACTOR = 0.5;
-            double HOURS_FACTOR = MINUTES_FACTOR * 60;
-            int Y_FACTOR = 28;
-            double height = Integer.parseInt(
-                    ride.getRidesDuration().split("h")[0]) * HOURS_FACTOR +
-                    Integer.parseInt(
-                            ride.getRidesDuration().split("h")[1].split("m")[0])
-                    * MINUTES_FACTOR;
-            Rectangle rectangle = new Rectangle(50,height);
-            hbBoxArea.getChildren().add(rectangle);
-            rectangle.setTranslateY(
-                    Integer.parseInt(ride.getRidesTimeStart().split(":")[0]) *
-                    Y_FACTOR);
-
-            Color color = Color.valueOf(
-                    DriverDAO.searchDriverById(
-                            ride.getRidesDriverId()).getDriver_color());
-            rectangle.setFill(color);
-        }
-    }
-
-    private ObservableList<Ride> getRidesByDate(){
-        try {
-            return RideDAO.searchRides();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
+    // ------------------------------------------------------------------ //
     private void initTreeView() {
         TreeItem<String> rootNode =
                 new TreeItem<String>("Rides By Driver");
@@ -202,106 +158,151 @@ public class CalendarDayViewController extends Controller {
         }
     }
 
-    private void initToggleButtons() {
-        for (ToggleButton tb: toggleButtons) {
-            tempCalendar.add(Calendar.DAY_OF_MONTH, 1);
-            tb.setText(String.valueOf(tempCalendar.get(Calendar.DAY_OF_MONTH)));
+    // ------------------------------------------------------------------ //
+    private void initBoxArea() throws SQLException {
+        for (Ride ride : Objects.requireNonNull(getRidesByDate())) {
+            double MINUTES_FACTOR = 0.5;
+            double HOURS_FACTOR = MINUTES_FACTOR * 60;
+            int Y_FACTOR = 28;
+            double height = Integer.parseInt(
+                    ride.getRidesDuration().split("h")[0]) * HOURS_FACTOR +
+                    Integer.parseInt(
+                            ride.getRidesDuration().split("h")[1].split("m")[0])
+                            * MINUTES_FACTOR;
+            Rectangle rectangle = new Rectangle(50,height);
+            hbBoxArea.getChildren().add(rectangle);
+            rectangle.setTranslateY(
+                    Integer.parseInt(ride.getRidesTimeStart().split(":")[0]) *
+                            Y_FACTOR);
 
-            tb.getStyleClass().remove("today");
-            tb.getStyleClass().remove("selectedDay");
-            if (tempCalendar.getTime().equals(calendar.getTime())) {
-                tb.getStyleClass().add("today");
-                tb.getStyleClass().add("selectedDay");
-                // only the first time select today
-                if (selectedDayBtn == null) {
-                    tb.setSelected(true);
-                    tb.setDisable(true);
-                    selectedDayBtn = tb;
-                    if (todayTogle == null) {todayTogle = selectedDayBtn;}
-                }
-            }
+            Color color = Color.valueOf(
+                    DriverDAO.searchDriverById(
+                            ride.getRidesDriverId()).getDriver_color());
+            rectangle.setFill(color);
         }
     }
 
+    //endregion
+    // ------------------------------------------------------------------ //
 
-    private void initGridPane() {
-        String text;
-        for (int i = 0; i < 25; i++) {
-            text = ":00";
-            if(i < 10) {
-                text = "0" + i + text;
-            } else {
-                text = i + text;
-            }
-            gpDayView.addRow(i, new Label(text));
-            gpDayView.add(
-                    new Label("--------------------------------------------------"), 1,i);
-        }
-        gpDayView.setPrefHeight(30);
-        gpDayView.setVgap(10);
+    // ------------------------------------------------------------------ //
+    //region// ------------------------- UPDATE METHODS ------------------------- //
+
+    /**
+     *
+     */
+    public void updateSelectedDateLabel(Date date) {
+        lblSelectedDay.setText(dateFormat.format(date));
+
+        //TODO: find a better way
+        updateDayDisplay();
     }
 
+    // ------------------------------------------------------------------ //
+    /**
+     * Sets the displayedCalendar date to selected date form the calendar and
+     * updates the mini calendar display
+     */
+    public void updateMiniCalendar() {
+        miniMonthCalendar.displayedCalendar.setSelectedDate(
+                CalendarModel.convertDate(calendarModel.getCalendar().getTime()));
+        miniMonthCalendar.update();
+        miniMonthCalendar.highlightSelectedWeek();
+    }
+
+    // ------------------------------------------------------------------ //
+    public void updateWeekDisplay() {
+        weekDisplay.update();
+        weekDisplay.changeDateSelectionDisplay();
+    }
+
+    public void updateDayDisplay() {
+        this.dayView = new DayView(calendarModel, this);
+        dayView.built();
+    }
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// ------------------------- HELPER METHODS ------------------------- //
+
+    private ObservableList<Ride> getRidesByDate(){
+        try {
+            return RideDAO.searchRides();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// -------------------------- FXML METHODS -------------------------- //
+
+    /**
+     * Sets the selected date in the calendar to today and
+     * updates the mini Calendar and Week display and the date label
+     */
+    public void onBtnTodayClicked() {
+        // set selected date to today
+        calendarModel.setSelectedDate(calendarModel.getTodayDate());
+        // update the selected day in the mini calendar
+        updateMiniCalendar();
+        weekDisplay.update();
+        weekDisplay.changeDateSelectionDisplay();
+        updateSelectedDateLabel(calendar.getTime());
+    }
+
+    // ------------------------------------------------------------------ //
     public void onbtnDayClicked() {
     }
 
+    // ------------------------------------------------------------------ //
     public void onbtnWeekClicked() {
         TaxiApplication.showCalendarView("CalendarWeekView.fxml");
     }
 
+    // ------------------------------------------------------------------ //
     public void onbtnMonthClicked() {
     }
 
+    // ------------------------------------------------------------------ //
     public void onPrevWeekClicked() {
         weekDisplay.changeWeek(-7);
     }
 
+    // ------------------------------------------------------------------ //
     public void onNextWeekClicked() {
         weekDisplay.changeWeek(7);
     }
 
+    // ------------------------------------------------------------------ //
     public void onNextYear() {
         miniMonthCalendar.updateMiniMonthLabels(Calendar.YEAR, 1);
         miniMonthCalendar.update();
     }
 
+    // ------------------------------------------------------------------ //
     public void onPrevYear() {
         miniMonthCalendar.updateMiniMonthLabels(Calendar.YEAR, -1);
         miniMonthCalendar.update();
     }
 
+    // ------------------------------------------------------------------ //
     public void onNextMonth() {
         miniMonthCalendar.updateMiniMonthLabels(Calendar.MONTH, 1);
         miniMonthCalendar.update();
     }
 
+    // ------------------------------------------------------------------ //
     public void onPrevMonth() {
         miniMonthCalendar.updateMiniMonthLabels(Calendar.MONTH, -1);
         miniMonthCalendar.update();
     }
 
-    private void highlightSelectedWeek(int mondayIndexOfWeekLbl) {
-        for (int i = 0; i < 7; i++) {
-            dateLabels.get(mondayIndexOfWeekLbl + i).getStyleClass().add("selectedWeek");
-        }
-    }
-
-    private void highlightSelectedDate() {
-        removeStyleFromAllDays("selectedDay");
-        for (Label lbl : dateLabels) {
-            if (Objects.equals(String.valueOf(selectedCalendar.get(Calendar.DAY_OF_MONTH)), lbl.getText()) &&
-                    !lbl.getStyleClass().contains("otherMonth")) {
-                    lbl.getStyleClass().add("selectedDay");
-                }
-        }
-    }
-
-    public void onBtnTodayClicked() {
-        // set selected date to today
-        calendarModel.setSelectedDate(calendarModel.getTodayDate());
-        miniMonthCalendar.displayedCalendar.setSelectedDate(calendarModel.getTodayDate());
-
-        miniMonthCalendar.update();
-        miniMonthCalendar.highlightSelectedWeek();
-    }
+    //endregion
+    // ------------------------------------------------------------------ //
 
 }

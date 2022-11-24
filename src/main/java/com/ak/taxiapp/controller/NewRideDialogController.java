@@ -170,7 +170,7 @@ public class NewRideDialogController {
 //        dtDate.setValue(LocalDate.parse(values.get("ridesDateCol")));
 //        tfStart.setText(values.get("ridesStartCol"));
 //        tfEnd.setText(values.get("ridesEndCol"));
-//        tfDuration.setText(values.get("ridesDurationCol"));
+        tfDuration.setText(values.get("ridesDurationCol"));
         cbClientId.setValue(values.get("ridesClientIdCol") + ". " + values.get("ridesClientCol"));
         tfFrom.setText(values.get("ridesFromCol"));
         tfCash.setText(values.get("ridesCashCol"));

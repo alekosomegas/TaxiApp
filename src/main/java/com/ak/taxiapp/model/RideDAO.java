@@ -1,5 +1,6 @@
 package com.ak.taxiapp.model;
 
+import com.ak.taxiapp.model.calendar.CalendarModel;
 import com.ak.taxiapp.util.DBUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -45,6 +49,12 @@ public class RideDAO {
             rd.setRidesTotal(rd.getRidesCash() + rd.getRidesCredit());
             //Add client to ObservableList
             ridesList.add(rd);
+
+            rd.setDriver(
+                    DriverDAO.searchDriverById(rd.getRidesDriverId())
+            );
+            rd.setDate(LocalDate.parse(rd.getRidesDate()));
+
         }
         return ridesList;
     }
@@ -54,9 +64,35 @@ public class RideDAO {
         SimpleDateFormat simpleDateFormat
                 = new SimpleDateFormat("HH:mm");
 
+        SimpleDateFormat simpleDateFormat1
+                = new SimpleDateFormat("yyyy-MM-dd");
+
         try {
             Date timeStart = simpleDateFormat.parse(rd.getRidesTimeStart());
             Date timeEnd = simpleDateFormat.parse(rd.getRidesTimeEnd());
+
+            Date t1 = simpleDateFormat1.parse(rd.getRidesDate());
+
+            Date t2 = simpleDateFormat1.parse(rd.getRidesDate());
+
+
+            LocalDate start = CalendarModel.convertDate(t1);
+            LocalDate endTest = CalendarModel.convertDate(t2);
+            LocalDate end;
+
+            if (endTest.isBefore(start)) {
+                end = endTest.plusDays(1);
+            } else { end = endTest;}
+
+            LocalDateTime st = start.atTime(timeStart.getHours(), timeStart.getMinutes());
+            LocalDateTime en = end.atTime(timeEnd.getHours(), timeEnd.getMinutes());
+
+            Duration duration = Duration.between(st, en);
+
+            rd.setStartDate(st);
+            rd.setEndDate(en);
+            rd.setDuration(duration);
+
 
             // Calculating the difference in milliseconds
             long differenceInMilliSeconds
@@ -67,7 +103,15 @@ public class RideDAO {
             long differenceInMinutes
                     = (differenceInMilliSeconds / (60 * 1000)) % 60;
 
-            return differenceInHours +"h"+ differenceInMinutes +"m";
+            String zeroH = "";
+            String zeroM = "";
+            if (differenceInHours < 10) {zeroH = "0";}
+            if (differenceInMinutes < 10) {zeroM = "0";}
+
+            String stDuration = zeroH + differenceInHours +"h"
+                            + zeroM + differenceInMinutes +"m";
+
+            return stDuration;
 
         } catch (ParseException e) {
             System.out.println("RIDEDAO - Something went wrong when parsing time");
@@ -188,6 +232,20 @@ public class RideDAO {
             DBUtil.dbExecuteUpdate(updateStatement);
         } catch (SQLException e) {
             System.out.println("Error occurred while UPDATE operation. " + e);
+            throw e;
+        }
+    }
+
+    public static ObservableList<Ride> searchRidesByDate(String date) throws SQLException {
+        String selectStatement = "SELECT * FROM rides WHERE RIDES_DATE = " + "'" +date+"'";
+        try {
+            ResultSet rs = DBUtil.dbExecuteQuery(selectStatement);
+            //Send ResultSet to the getClientList method and get client object
+            ObservableList<Ride> ridesList = getRidesList(rs);
+
+            return ridesList;
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has failed: " + e);
             throw e;
         }
     }

@@ -15,6 +15,7 @@ public class CalendarModel {
         calendar = new GregorianCalendar();
         // store today's date, convert to LocalDate object
         today = convertDate(calendar.getTime());
+
     }
 
     private int adjustDayIndex(int i) {

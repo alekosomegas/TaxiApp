@@ -155,26 +155,14 @@
                           <content>
                             <AnchorPane>
                                  <children>
-                                    <StackPane>
+                                    <StackPane fx:id="spDayView">
                                        <children>
-                                          <HBox>
+                                          <HBox fx:id="hbBoxArea" translateX="50.0" />
+                                          <HBox fx:id="hbDayView" spacing="5.0" StackPane.alignment="TOP_LEFT">
                                              <children>
-                                                <Pane prefHeight="200.0" prefWidth="60.0" />
-                                                <HBox fx:id="hbBoxArea" prefHeight="200.0" prefWidth="283.0" spacing="5.0" />
-                                             </children>
-                                          </HBox>
-                                          <GridPane fx:id="gpDayView" prefHeight="30.0" prefWidth="344.0">
-                                            <columnConstraints>
-                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.00002034505206" minWidth="10.0" prefWidth="55.11110432942709" />
-                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.88889948527014" minWidth="10.0" prefWidth="279.55556233723956" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </GridPane>
+                                                <Pane fx:id="pnTimes" />
+                                                <Pane fx:id="pnLines" />
+                                             </children></HBox>
                                        </children>
                                     </StackPane>
                                  </children>
