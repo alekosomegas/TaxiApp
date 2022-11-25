@@ -1,4 +1,6 @@
 package com.ak.taxiapp.model;
+// ------------------------------------------------------------------ //
+//region// ----------------------------- IMPORTS ---------------------------- //
 
 import javafx.beans.property.*;
 
@@ -7,7 +9,13 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+// endregion
+// ------------------------------------------------------------------ //
+
 public class Ride extends Table {
+    // ------------------------------------------------------------------ //
+    //region// ---------------------------- VARIABLES --------------------------- //
+
     private IntegerProperty rides_id;
     private StringProperty ridesDate;
     private StringProperty ridesTimeStart;
@@ -23,10 +31,10 @@ public class Ride extends Table {
     private StringProperty ridesStops;
     private StringProperty ridesTo;
     private IntegerProperty ridesCash;
-    private IntegerProperty ridesStatus;
     private IntegerProperty ridesCredit;
-    private IntegerProperty ridesPaid;
     private IntegerProperty ridesTotal;
+    private StringProperty ridesNotes;
+    private StringProperty ridesPassenger;
 
     private Driver driver;
     private LocalDate date;
@@ -34,7 +42,16 @@ public class Ride extends Table {
     private LocalDateTime endDate;
     private Duration duration;
 
+    // endregion
+    // ------------------------------------------------------------------ //
 
+    // ------------------------------------------------------------------ //
+    //region// --------------------------- CONSTRUCTOR -------------------------- //
+
+    /**
+     *
+     * @throws SQLException
+     */
     public Ride() throws SQLException {
         this.rides_id = new SimpleIntegerProperty();
         this.ridesDate = new SimpleStringProperty();
@@ -51,174 +68,61 @@ public class Ride extends Table {
         this.ridesTo = new SimpleStringProperty();
         this.ridesStops = new SimpleStringProperty();
         this.ridesCash = new SimpleIntegerProperty();
-        this.ridesStatus = new SimpleIntegerProperty();
         this.ridesCredit = new SimpleIntegerProperty();
-        this.ridesPaid = new SimpleIntegerProperty();
         this.ridesTotal = new SimpleIntegerProperty();
-
+        this.ridesNotes = new SimpleStringProperty();
+        this.ridesPassenger = new SimpleStringProperty();
     }
 
+    // endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// ------------------------ GETTERS & SETTERS ----------------------- //
     public Driver getDriver() {
         return driver;
     }
-
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
-
-
-    public Duration getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Duration duration) {
-        this.duration = duration;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public int getRides_id() {
-        return rides_id.get();
-    }
-
-    public IntegerProperty rides_idProperty() {
-        return rides_id;
-    }
-
-    public void setRides_id(int rides_id) {
-        this.rides_id.set(rides_id);
-    }
-
-    public String getRidesDate() {
-        return ridesDate.get();
-    }
-
-    public StringProperty ridesDateProperty() {
-        return ridesDate;
-    }
-
-    public void setRidesDate(String ridesDate) {
-        this.ridesDate.set(ridesDate);
-    }
-
-    public String getRidesTimeStart() {
-        return ridesTimeStart.get();
-    }
-
-    public StringProperty ridesTimeStartProperty() {
-        return ridesTimeStart;
-    }
-
-    public void setRidesTimeStart(String ridesTimeStart) {
-        this.ridesTimeStart.set(ridesTimeStart);
-    }
-
-    public String getRidesTimeEnd() {
-        return ridesTimeEnd.get();
-    }
-
-    public StringProperty ridesTimeEndProperty() {
-        return ridesTimeEnd;
-    }
-
-    public void setRidesTimeEnd(String ridesTimeEnd) {
-        this.ridesTimeEnd.set(ridesTimeEnd);
-    }
-
-    public String getRidesDuration() {
-        return ridesDuration.get();
-    }
-
-    public StringProperty ridesDurationProperty() {
-        return ridesDuration;
-    }
-
-    public void setRidesDuration(String ridesDuration) {
-        this.ridesDuration.set(ridesDuration);
-    }
-
-    public int getRidesClientId() {
-        return ridesClientId.get();
-    }
-
-    public IntegerProperty ridesClientIdProperty() {
-        return ridesClientId;
-    }
-
-    public void setRidesClientId(int ridesClientId) {
-        this.ridesClientId.set(ridesClientId);
-    }
-
-    public String getRidesClient() {
-        return ridesClient.get();
-    }
-
-    public StringProperty ridesClientProperty() {
-        return ridesClient;
-    }
-
-    public void setRidesClient(String ridesClient) {
-        this.ridesClient.set(ridesClient);
-    }
-
-    public int getRidesDriverId() {
-        return ridesDriverId.get();
-    }
-
-    public IntegerProperty ridesDriverIdProperty() {
-        return ridesDriverId;
-    }
-
-    public void setRidesDriverId(int ridesDriverId) {
-        this.ridesDriverId.set(ridesDriverId);
-    }
-
-    public String getRidesDriver() {
-        return ridesDriver.get();
-    }
-
-    public StringProperty ridesDriverProperty() {
-        return ridesDriver;
-    }
-
-    public void setRidesDriver(String ridesDriver) {
-        this.ridesDriver.set(ridesDriver);
-    }
-
-    public int getRidesCarId() {
-        return ridesCarId.get();
-    }
-
-    public IntegerProperty ridesCarIdProperty() {
-        return ridesCarId;
-    }
-
-    public void setRidesCarId(int ridesCarId) {
-        this.ridesCarId.set(ridesCarId);
-    }
-
+    public Duration getDuration() {return duration;}
+    public void setDuration(Duration duration) {this.duration = duration;}
+    public LocalDateTime getStartDate() {return startDate;}
+    public void setStartDate(LocalDateTime startDate) {this.startDate = startDate;}
+    public LocalDateTime getEndDate() {return endDate;}
+    public void setEndDate(LocalDateTime endDate) {this.endDate = endDate;}
+    public LocalDate getDate() {return date;}
+    public void setDate(LocalDate date) {this.date = date;}
+    public int getRides_id() {return rides_id.get();}
+    public IntegerProperty rides_idProperty() {return rides_id;}
+    public void setRides_id(int rides_id) {this.rides_id.set(rides_id);}
+    public String getRidesDate() {return ridesDate.get();}
+    public StringProperty ridesDateProperty() {return ridesDate;}
+    public void setRidesDate(String ridesDate) {this.ridesDate.set(ridesDate);}
+    public String getRidesTimeStart() {return ridesTimeStart.get();}
+    public StringProperty ridesTimeStartProperty() {return ridesTimeStart;}
+    public void setRidesTimeStart(String ridesTimeStart) {this.ridesTimeStart.set(ridesTimeStart);}
+    public String getRidesTimeEnd() {return ridesTimeEnd.get();}
+    public StringProperty ridesTimeEndProperty() {return ridesTimeEnd;}
+    public void setRidesTimeEnd(String ridesTimeEnd) {this.ridesTimeEnd.set(ridesTimeEnd);}
+    public String getRidesDuration() {return ridesDuration.get();}
+    public StringProperty ridesDurationProperty() {return ridesDuration;}
+    public void setRidesDuration(String ridesDuration) {this.ridesDuration.set(ridesDuration);}
+    public int getRidesClientId() {return ridesClientId.get();}
+    public IntegerProperty ridesClientIdProperty() {return ridesClientId;}
+    public void setRidesClientId(int ridesClientId) {this.ridesClientId.set(ridesClientId);}
+    public String getRidesClient() {return ridesClient.get();}
+    public StringProperty ridesClientProperty() {return ridesClient;}
+    public void setRidesClient(String ridesClient) {this.ridesClient.set(ridesClient);}
+    public int getRidesDriverId() {return ridesDriverId.get();}
+    public IntegerProperty ridesDriverIdProperty() {return ridesDriverId;}
+    public void setRidesDriverId(int ridesDriverId) {this.ridesDriverId.set(ridesDriverId);}
+    public String getRidesDriver() {return ridesDriver.get();}
+    public StringProperty ridesDriverProperty() {return ridesDriver;}
+    public void setRidesDriver(String ridesDriver) {this.ridesDriver.set(ridesDriver);}
+    public int getRidesCarId() {return ridesCarId.get();}
+    public IntegerProperty ridesCarIdProperty() {return ridesCarId;}
+    public void setRidesCarId(int ridesCarId) {this.ridesCarId.set(ridesCarId);}
     public String getRidesCar() {
         return ridesCar.get();
     }
@@ -279,17 +183,6 @@ public class Ride extends Table {
         this.ridesCash.set(ridesCash);
     }
 
-    public int getRidesStatus() {
-        return ridesStatus.get();
-    }
-
-    public IntegerProperty ridesStatusProperty() {
-        return ridesStatus;
-    }
-
-    public void setRidesStatus(int ridesStatus) {
-        this.ridesStatus.set(ridesStatus);
-    }
 
     public int getRidesCredit() {
         return ridesCredit.get();
@@ -303,18 +196,6 @@ public class Ride extends Table {
         this.ridesCredit.set(ridesCredit);
     }
 
-    public int getRidesPaid() {
-        return ridesPaid.get();
-    }
-
-    public IntegerProperty ridesPaidProperty() {
-        return ridesPaid;
-    }
-
-    public void setRidesPaid(int ridesPaid) {
-        this.ridesPaid.set(ridesPaid);
-    }
-
     public int getRidesTotal() {
         return ridesTotal.get();
     }
@@ -326,6 +207,33 @@ public class Ride extends Table {
     public void setRidesTotal(int ridesTotal) {
         this.ridesTotal.set(ridesTotal);
     }
+
+    public String getRidesNotes() {
+        return ridesNotes.get();
+    }
+
+    public StringProperty ridesNotesProperty() {
+        return ridesNotes;
+    }
+
+    public void setRidesNotes(String ridesNotes) {
+        this.ridesNotes.set(ridesNotes);
+    }
+
+    public String getRidesPassenger() {
+        return ridesPassenger.get();
+    }
+
+    public StringProperty ridesPassengerProperty() {
+        return ridesPassenger;
+    }
+
+    public void setRidesPassenger(String ridesPassenger) {
+        this.ridesPassenger.set(ridesPassenger);
+    }
+
+    // endregion
+    // ------------------------------------------------------------------ //
 
 }
 

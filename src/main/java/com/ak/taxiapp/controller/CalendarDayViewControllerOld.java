@@ -4,10 +4,6 @@ import com.ak.taxiapp.TaxiApplication;
 import com.ak.taxiapp.model.DriverDAO;
 import com.ak.taxiapp.model.Ride;
 import com.ak.taxiapp.model.RideDAO;
-import com.ak.taxiapp.model.calendar.CalendarModel;
-import com.ak.taxiapp.model.calendar.DayView;
-import com.ak.taxiapp.model.calendar.MiniMonthCalendar;
-import com.ak.taxiapp.model.calendar.WeekDisplay;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -176,7 +172,7 @@ public class CalendarDayViewControllerOld extends Controller {
 
     private ObservableList<Ride> getRidesByDate(){
         try {
-            return RideDAO.searchRides();
+            return RideDAO.searchAllRides();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

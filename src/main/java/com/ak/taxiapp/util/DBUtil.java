@@ -34,7 +34,6 @@ public class DBUtil {
         ResultSet resultSet = null;
         try {
             dbConnect();
-            System.out.println("DBUtil - Select statement: " + queryStatement + "\n");
             // Create statement
             statement = conn.createStatement();
             // Execute select query operation

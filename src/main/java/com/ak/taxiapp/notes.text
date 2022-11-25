@@ -1,0 +1,5 @@
+1. In the future add the ability to track which rides rides have been paid by a client
+and whether the driver has been paid. For now rides will create invoice and they(the ride)
+will not 'know' in which invoice the belong to.
+
+2. Client id=1 should be None, if null set to 1

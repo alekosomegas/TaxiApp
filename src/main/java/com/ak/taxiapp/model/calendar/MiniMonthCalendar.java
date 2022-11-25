@@ -1,7 +1,6 @@
+package com.ak.taxiapp.model.calendar;
 // ------------------------------------------------------------------ //
 //region// ----------------------------- IMPORTS ---------------------------- //
-
-package com.ak.taxiapp.model.calendar;
 
 import com.ak.taxiapp.controller.CalendarDayViewController;
 import com.ak.taxiapp.controller.Controller;

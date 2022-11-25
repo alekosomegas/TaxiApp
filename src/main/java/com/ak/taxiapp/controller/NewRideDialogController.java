@@ -1,5 +1,8 @@
 package com.ak.taxiapp.controller;
 
+// ------------------------------------------------------------------ //
+//region// ----------------------------- IMPORTS ---------------------------- //
+
 import com.ak.taxiapp.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +17,12 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Objects;
 
+//endregion
+// ------------------------------------------------------------------ //
+
 public class NewRideDialogController {
+    // ------------------------------------------------------------------ //
+    //region// ---------------------------- VARIABLES --------------------------- //
 
     public TextField tfDuration;
     public ComboBox<String> cbClientId;
@@ -31,20 +39,36 @@ public class NewRideDialogController {
     public HBox hbItenerary;
     public Button btnAddStop;
     public ComboBox cbCarId;
-    public ComboBox cbStatus;
     public GridPane gpGridPane;
     public static int addStopCount;
-    public static int totaladdStopCount;
-    public Pane dpane;
+    public static int totalAddStopCount;
+    public Pane dPane;
     public TextField tfCash;
     public TextArea taNotes;
-    public CheckBox cbClientPaid;
     public TextField tfPassenger;
     public Label lblTotal;
-    public CheckBox cbDriverPaid;
-
-
     private HashMap<String,String> selectedRideValues;
+
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// ---------------------------- INITIALIZE --------------------------- //
+
+    @FXML public void initialize() throws SQLException {
+        initTimePicker();
+        initClintIdComboBox();
+        initDriverIdComboBox();
+        initCarIdComboBox();
+
+        dtDate.setValue(LocalDate.now());
+
+        addStopCount = 0;
+        totalAddStopCount = 0;
+        ScrollBar s = new ScrollBar();
+
+        s.setOrientation(Orientation.VERTICAL);
+    }
 
     private void initTimePicker() {
         SpinnerValueFactory<Integer> valueFactorySH = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23);
@@ -83,46 +107,12 @@ public class NewRideDialogController {
         cbCarId.setItems(carsIds);
     }
 
-    private void initStatusComboBox() throws SQLException {
-        ObservableList<String> status = FXCollections.observableArrayList();
-        status.add("Completed");
-        status.add("Ongoing");
-        status.add("Planned");
+    //endregion
+    // ------------------------------------------------------------------ //
 
-        cbStatus.setItems(status);
-    }
-    private int getStatus() {
-        if (cbStatus.getValue() == "Completed") {return 1;}
-        if (cbStatus.getValue() == "Ongoing") {return 2;}
-        if (cbStatus.getValue() == "Planned") {return 3;}
-        return 0;
-    }
+    // ------------------------------------------------------------------ //
+    //region// -------------------------- SQL METHODS --------------------------- //
 
-    private String getIdfromCB(ComboBox cb) {
-        String re =  cb.getValue().toString().split("\\.")[0];
-        System.out.println(re);
-        return re;
-    }
-
-    @FXML public void initialize() throws SQLException {
-
-        initTimePicker();
-        initClintIdComboBox();
-        initDriverIdComboBox();
-        initCarIdComboBox();
-        initStatusComboBox();
-
-        dtDate.setValue(LocalDate.now());
-        cbStatus.setValue("Planned");
-
-        addStopCount = 0;
-        totaladdStopCount = 0;
-        ScrollBar s = new ScrollBar();
-
-        s.setOrientation(Orientation.VERTICAL);
-//        dpane.getChildren().add(s);
-
-    }
     @FXML
     public void insertRide() throws SQLException {
 
@@ -134,8 +124,8 @@ public class NewRideDialogController {
                     Integer.parseInt(getIdfromCB(cbDriverId)),
                     Integer.parseInt(getIdfromCB(cbCarId)),
                     tfFrom.getText(),getStops(),tfTo.getText(),
-                    getCash(),getStatus(),
-                    getCredit(),1,taNotes.getText(), 1);
+                    getCash(), getCredit(),
+                    taNotes.getText(), tfPassenger.getText());
 //            resultArea.setText("Client inserted! \n");
 
         } catch (SQLException e) {
@@ -144,26 +134,11 @@ public class NewRideDialogController {
         }
     }
 
-    private int getCash() {
-        try {
-            return Integer.parseInt(tfCash.getText());
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-    private int getCredit() {
-        try {
-            return Integer.parseInt(tfCredit.getText());
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
+    //endregion
+    // ------------------------------------------------------------------ //
 
-    private String getStops() {
-        return "";
-    }
+    // ------------------------------------------------------------------ //
+    //region// ------------------------ UPDATE METHODS -------------------------- //
 
     public void setValues(HashMap<String, String> values) {
 //        tfDate.setText(values.get("ridesDateCol"));
@@ -175,12 +150,13 @@ public class NewRideDialogController {
         tfFrom.setText(values.get("ridesFromCol"));
         tfCash.setText(values.get("ridesCashCol"));
         cbDriverId.setValue(values.get("ridesDriverIdCol") + ". " + values.get("ridesDriverCol"));
-        cbStatus.setValue(values.get("ridesStatusCol"));
         cbCarId.setValue(values.get("ridesCarIdCol") + ". " + values.get("ridesCarCol"));
         tfTo.setText(values.get("ridesToCol"));
 //        tfStops.setText(values.get("ridesStopsCol"));
         tfCredit.setText(values.get("ridesCreditCol"));
+        tfPassenger.setText(values.get("ridesPassengerCol"));
         selectedRideValues = values;
+
     }
 
     @FXML public void update() throws SQLException {
@@ -192,31 +168,37 @@ public class NewRideDialogController {
         selectedRideValues.put("ridesFromCol",      tfFrom.getText());
         selectedRideValues.put("ridesCashCol",      tfCash.getText());
         selectedRideValues.put("ridesDriverIdCol",  cbDriverId.getValue().toString().split("\\.")[0]);
-        selectedRideValues.put("ridesStatusCol",    cbStatus.getValue().toString());
         selectedRideValues.put("ridesCarIdCol",     cbCarId.getValue().toString().split("\\.")[0]);
         selectedRideValues.put("ridesToCol",        tfTo.getText());
 //        selectedRideValues.put("ridesStopsCol",     tfStops.getText());
         selectedRideValues.put("ridesCreditCol",    tfCredit.getText());
-//        selectedRideValues.put("ridesPaidCol",      cbClientPaid.getText());
+        selectedRideValues.put("ridesPassengerCol", tfPassenger.getText());
+
         RideDAO.update(selectedRideValues);
     }
+
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// -------------------------- FXML METHODS -------------------------- //
 
 
     public void onAddStopClicked() {
         addStopCount++;
-        totaladdStopCount++;
+        totalAddStopCount++;
         TextField tf = new TextField();
-        tf.setId(String.valueOf(totaladdStopCount));
+        tf.setId(String.valueOf(totalAddStopCount));
         tf.setText(String.valueOf(addStopCount));
         VBox v = (VBox) hbItenerary.getChildren().get(0);
 
-        dpane.getScene().getWindow().sizeToScene();
+        dPane.getScene().getWindow().sizeToScene();
 
         v.getChildren().add(addStopCount, tf);
 
         Button rvbtn = new Button();
         rvbtn.setText("-");
-        rvbtn.setId(String.valueOf(totaladdStopCount));
+        rvbtn.setId(String.valueOf(totalAddStopCount));
         rvbtn.setOnAction(event -> onRemoveStopClicked(rvbtn, tf));
         VBox v2 = (VBox) hbItenerary.getChildren().get(1);
         v2.getChildren().add(rvbtn);
@@ -230,6 +212,37 @@ public class NewRideDialogController {
         v2.getChildren().remove(btn);
         v.getChildren().remove(tf);
     }
+
+    public void onPriceChanged() {
+        int cash = 0;
+        int credit = 0;
+        if(!isNumeric(tfCredit.getText()) || !isNumeric(tfCash.getText())) {
+            lblTotal.setText(" ");
+            return;
+        }
+        try {
+            credit = Integer.parseInt(tfCredit.getText());
+        } catch (NumberFormatException e) {
+            tfCredit.setText("");
+            lblTotal.setText(" ");
+//            setStyleClassToCeck(tfCredit);
+        }
+        try {
+            cash = Integer.parseInt(tfCash.getText());
+        } catch (NumberFormatException e) {
+            tfCash.clear();
+            lblTotal.setText(" ");
+//            setStyleClassToCeck(tfCash);
+        }
+
+        lblTotal.setText(String.valueOf(cash + credit));
+    }
+
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// ------------------------- INPUT VALIDATION ----------------------- //
 
     private void setStyleClassToCeck(Node n) {
         n.getStyleClass().clear();
@@ -278,6 +291,12 @@ public class NewRideDialogController {
         return res;
     }
 
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// ------------------------- HELPER METHODS ------------------------- //
+
     private boolean isNumeric(String st) {
         if(st.isBlank()) {
             return true;
@@ -288,30 +307,36 @@ public class NewRideDialogController {
             return false;
         } return true;
     }
-    public void onPriceChanged() {
-        int cash = 0;
-        int credit = 0;
-        if(!isNumeric(tfCredit.getText()) || !isNumeric(tfCash.getText())) {
-            lblTotal.setText(" ");
-            return;
-        }
+
+
+    private int getCash() {
         try {
-            credit = Integer.parseInt(tfCredit.getText());
+            return Integer.parseInt(tfCash.getText());
         } catch (NumberFormatException e) {
-            tfCredit.setText("");
-            lblTotal.setText(" ");
-//            setStyleClassToCeck(tfCredit);
+            e.printStackTrace();
+            return 0;
         }
-        try {
-            cash = Integer.parseInt(tfCash.getText());
-        } catch (NumberFormatException e) {
-            tfCash.clear();
-            lblTotal.setText(" ");
-//            setStyleClassToCeck(tfCash);
-        }
-
-        lblTotal.setText(String.valueOf(cash + credit));
-
-
     }
+    private int getCredit() {
+        try {
+            return Integer.parseInt(tfCredit.getText());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    private String getStops() {
+        return "";
+    }
+
+    private String getIdfromCB(ComboBox cb) {
+        String re =  cb.getValue().toString().split("\\.")[0];
+        System.out.println(re);
+        return re;
+    }
+
+    //endregion
+    // ------------------------------------------------------------------ //
+
 }

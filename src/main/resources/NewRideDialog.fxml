@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonType?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
@@ -21,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane fx:id="dpane" expanded="true" headerText="Add a New Ride" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.NewRideDialogController">
+<DialogPane fx:id="dPane" expanded="true" headerText="Add a New Ride" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.NewRideDialogController">
    <header>
       <Label alignment="CENTER" contentDisplay="CENTER" text="Add new Ride" textAlignment="CENTER">
          <font>
@@ -122,12 +121,6 @@
                               <ComboBox fx:id="cbCarId" prefWidth="136.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.columnSpan="2">
-                           <children>
-                              <Label prefHeight="17.0" prefWidth="46.0" text="Status   " />
-                              <ComboBox fx:id="cbStatus" prefHeight="25.0" prefWidth="136.0" />
-                           </children>
-                        </HBox>
                         <HBox fx:id="hbItenerary" prefWidth="183.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
                            <children>
                               <VBox>
@@ -157,11 +150,6 @@
                         <TextField fx:id="tfCash" onInputMethodTextChanged="#onPriceChanged" onMouseClicked="#onPriceChanged" GridPane.columnIndex="5" GridPane.rowIndex="9" />
                         <TextArea fx:id="taNotes" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8" GridPane.rowSpan="2" />
                         <Label text="Notes" GridPane.rowIndex="8" />
-                        <HBox alignment="CENTER" GridPane.columnIndex="5">
-                           <children>
-                              <CheckBox fx:id="cbClientPaid" mnemonicParsing="false" text="Client Paid" />
-                           </children>
-                        </HBox>
                         <VBox GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6">
                            <children>
                               <Label text="Passenger" />
@@ -172,11 +160,6 @@
                         <Label text="Itenerary" GridPane.rowIndex="6" />
                         <Label fx:id="lblTotal" text="0" textAlignment="RIGHT" GridPane.columnIndex="5" GridPane.rowIndex="10" />
                         <Label text="Total" GridPane.columnIndex="4" GridPane.rowIndex="10" />
-                        <HBox alignment="CENTER" layoutX="489.0" layoutY="13.0" GridPane.columnIndex="4">
-                           <children>
-                              <CheckBox fx:id="cbDriverPaid" mnemonicParsing="false" text="Driver Paid" />
-                           </children>
-                        </HBox>
                      </children>
                      <padding>
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

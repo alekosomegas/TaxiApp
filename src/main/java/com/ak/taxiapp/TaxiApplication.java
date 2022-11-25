@@ -29,6 +29,7 @@ public class TaxiApplication extends Application {
         //1) Declare a primary stage (Everything will be on this stage)
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Test Taxi App - Sample JavaFX App");
+        primaryStage.setMaximized(true);
         //2) Initialize RootLayout
         initRootLayout();
         //3) Display the EmployeeOperations View

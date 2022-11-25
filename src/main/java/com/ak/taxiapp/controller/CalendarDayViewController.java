@@ -1,10 +1,8 @@
+package com.ak.taxiapp.controller;
 // ------------------------------------------------------------------ //
 //region// ----------------------------- IMPORTS ---------------------------- //
 
-package com.ak.taxiapp.controller;
-
 import com.ak.taxiapp.TaxiApplication;
-import com.ak.taxiapp.model.DriverDAO;
 import com.ak.taxiapp.model.Ride;
 import com.ak.taxiapp.model.RideDAO;
 import com.ak.taxiapp.model.calendar.*;
@@ -15,8 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -133,7 +129,7 @@ public class CalendarDayViewController extends Controller {
     // ------------------------------------------------------------------ //
     private void initTreeView() {
         TreeItem<String> rootNode =
-                new TreeItem<String>("Rides By Driver");
+                new TreeItem<>("Rides By Driver");
         rootNode.setExpanded(true);
         tvRidesByDriver.setRoot(rootNode);
 
@@ -150,35 +146,11 @@ public class CalendarDayViewController extends Controller {
                 }
             }
             if (!found) {
-                TreeItem<String> driverNode = new TreeItem<String>(
+                TreeItem<String> driverNode = new TreeItem<>(
                         ride.getRidesDriver());
                 rootNode.getChildren().add(driverNode);
                 driverNode.getChildren().add(leaf);
             }
-        }
-    }
-
-    // ------------------------------------------------------------------ //
-    private void initBoxArea() throws SQLException {
-        for (Ride ride : Objects.requireNonNull(getRidesByDate())) {
-            double MINUTES_FACTOR = 0.5;
-            double HOURS_FACTOR = MINUTES_FACTOR * 60;
-            int Y_FACTOR = 28;
-            double height = Integer.parseInt(
-                    ride.getRidesDuration().split("h")[0]) * HOURS_FACTOR +
-                    Integer.parseInt(
-                            ride.getRidesDuration().split("h")[1].split("m")[0])
-                            * MINUTES_FACTOR;
-            Rectangle rectangle = new Rectangle(50,height);
-            hbBoxArea.getChildren().add(rectangle);
-            rectangle.setTranslateY(
-                    Integer.parseInt(ride.getRidesTimeStart().split(":")[0]) *
-                            Y_FACTOR);
-
-            Color color = Color.valueOf(
-                    DriverDAO.searchDriverById(
-                            ride.getRidesDriverId()).getDriver_color());
-            rectangle.setFill(color);
         }
     }
 
@@ -228,7 +200,7 @@ public class CalendarDayViewController extends Controller {
 
     private ObservableList<Ride> getRidesByDate(){
         try {
-            return RideDAO.searchRides();
+            return RideDAO.searchAllRides();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

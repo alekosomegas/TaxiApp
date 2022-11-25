@@ -19,7 +19,6 @@ import java.time.LocalDate;
 //endregion
 // ------------------------------------------------------------------ //
 
-
 public class DayView extends CalendarComponent {
 
     // ------------------------------------------------------------------ //
@@ -58,6 +57,8 @@ public class DayView extends CalendarComponent {
         getNodesFromController();
         // Find the rides and populate the rides pane
         displayRides(calendarModel);
+        // now line
+        builtNowLine();
     }
 
     //endregion
@@ -99,6 +100,7 @@ public class DayView extends CalendarComponent {
      */
     private void displayRides(CalendarModel calendarModel) {
         hBoxRectArea.getChildren().clear();
+        pnLines.getChildren().clear();
         ObservableList<Ride> rides = getRidesByDate(calendarModel.getSelectedDate());
 
         //TODO: should the rectangle be created elsewhere, don't we need a list of them?
@@ -139,6 +141,7 @@ public class DayView extends CalendarComponent {
         pnTimes = controller.pnTimes;
     }
 
+    // ------------------------------------------------------------------ //
     /**
      * Adds the nodes in the appropriate panes
      * @param lblTextHour the labels that represent an hour in the dau calendar
@@ -149,10 +152,32 @@ public class DayView extends CalendarComponent {
         pnLines.getChildren().add(line);
     }
 
+    // ------------------------------------------------------------------ //
+    /**
+     * Looks at the selected date in the calendar and the today's date
+     */
+    private boolean isToday() {
+        return calendarModel.getSelectedDate().compareTo(calendarModel.getTodayDate()) == 0;
+    }
+
+    // ------------------------------------------------------------------ //
+
+    /**
+     * Builds the now line everytime the day changes.
+     */
+    private void builtNowLine() {
+        if (isToday()) {
+            Line lineNow = new Line(0,0,250,0);
+            lineNow.setStroke(Color.RED);
+            lineNow.setLayoutY(calendarModel.getNow().getHour() *
+                    SPACING + calendarModel.getNow().getMinute());
+            pnLines.getChildren().add(lineNow);
+            lineNow.toFront();
+        }
+    }
 
     //endregion
     // ------------------------------------------------------------------ //
-
 
 
 }

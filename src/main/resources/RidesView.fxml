@@ -7,38 +7,37 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxWidth="850.0" minWidth="850.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.RidesViewController">
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.RidesViewController">
    <children>
       <VBox spacing="5.0">
          <children>
-            <HBox maxWidth="850.0" minWidth="850.0" prefWidth="850.0" spacing="5.0">
+            <HBox spacing="5.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#onNewRideClicked" prefHeight="35.0" prefWidth="120.0" text="New Ride" />
                   <Button mnemonicParsing="false" onAction="#deleteSelectedRide" prefHeight="35.0" prefWidth="120.0" text="Delete Ride" />
                   <Button mnemonicParsing="false" onAction="#onEditClicked" prefHeight="35.0" prefWidth="120.0" text="Edit Ride" />
                </children>
             </HBox>
-            <TableView fx:id="ridesTable" minWidth="850.0" onMouseClicked="#selectRide" prefWidth="850.0">
+            <TableView fx:id="ridesTable" onMouseClicked="#selectRide">
               <columns>
-                <TableColumn fx:id="ridesIdCol" prefWidth="35.0" text="id" />
-                <TableColumn fx:id="ridesDateCol" prefWidth="75.5555419921875" text="Date" />
-                  <TableColumn fx:id="ridesStartCol" prefWidth="64.0" text="Time Start" />
-                  <TableColumn fx:id="ridesEndCol" prefWidth="57.77783203125" text="Time End" />
-                  <TableColumn fx:id="ridesDurationCol" prefWidth="58.6666259765625" text="Duration" />
-                  <TableColumn fx:id="ridesClientIdCol" prefWidth="57.77777099609375" text="Client ID" />
-                  <TableColumn fx:id="ridesClientCol" prefWidth="47.111083984375" text="Client" />
-                  <TableColumn fx:id="ridesFromCol" prefWidth="72.4444580078125" text="From" />
-                  <TableColumn fx:id="ridesStopsCol" prefWidth="64.88885498046875" text="Stops" />
-                  <TableColumn fx:id="ridesToCol" prefWidth="67.5555419921875" text="To" />
-                  <TableColumn fx:id="ridesCashCol" prefWidth="72.0" text="Cash" />
-                  <TableColumn fx:id="ridesCreditCol" prefWidth="84.4444580078125" text="Credit" />
-                  <TableColumn fx:id="ridesTotalCol" prefWidth="75.0" text="Total" />
-                  <TableColumn fx:id="ridesStatusCol" prefWidth="54.666748046875" text="Status" />
-                  <TableColumn fx:id="ridesPaidCol" prefWidth="50.0" text="Paid" />
-                  <TableColumn fx:id="ridesDriverIdCol" prefWidth="66.22216796875" text="Driver ID" />
-                  <TableColumn fx:id="ridesDriverCol" prefWidth="66.22216796875" text="Driver" />
-                  <TableColumn fx:id="ridesCarIdCol" prefWidth="66.22216796875" text="Car ID" />
+                <TableColumn fx:id="ridesIdCol" prefWidth="25.77777099609375" text="id" />
+                <TableColumn fx:id="ridesDateCol" prefWidth="59.555511474609375" text="Date" />
+                  <TableColumn fx:id="ridesStartCol" prefWidth="69.33331298828125" text="Time Start" />
+                  <TableColumn fx:id="ridesEndCol" prefWidth="68.44451904296875" text="Time End" />
+                  <TableColumn fx:id="ridesPassengerCol" prefWidth="81.77774047851562" text="Passenger" />
+                  <TableColumn fx:id="ridesClientIdCol" prefWidth="25.3333740234375" text="IdC" />
+                  <TableColumn fx:id="ridesClientCol" prefWidth="109.7777099609375" text="Client" />
+                  <TableColumn fx:id="ridesFromCol" prefWidth="75.5555419921875" text="From" />
+                  <TableColumn fx:id="ridesStopsCol" prefWidth="63.111083984375" text="Stops" />
+                  <TableColumn fx:id="ridesToCol" prefWidth="71.11114501953125" text="To" />
+                  <TableColumn fx:id="ridesCashCol" prefWidth="52.0" text="Cash" />
+                  <TableColumn fx:id="ridesCreditCol" prefWidth="58.22222900390625" text="Credit" />
+                  <TableColumn fx:id="ridesTotalCol" prefWidth="54.6666259765625" text="Total" />
+                  <TableColumn fx:id="ridesDriverIdCol" prefWidth="28.0001220703125" text="IdD" />
+                  <TableColumn fx:id="ridesDriverCol" prefWidth="93.333251953125" text="Driver" />
+                  <TableColumn fx:id="ridesCarIdCol" prefWidth="35.5555419921875" text="IdCar" />
                   <TableColumn fx:id="ridesCarCol" prefWidth="66.22216796875" text="Car" />
+                  <TableColumn fx:id="ridesNotesCol" prefWidth="155.9999728732639" text="Notes" />
               </columns>
             </TableView>
          </children>

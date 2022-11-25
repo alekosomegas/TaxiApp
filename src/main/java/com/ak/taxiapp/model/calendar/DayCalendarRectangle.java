@@ -109,7 +109,6 @@ public class DayCalendarRectangle {
                         values.put("ridesDriverCol", ride.getRidesDriver());
                         values.put("ridesCashCol", String.valueOf(ride.getRidesCash()));
                         values.put("ridesDriverIdCol", String.valueOf(ride.getRidesDriverId()));
-                        values.put("ridesStatusCol", String.valueOf(ride.getRidesStatus()));
                         values.put("ridesCarIdCol", String.valueOf(ride.getRidesCarId()));
                         values.put("ridesCarCol", String.valueOf(ride.getRidesCar()));
                         values.put("ridesToCol", String.valueOf(ride.getRidesTo()));

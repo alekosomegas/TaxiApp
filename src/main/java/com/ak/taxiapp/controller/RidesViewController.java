@@ -1,4 +1,6 @@
 package com.ak.taxiapp.controller;
+// ------------------------------------------------------------------ //
+//region// ----------------------------- IMPORTS ---------------------------- //
 
 import com.ak.taxiapp.TaxiApplication;
 import com.ak.taxiapp.model.Ride;
@@ -6,13 +8,18 @@ import com.ak.taxiapp.model.RideDAO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class RidesViewController extends Controller{
+//endregion
+// ------------------------------------------------------------------ //
 
-    public TableColumn<Ride, Integer> ridesTotalCol;
+public class RidesViewController extends Controller{
+    // ------------------------------------------------------------------ //
+    //region// ---------------------------- VARIABLES --------------------------- //
+
     @FXML
     private TableView<Ride> ridesTable;
     @FXML
@@ -22,7 +29,6 @@ public class RidesViewController extends Controller{
     private TableColumn<Ride, String> ridesStartCol;
     @FXML
     private TableColumn<Ride, String> ridesEndCol;
-    @FXML private TableColumn<Ride, String> ridesDurationCol;
     @FXML
     private TableColumn<Ride, Integer> ridesClientIdCol;
     @FXML
@@ -35,11 +41,6 @@ public class RidesViewController extends Controller{
     private TableColumn<Ride, String> ridesStopsCol;
     @FXML
     private TableColumn<Ride, Integer> ridesCashCol;
-    @FXML
-    private TableColumn<Ride, Integer> ridesStatusCol;
-    @FXML
-    private TableColumn<Ride, Integer> ridesPaidCol;
-
     @FXML private TableColumn<Ride, Integer> ridesCreditCol;
     @FXML private TableColumn<Ride, Integer> ridesDriverIdCol;
     @FXML private TableColumn<Ride, Integer> ridesCarIdCol;
@@ -47,60 +48,77 @@ public class RidesViewController extends Controller{
     private TableColumn<Ride, String> ridesDriverCol;
     @FXML
     private TableColumn<Ride, String> ridesCarCol;
+    public TableColumn<Ride, Integer> ridesTotalCol;
+    public TableColumn<Ride, String> ridesPassengerCol;
+    public TableColumn<Ride, String> ridesNotesCol;
 
     private Ride selectedRide;
 
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// ---------------------------- INITIALIZE --------------------------- //
 
     @FXML
     private void initialize() throws SQLException {
+        /*
+         * Sets the FXML Values to the values taken from equivalent variable of the ride object
+         * for each column in the table in the rides view.
+         */
         ridesIdCol.setCellValueFactory(cellData -> cellData.getValue().rides_idProperty().asObject());
         ridesDateCol.setCellValueFactory(cellData -> cellData.getValue().ridesDateProperty());
         ridesStartCol.setCellValueFactory(cellData -> cellData.getValue().ridesTimeStartProperty());
         ridesEndCol.setCellValueFactory(cellData -> cellData.getValue().ridesTimeEndProperty());
-        ridesDurationCol.setCellValueFactory(cellData -> cellData.getValue().ridesDurationProperty());
         ridesClientIdCol.setCellValueFactory(cellData -> cellData.getValue().ridesClientIdProperty().asObject());
         ridesClientCol.setCellValueFactory(cellData -> cellData.getValue().ridesClientProperty());
         ridesFromCol.setCellValueFactory(cellData -> cellData.getValue().ridesFromProperty());
         ridesToCol.setCellValueFactory(cellData -> cellData.getValue().ridesToProperty());
         ridesStopsCol.setCellValueFactory(cellData -> cellData.getValue().ridesStopsProperty());
         ridesCashCol.setCellValueFactory(cellData -> cellData.getValue().ridesCashProperty().asObject());
-        ridesStatusCol.setCellValueFactory(cellData -> cellData.getValue().ridesStatusProperty().asObject());
-        ridesPaidCol.setCellValueFactory(cellData -> cellData.getValue().ridesPaidProperty().asObject());
         ridesCreditCol.setCellValueFactory(cellData -> cellData.getValue().ridesCreditProperty().asObject());
         ridesDriverIdCol.setCellValueFactory(cellData -> cellData.getValue().ridesDriverIdProperty().asObject());
         ridesCarIdCol.setCellValueFactory(cellData -> cellData.getValue().ridesCarIdProperty().asObject());
         ridesDriverCol.setCellValueFactory(cellData -> cellData.getValue().ridesDriverProperty());
         ridesCarCol.setCellValueFactory(cellData -> cellData.getValue().ridesCarProperty());
         ridesTotalCol.setCellValueFactory(cellData -> cellData.getValue().ridesTotalProperty().asObject());
-        searchRides();
+        ridesPassengerCol.setCellValueFactory(cellData -> cellData.getValue().ridesPassengerProperty());
+        ridesNotesCol.setCellValueFactory(cellData -> cellData.getValue().ridesNotesProperty());
+
+        // Populates the table with all the rides
+        searchAllRides();
     }
 
-    @FXML
-    public void searchRides() throws SQLException {
-        try {
-            ObservableList<Ride> rideData = RideDAO.searchRides();
-            populateRides(rideData);
-        } catch (SQLException e){
-            System.out.println("Error occurred while getting information from DB.\n" + e);
-            throw e;
-        }
-    }
+    //endregion
+    // ------------------------------------------------------------------ //
 
-    @FXML
-    void populateRides(ObservableList<Ride> rdData) {
-        ridesTable.setItems(rdData);
-    }
+    // ------------------------------------------------------------------ //
+    //region// -------------------------- FXML METHODS -------------------------- //
 
+    /**
+     * Triggers the new ride dialogue
+     */
     @FXML
     private void onNewRideClicked() {
         TaxiApplication.showNewRideDialog();
     }
 
+    // ------------------------------------------------------------------ //
+    /**
+     * Triggers the new ride dialogue
+     */
+    @FXML public void onEditClicked() {
+        HashMap<String, String> values = builtValues();
+        TaxiApplication.showEditRideDialog(values);
+    }
+
+    // ------------------------------------------------------------------ //
     @FXML
     public void selectRide() {
         selectedRide = ridesTable.getSelectionModel().getSelectedItem();
     }
 
+    // ------------------------------------------------------------------ //
     @FXML
     public void deleteSelectedRide() {
         if(selectedRide != null) {
@@ -108,17 +126,27 @@ public class RidesViewController extends Controller{
             try {
                 RideDAO.deleteRideWithId(id);
                 rlc.setResultText("Ride deleted! Ride id: " + id + "\n");
-                searchRides();
+                searchAllRides();
             } catch (SQLException e) {
                 rlc.setResultText("Problem occurred while deleting ride " + e);
             }
         }
     }
 
-    @FXML public void onEditClicked() {
+    //endregion
+    // ------------------------------------------------------------------ //
+
+    // ------------------------------------------------------------------ //
+    //region// ------------------------- HELPER METHODS ------------------------- //
+
+    /**
+     * Creates a Hashmap of the values in the fields of the new ride dialogue
+     * @return Hashmap of the values in the fields of the new ride dialogue
+     */
+    @NotNull
+    private HashMap<String, String> builtValues() {
         HashMap<String, String> values = new HashMap<>();
         if(selectedRide != null) {
-            int id = selectedRide.getRides_id();
             ObservableList<TableColumn<Ride, ?>> columns = ridesTable.getColumns();
             for (TableColumn<Ride, ?> column : columns) {
                 if (column.getCellData(selectedRide) != null) {
@@ -126,6 +154,39 @@ public class RidesViewController extends Controller{
                 }
             }
         }
-        TaxiApplication.showEditRideDialog(values);
+        return values;
     }
+
+    // ------------------------------------------------------------------ //
+    /**
+     * Searches the database for all the ride and calls the populateRides
+     * method which sets all the items in the rides' table in the rides view
+     */
+    @FXML
+    public void searchAllRides() throws SQLException {
+        try {
+            // data of al the rides in the database
+            ObservableList<Ride> rideData = RideDAO.searchAllRides();
+            // populate the columns of the rides table
+            populateRides(rideData);
+        } catch (SQLException e){
+            System.out.println("Error occurred while getting information from DB.\n" + e);
+            throw e;
+        }
+    }
+
+    // ------------------------------------------------------------------ //
+
+    /**
+     * Sets all the rides from the list of the rides as items in the table of the rides view
+     */
+    @FXML
+    void populateRides(ObservableList<Ride> rdData) {
+        ridesTable.setItems(rdData);
+    }
+
+    //endregion
+    // ------------------------------------------------------------------ //
+
 }
+

@@ -15,7 +15,7 @@ public class RidesByClientViewController extends RidesViewController{
     public ChoiceBox clientsChoiceBox;
 
     @FXML @Override
-    public void searchRides() throws SQLException {
+    public void searchAllRides() throws SQLException {
         try {
             clientsChoiceBox.setItems(ClientDAO.getClientsNamesList());
 
