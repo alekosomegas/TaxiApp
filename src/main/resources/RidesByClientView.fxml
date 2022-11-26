@@ -26,26 +26,26 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <TableView fx:id="ridesTable" maxWidth="850.0" minWidth="850.0" prefWidth="850.0">
+            <TableView fx:id="ridesTable" onMouseClicked="#selectRide">
                <columns>
-                  <TableColumn fx:id="ridesIdCol" prefWidth="35.0" text="id" />
-                  <TableColumn fx:id="ridesDateCol" prefWidth="49.77777099609375" text="Date" />
-                  <TableColumn fx:id="ridesStartCol" prefWidth="69.77777099609375" text="Time Start" />
-                  <TableColumn fx:id="ridesEndCol" prefWidth="60.4444580078125" text="Time End" />
-                  <TableColumn fx:id="ridesDurationCol" prefWidth="62.22216796875" text="Duration" />
-                  <TableColumn fx:id="ridesClientIdCol" prefWidth="53.77777099609375" text="Client ID" />
-                  <TableColumn fx:id="ridesClientCol" prefWidth="63.111083984375" text="Client" />
-                  <TableColumn fx:id="ridesFromCol" prefWidth="72.4444580078125" text="From" />
-                  <TableColumn fx:id="ridesStopsCol" prefWidth="64.88885498046875" text="Stops" />
-                  <TableColumn fx:id="ridesToCol" prefWidth="67.5555419921875" text="To" />
-                  <TableColumn fx:id="ridesCashCol" prefWidth="72.0" text="Price" />
-                  <TableColumn fx:id="ridesStatusCol" prefWidth="54.666748046875" text="Status" />
-                  <TableColumn fx:id="ridesCreditCol" prefWidth="84.4444580078125" text="Credit" />
-                  <TableColumn fx:id="ridesPaidCol" prefWidth="50.0" text="Paid" />
-                  <TableColumn fx:id="ridesDriverIdCol" prefWidth="66.22216796875" text="Driver ID" />
-                  <TableColumn fx:id="ridesCarIdCol" prefWidth="66.22216796875" text="Car ID" />
-                  <TableColumn fx:id="ridesDriverCol" prefWidth="66.22216796875" text="Driver" />
-                  <TableColumn fx:id="ridesCarCol" prefWidth="66.22216796875" text="Car" />
+                  <TableColumn fx:id="ridesIdCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="id" />
+                  <TableColumn fx:id="ridesDateCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Date" />
+                  <TableColumn fx:id="ridesStartCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Time Start" />
+                  <TableColumn fx:id="ridesEndCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Time End" />
+                  <TableColumn fx:id="ridesPassengerCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Passenger" />
+                  <TableColumn fx:id="ridesClientIdCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="IdC" />
+                  <TableColumn fx:id="ridesClientCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Client" />
+                  <TableColumn fx:id="ridesFromCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="From" />
+                  <TableColumn fx:id="ridesStopsCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Stops" />
+                  <TableColumn fx:id="ridesToCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="To" />
+                  <TableColumn fx:id="ridesCashCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Cash" />
+                  <TableColumn fx:id="ridesCreditCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Credit" />
+                  <TableColumn fx:id="ridesTotalCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Total" />
+                  <TableColumn fx:id="ridesDriverIdCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="IdD" />
+                  <TableColumn fx:id="ridesDriverCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Driver" />
+                  <TableColumn fx:id="ridesCarIdCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="IdCar" />
+                  <TableColumn fx:id="ridesCarCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Car" />
+                  <TableColumn fx:id="ridesNotesCol" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="Notes" />
                </columns>
             </TableView>
          </children>

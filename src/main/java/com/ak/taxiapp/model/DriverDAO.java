@@ -34,7 +34,7 @@ public class DriverDAO {
         return ls;
     }
 
-    public static Driver searchDriverById(int driverID) throws SQLException {
+    public static Driver searchDriverById(String driverID) throws SQLException {
         String selectStatement = "SELECT * FROM drivers WHERE DRIVERS_ID=" + driverID;
         // Execute SELECT statement
         try {

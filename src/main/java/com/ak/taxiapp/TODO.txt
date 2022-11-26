@@ -2,6 +2,7 @@
 =====================================================================
 GENERAL
 ---------------------------------------------------------------------
+0.  NEED MAJOR REFACTORING AND STUDY BEFORE PROCEEDING
 1.  Fix display (make bigger for all)
 ---------------------------------------------------------------------
 
@@ -11,10 +12,16 @@ A. RIDES VIEW
 1.  Something is wrong when updating ride the driver disappears.
 2.  Fix the date parsing for updating
 3.  Set the stops' functionality
-4.  Set all the input validations and default behaviour
-5.  Change rides cell from the table by double click
-6.  Undo for deleting and/or dialog for confirmation
-7.  Set automatic selection of car based on driver
+    4.  Set all the input validations and default behaviour
+    5.  Change rides cell from the table by double click
+    6.  Undo for deleting and/or dialog for confirmation
+    7.  Set automatic selection of car based on driver
+    8. Cash and credit error fix
+    9. selecting a ride works only if yuo click somewhere else first
+    10. Resize when adding stop
+    11. Add wait functionality
+    12. Add rates
+    13. notes do not work
 ---------------------------------------------------------------------
 
 =====================================================================
@@ -90,4 +97,5 @@ K. SETTINGS
 ---------------------------------------------------------------------
 1.  IMPLEMENT
 2.  Split percentage for drivers
+3.  Rates values, per km per hour
 ---------------------------------------------------------------------

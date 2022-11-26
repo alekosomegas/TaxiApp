@@ -165,7 +165,7 @@ public class CalendarDayViewControllerOld extends Controller {
 
             Color color = Color.valueOf(
                     DriverDAO.searchDriverById(
-                            ride.getRidesDriverId()).getDriver_color());
+                            String.valueOf(ride.getRidesDriverId())).getDriver_color());
             rectangle.setFill(color);
         }
     }

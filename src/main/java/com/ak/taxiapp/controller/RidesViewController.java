@@ -48,8 +48,11 @@ public class RidesViewController extends Controller{
     private TableColumn<Ride, String> ridesDriverCol;
     @FXML
     private TableColumn<Ride, String> ridesCarCol;
+    @FXML
     public TableColumn<Ride, Integer> ridesTotalCol;
+    @FXML
     public TableColumn<Ride, String> ridesPassengerCol;
+    @FXML
     public TableColumn<Ride, String> ridesNotesCol;
 
     private Ride selectedRide;

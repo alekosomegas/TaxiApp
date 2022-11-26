@@ -44,8 +44,8 @@ public class RideDAO {
             if (ClientDAO.searchClientById(String.valueOf(ride.getRidesClientId())) != null) {
                 ride.setRidesClient(ClientDAO.searchClientById(String.valueOf(ride.getRidesClientId())).getClient_name());
             }
-            if (DriverDAO.searchDriverById(ride.getRidesClientId()) != null) {
-                ride.setRidesDriver(DriverDAO.searchDriverById(ride.getRidesDriverId()).getDriver_name());
+            if (DriverDAO.searchDriverById(String.valueOf(ride.getRidesDriverId())) != null) {
+                ride.setRidesDriver(DriverDAO.searchDriverById(String.valueOf(ride.getRidesDriverId())).getDriver_name());
             }
             ride.setRidesCar(CarDAO.searchCarById(ride.getRidesCarId()).getCar_reg());
             ride.setRidesDuration(calculateDuration(ride));
@@ -54,7 +54,7 @@ public class RideDAO {
             ridesList.add(ride);
 
             ride.setDriver(
-                    DriverDAO.searchDriverById(ride.getRidesDriverId())
+                    DriverDAO.searchDriverById(String.valueOf(ride.getRidesDriverId()))
             );
             ride.setDate(LocalDate.parse(ride.getRidesDate()));
 
@@ -296,6 +296,7 @@ public class RideDAO {
             return stDuration;
 
         } catch (ParseException e) {
+            e.printStackTrace();
             System.out.println("RIDEDAO - Something went wrong when parsing time");
         }
         return "ERROR";

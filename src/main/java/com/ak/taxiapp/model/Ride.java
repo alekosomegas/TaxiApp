@@ -119,7 +119,8 @@ public class Ride extends Table {
     public void setRidesDriverId(int ridesDriverId) {this.ridesDriverId.set(ridesDriverId);}
     public String getRidesDriver() {return ridesDriver.get();}
     public StringProperty ridesDriverProperty() {return ridesDriver;}
-    public void setRidesDriver(String ridesDriver) {this.ridesDriver.set(ridesDriver);}
+    public void setRidesDriver(String ridesDriver) {
+        this.ridesDriver.set(ridesDriver);}
     public int getRidesCarId() {return ridesCarId.get();}
     public IntegerProperty ridesCarIdProperty() {return ridesCarId;}
     public void setRidesCarId(int ridesCarId) {this.ridesCarId.set(ridesCarId);}
