@@ -21,39 +21,40 @@ public class RidesViewController extends Controller{
     //region// ---------------------------- VARIABLES --------------------------- //
 
     @FXML
-    private TableView<Ride> ridesTable;
+     TableView<Ride> ridesTable;
     @FXML
-    private TableColumn<Ride, Integer> ridesIdCol;
-    public TableColumn<Ride, String> ridesDateCol;
+    TableColumn<Ride, Integer> ridesIdCol;
     @FXML
-    private TableColumn<Ride, String> ridesStartCol;
+    TableColumn<Ride, String> ridesDateCol;
     @FXML
-    private TableColumn<Ride, String> ridesEndCol;
+     TableColumn<Ride, String> ridesStartCol;
     @FXML
-    private TableColumn<Ride, Integer> ridesClientIdCol;
+     TableColumn<Ride, String> ridesEndCol;
     @FXML
-    private TableColumn<Ride, String> ridesClientCol;
+    TableColumn<Ride, Integer> ridesClientIdCol;
     @FXML
-    private TableColumn<Ride, String> ridesFromCol;
+     TableColumn<Ride, String> ridesClientCol;
     @FXML
-    private TableColumn<Ride, String> ridesToCol;
+    TableColumn<Ride, String> ridesFromCol;
     @FXML
-    private TableColumn<Ride, String> ridesStopsCol;
+    TableColumn<Ride, String> ridesToCol;
     @FXML
-    private TableColumn<Ride, Integer> ridesCashCol;
-    @FXML private TableColumn<Ride, Integer> ridesCreditCol;
-    @FXML private TableColumn<Ride, Integer> ridesDriverIdCol;
-    @FXML private TableColumn<Ride, Integer> ridesCarIdCol;
+    TableColumn<Ride, String> ridesStopsCol;
     @FXML
-    private TableColumn<Ride, String> ridesDriverCol;
+    TableColumn<Ride, Integer> ridesCashCol;
+    @FXML TableColumn<Ride, Integer> ridesCreditCol;
+    @FXML TableColumn<Ride, Integer> ridesDriverIdCol;
+    @FXML TableColumn<Ride, Integer> ridesCarIdCol;
     @FXML
-    private TableColumn<Ride, String> ridesCarCol;
+    TableColumn<Ride, String> ridesDriverCol;
     @FXML
-    public TableColumn<Ride, Integer> ridesTotalCol;
+    TableColumn<Ride, String> ridesCarCol;
     @FXML
-    public TableColumn<Ride, String> ridesPassengerCol;
+    TableColumn<Ride, Integer> ridesTotalCol;
     @FXML
-    public TableColumn<Ride, String> ridesNotesCol;
+    TableColumn<Ride, String> ridesPassengerCol;
+    @FXML
+    TableColumn<Ride, String> ridesNotesCol;
 
     private Ride selectedRide;
 

@@ -78,6 +78,7 @@ H. CALENDAR - DAY
 3.  Implement filters
 4.  Implement tree view with color index
 5.  More details on hover, open small box with extra info
+6.  now line not quite correct
 ---------------------------------------------------------------------
 
 =====================================================================

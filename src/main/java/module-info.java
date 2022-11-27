@@ -4,6 +4,8 @@ module com.ak.taxiapp {
     requires java.sql;
     requires java.sql.rowset;
     requires org.jetbrains.annotations;
+    requires layout;
+    requires kernel;
 
 
     opens com.ak.taxiapp to javafx.fxml;
