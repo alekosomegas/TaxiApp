@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<DialogPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.NewCarDialogController">
+<DialogPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="com.ak.taxiapp.controller.car.NewCarDialogController">
    <content>
       <GridPane hgap="5.0" vgap="5.0">
         <columnConstraints>
@@ -36,7 +36,7 @@
       </GridPane>
    </content>
    <header>
-      <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" text="Add New Car" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Add New Car" />
    </header>
    <buttonTypes>
       <ButtonType fx:constant="OK" />

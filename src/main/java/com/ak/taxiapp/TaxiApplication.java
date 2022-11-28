@@ -1,13 +1,19 @@
 package com.ak.taxiapp;
 
 import com.ak.taxiapp.controller.*;
+import com.ak.taxiapp.controller.car.NewCarDialogController;
+import com.ak.taxiapp.controller.client.NewClientDialogController;
+import com.ak.taxiapp.controller.driver.NewDriverDialogControler;
+import com.ak.taxiapp.controller.invoice.NewInvoiceDialogController;
+import com.ak.taxiapp.controller.ride.NewRideDialogController;
+import com.ak.taxiapp.model.invoice.Invoice;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -28,7 +34,7 @@ public class TaxiApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         //1) Declare a primary stage (Everything will be on this stage)
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Test Taxi App - Sample JavaFX App");
+        this.primaryStage.setTitle("Taxi App");
         primaryStage.setMaximized(false);
         //2) Initialize RootLayout
         initRootLayout();
@@ -40,7 +46,7 @@ public class TaxiApplication extends Application {
         try {
             //First, load root layout from RootLayout.fxml
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("RootLayout.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("RootLayout.fxml"));
             rootLayout = loader.load();
             rootLayoutController = loader.getController();
             //Second, show the scene containing the root layout.
@@ -54,117 +60,84 @@ public class TaxiApplication extends Application {
         }
     }
 
+    private static void show(String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(TaxiApplication.class.getResource(fxml));
+
+            Node node = loader.load();
+            Controller controller = loader.getController();
+            controller.setRootLayoutController(rootLayoutController);
+            rootLayout.setCenter(node);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*
         Loads the client db view in the center of the boarder pane
         and returns its controller instance.
      */
     public static void showClientDbView() {
-        try {
-            //First, load ClientView from ClientView.fxml
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("ClientDbView.fxml"));
-            AnchorPane clientDbView = loader.load();
-            ClientDbController cdbc = loader.getController();
-            cdbc.setRootLayoutController(rootLayoutController);
-            // Set Employee Operations view into the center of root layout.
-            rootLayout.setCenter(clientDbView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        show("ClientDbView.fxml");
     }
 
     public static void showRidesView() {
-        try {
-            //First, load ClientView from ClientView.fxml
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("RidesView.fxml"));
-            AnchorPane ridesView = loader.load();
-            RidesViewController rvc = loader.getController();
-            rvc.setRootLayoutController(rootLayoutController);
-            // Set Employee Operations view into the center of root layout.
-            rootLayout.setCenter(ridesView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        show("RidesView.fxml");
     }
-
 
     public static void showDriversView() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("DriversView.fxml"));
-            AnchorPane driversView = loader.load();
-            DriversViewController dvc = loader.getController();
-            dvc.setRootLayoutController(rootLayoutController);
-            rootLayout.setCenter(driversView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        show("DriversView.fxml");
     }
 
-    // refactor
     public static void showCarsView() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("CarsView.fxml"));
-            AnchorPane carsView = loader.load();
-            CarsViewController cvc = loader.getController();
-            cvc.setRootLayoutController(rootLayoutController);
-            rootLayout.setCenter(carsView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        show("CarsView.fxml");
     }
 
     public static void showRidesByClientView() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("RidesByClientView.fxml"));
-            AnchorPane rbcView = loader.load();
-            RidesByClientViewController rbcvc = loader.getController();
-            rbcvc.setRootLayoutController(rootLayoutController);
-            rootLayout.setCenter(rbcView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        show("RidesByClientView.fxml");
     }
 
-    public static void showAndWaitNewRideDialog(Optional<ButtonType> result, FXMLLoader loader, Dialog<ButtonType> dialog) throws SQLException {
+    public static void showCalendarView(String view) {show(view);}
+
+
+    private static void showAndWaitNewDialog(Optional<ButtonType> result, FXMLLoader loader, Dialog<ButtonType> dialog) throws SQLException {
         if (result.get() == ButtonType.OK) {
-            NewRideDialogController nrdc = loader.getController();
-            if(nrdc.checkInputs()) {
+            Controller controller = loader.getController();
+            if(controller.checkInputs()) {
                 try {
-                    nrdc.insertRide();
+                    controller.insert();
                 } catch (Exception e) {
                     e.printStackTrace();
                     result = dialog.showAndWait();
-                    showAndWaitNewRideDialog(result, loader, dialog);
+                    showAndWaitNewDialog(result, loader, dialog);
                 }
             } else {
                 result = dialog.showAndWait();
-                showAndWaitNewRideDialog(result, loader, dialog);
+                showAndWaitNewDialog(result, loader, dialog);
             }
         }
     }
 
-    public static void showNewRideDialog() {
+    private static void showDialog(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("NewRideDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource(fxml));
             DialogPane dialogPane = loader.load();
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
             Optional<ButtonType> result = dialog.showAndWait();
             dialogPane.getStylesheets().add("stylesheet.css");
-            showAndWaitNewRideDialog(result, loader, dialog);
-            showRidesView();
-        } catch (IOException e) {
+            showAndWaitNewDialog(result, loader, dialog);
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    }
+
+    public static void showNewRideDialog() {
+        showDialog("NewRideDialog.fxml");
+        showRidesView();
     }
 
     public static int showNewClientDialog() {
@@ -178,7 +151,7 @@ public class TaxiApplication extends Application {
             Optional<ButtonType> result = dialog.showAndWait();
             if (result.get() == ButtonType.OK) {
                 NewClientDialogController ncdc = loader.getController();
-                ncdc.insertClient();
+                ncdc.insert();
                 showClientDbView();
                 return 0;
             }
@@ -191,30 +164,14 @@ public class TaxiApplication extends Application {
     }
 
     public static void showNewCarDialog() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("NewCarDialog.fxml"));
-            DialogPane dialogPane = loader.load();
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            Optional<ButtonType> result = dialog.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                NewCarDialogController ncdc = loader.getController();
-                ncdc.insertCar();
-                showCarsView();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        showDialog("NewCarDialog.fxml");
+        showCarsView();
     }
     // UPDATE CAR
     public static void showEditCarDialog(HashMap<String,String> values) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("NewCarDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("NewCarDialog.fxml"));
             DialogPane dialogPane = loader.load();
             NewCarDialogController controller = loader.getController();
             controller.setValues(values);
@@ -223,7 +180,7 @@ public class TaxiApplication extends Application {
             dialog.setDialogPane(dialogPane);
             Optional<ButtonType> result = dialog.showAndWait();
             if (result.get() == ButtonType.OK) {
-                controller.updateCar();
+                controller.update();
                 showCarsView();
             }
         } catch (IOException e) {
@@ -236,7 +193,7 @@ public class TaxiApplication extends Application {
     public static void showEditDriverDialog(HashMap<String,String> values) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("NewDriverDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("NewDriverDialog.fxml"));
             DialogPane dialogPane = loader.load();
             NewDriverDialogControler controller = loader.getController();
             controller.setValues(values);
@@ -257,7 +214,7 @@ public class TaxiApplication extends Application {
     public static void showEditClientDialog(HashMap<String,String> values) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("NewClientDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("NewClientDialog.fxml"));
             DialogPane dialogPane = loader.load();
             NewClientDialogController controller = loader.getController();
             controller.setValues(values);
@@ -279,7 +236,7 @@ public class TaxiApplication extends Application {
     public static void showEditRideDialog(HashMap<String,String> values) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("NewRideDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("NewRideDialog.fxml"));
             DialogPane dialogPane = loader.load();
             NewRideDialogController controller = loader.getController();
             controller.setValues(values);
@@ -300,7 +257,7 @@ public class TaxiApplication extends Application {
     public static void showNewDriverDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource("NewDriverDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("NewDriverDialog.fxml"));
             DialogPane dialogPane = loader.load();
 
             Dialog<ButtonType> dialog = new Dialog<>();
@@ -318,16 +275,29 @@ public class TaxiApplication extends Application {
         }
     }
 
-    public static void showCalendarView(String view) {
+    public static void showNewInvoice(Invoice invoice) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getClassLoader().getResource(view));
-            AnchorPane cView = loader.load();
-            Controller controller = loader.getController();
-            controller.setRootLayoutController(rootLayoutController);
-            rootLayout.setCenter(cView);
+            loader.setLocation(TaxiApplication.class.getResource("NewInvoiceDialog.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+
+            NewInvoiceDialogController controller = loader.getController();
+            controller.setInvoice(invoice);
+
+            Optional<ButtonType> result = dialog.showAndWait();
+
+
+            if (result.get() == ButtonType.OK) {
+
+                controller.insert();
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

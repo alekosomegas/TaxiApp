@@ -10,10 +10,30 @@ module com.ak.taxiapp {
 
     opens com.ak.taxiapp to javafx.fxml;
     exports com.ak.taxiapp;
-    exports com.ak.taxiapp.model;
-    opens com.ak.taxiapp.model to javafx.fxml;
     exports com.ak.taxiapp.util;
     opens com.ak.taxiapp.util to javafx.fxml;
     exports com.ak.taxiapp.controller;
     opens com.ak.taxiapp.controller to javafx.fxml;
+    exports com.ak.taxiapp.model.invoice;
+    opens com.ak.taxiapp.model.invoice to javafx.fxml;
+    exports com.ak.taxiapp.model.car;
+    opens com.ak.taxiapp.model.car to javafx.fxml;
+    exports com.ak.taxiapp.model.client;
+    opens com.ak.taxiapp.model.client to javafx.fxml;
+    exports com.ak.taxiapp.model.driver;
+    opens com.ak.taxiapp.model.driver to javafx.fxml;
+    exports com.ak.taxiapp.model.ride;
+    opens com.ak.taxiapp.model.ride to javafx.fxml;
+    exports com.ak.taxiapp.controller.calendar;
+    opens com.ak.taxiapp.controller.calendar to javafx.fxml;
+    exports com.ak.taxiapp.controller.car;
+    opens com.ak.taxiapp.controller.car to javafx.fxml;
+    exports com.ak.taxiapp.controller.driver;
+    opens com.ak.taxiapp.controller.driver to javafx.fxml;
+    exports com.ak.taxiapp.controller.client;
+    opens com.ak.taxiapp.controller.client to javafx.fxml;
+    exports com.ak.taxiapp.controller.ride;
+    opens com.ak.taxiapp.controller.ride to javafx.fxml;
+    exports com.ak.taxiapp.controller.invoice;
+    opens com.ak.taxiapp.controller.invoice to javafx.fxml;
 }

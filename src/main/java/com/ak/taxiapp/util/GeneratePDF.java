@@ -1,6 +1,10 @@
 package com.ak.taxiapp.util;
+// ------------------------------------------------------------------ //
+//region// ----------------------------- IMPORTS ---------------------------- //
 
-import com.ak.taxiapp.model.Ride;
+import com.ak.taxiapp.model.invoice.Invoice;
+import com.ak.taxiapp.model.invoice.InvoiceTable;
+import com.ak.taxiapp.model.invoice.InvoiceTableRow;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -9,29 +13,35 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.UnitValue;
 
 import java.io.File;
-import java.util.ArrayList;
 
+// endregion
+// ------------------------------------------------------------------ //
 
 public class GeneratePDF {
+    // ------------------------------------------------------------------ //
+    //region// ---------------------------- VARIABLES --------------------------- //
 
-    private String DEST = "Exports/";
+    private final String ROOT_DEST = "Exports";
+    private String yearDir;
+    private String monthDir;
 
     private Invoice invoice;
     private InvoiceTable invoiceTable;
     private String fileName;
 
+    //endregion
+    // ------------------------------------------------------------------ //
 
     public GeneratePDF(Invoice invoice) throws Exception {
         this.invoice = invoice;
         this.invoiceTable = invoice.getInvoiceTable();
-        this.fileName = invoice.getClientName().replace(" ", "_");
-        DEST = DEST + fileName + ".pdf";
-        System.out.println();
+        builtFileName();
+        buildDateDirectories();
 
-        File file = new File(DEST);
+        File file = new File(ROOT_DEST +"/"+ yearDir + "/"+ monthDir);
+        file.mkdirs();
         file.getParentFile().mkdirs();
-
-        manipulatePdf(DEST);
+        manipulatePdf(ROOT_DEST +"/"+ yearDir +"/"+ monthDir +"/"+ fileName);
     }
 
 
@@ -52,7 +62,6 @@ public class GeneratePDF {
         paragraph.add("Tel: ");
         paragraph.add(invoice.getClientTel());
 
-        ;
         doc.add(paragraph);
 
         Table table = new Table(UnitValue.createPercentArray(invoiceTable.getNumOfColumns())).useAllAvailableWidth();
@@ -71,5 +80,15 @@ public class GeneratePDF {
         doc.add(table);
 
         doc.close();
+    }
+
+    private void builtFileName() {
+        String clientName = invoice.getClientName().replaceAll(" ", "_");
+        this.fileName = invoice.getDateString() + "_" + clientName + "_invoice.pdf";
+    }
+
+    private void buildDateDirectories() {
+        this.yearDir = invoice.getYearString();
+        this.monthDir = invoice.getMonthString();
     }
 }

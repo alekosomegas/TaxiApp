@@ -4,13 +4,10 @@
 package com.ak.taxiapp.model.calendar;
 
 import com.ak.taxiapp.TaxiApplication;
-import com.ak.taxiapp.controller.CalendarDayViewController;
-import com.ak.taxiapp.model.Ride;
-import javafx.collections.ObservableList;
+import com.ak.taxiapp.controller.calendar.CalendarDayViewController;
+import com.ak.taxiapp.model.ride.Ride;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

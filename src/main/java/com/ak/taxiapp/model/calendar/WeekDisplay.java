@@ -3,7 +3,7 @@
 
 package com.ak.taxiapp.model.calendar;
 
-import com.ak.taxiapp.controller.CalendarDayViewController;
+import com.ak.taxiapp.controller.calendar.CalendarDayViewController;
 import com.ak.taxiapp.controller.Controller;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;

@@ -2,11 +2,11 @@ package com.ak.taxiapp.model.calendar;
 // ------------------------------------------------------------------ //
 //region// ----------------------------- IMPORTS ---------------------------- //
 
-import com.ak.taxiapp.controller.CalendarDayViewController;
+import com.ak.taxiapp.controller.calendar.CalendarDayViewController;
 import com.ak.taxiapp.controller.Controller;
 
-import com.ak.taxiapp.model.Ride;
-import com.ak.taxiapp.model.RideDAO;
+import com.ak.taxiapp.model.ride.Ride;
+import com.ak.taxiapp.model.ride.RideDAO;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
