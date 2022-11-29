@@ -1,7 +1,7 @@
 package com.ak.taxiapp.controller.client;
 
 import com.ak.taxiapp.TaxiApplication;
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.client.Client;
 import com.ak.taxiapp.model.client.ClientDAO;
 import javafx.collections.FXCollections;

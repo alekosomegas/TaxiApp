@@ -1,7 +1,7 @@
 package com.ak.taxiapp.controller.driver;
 
 import com.ak.taxiapp.TaxiApplication;
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.driver.Driver;
 import com.ak.taxiapp.model.driver.DriverDAO;
 import javafx.collections.ObservableList;

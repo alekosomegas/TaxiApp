@@ -1,7 +1,7 @@
 package com.ak.taxiapp.controller.calendar;
 
 import com.ak.taxiapp.TaxiApplication;
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.driver.DriverDAO;
 import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.model.ride.RideDAO;
@@ -257,7 +257,7 @@ public class CalendarDayViewControllerOld extends Controller {
     }
 
     public void onbtnWeekClicked() {
-        TaxiApplication.showCalendarView("CalendarWeekView.fxml");
+        TaxiApplication.showCalendarView("fxml/calendar/CalendarWeekView.fxml");
     }
 
     public void onbtnMonthClicked() {

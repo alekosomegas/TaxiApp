@@ -1,16 +1,19 @@
 package com.ak.taxiapp.controller;
 
 import com.ak.taxiapp.TaxiApplication;
+import com.ak.taxiapp.util.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 
-public class RootLayoutController extends Controller{
+public class RootLayoutController extends Controller {
     @FXML
     public Label resultArea;
     public Button BtnRidesByClient;
+    public BorderPane bpRoot;
 
     @FXML
     private Button ridesViewBtn;
@@ -47,7 +50,6 @@ public class RootLayoutController extends Controller{
     public void onBtnRidesView() {
         TaxiApplication.showRidesView();
         resultArea.setText("Rides Database View");
-
     }
 
     public void setResultText(String text) {
@@ -55,23 +57,23 @@ public class RootLayoutController extends Controller{
     }
 
 
-    public void onBtnDriversView(ActionEvent actionEvent) {
+    public void onBtnDriversView() {
         TaxiApplication.showDriversView();
         resultArea.setText("Drivers Database View");
     }
 
-    public void onBtnCarsView(ActionEvent actionEvent) {
+    public void onBtnCarsView() {
         TaxiApplication.showCarsView();
         resultArea.setText("Cars Database View");
     }
 
-    public void onBtnRidesByClient(ActionEvent actionEvent) {
+    public void onBtnRidesByClient() {
         TaxiApplication.showRidesByClientView();
         resultArea.setText("Rides by Client View");
     }
 
     public void onBtnCalendarView() {
-        TaxiApplication.showCalendarView("CalendarDayView.fxml");
+        TaxiApplication.showCalendarView("fxml/calendar/CalendarDayView.fxml");
     }
 
 }

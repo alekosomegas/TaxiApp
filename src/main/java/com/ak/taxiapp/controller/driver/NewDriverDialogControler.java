@@ -1,6 +1,6 @@
 package com.ak.taxiapp.controller.driver;
 
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.driver.DriverDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;

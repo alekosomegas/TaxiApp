@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefWidth="850.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.driver.DriversViewController">
+   <children>
+      <VBox prefWidth="850.0" spacing="5.0">
+         <children>
+            <HBox prefWidth="850.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onNewDriverClicked" prefHeight="35.0" prefWidth="120.0" text="New Driver" />
+                  <Button mnemonicParsing="false" onAction="#deleteSelectedDriver" prefHeight="35.0" prefWidth="120.0" text="Delete Driver" />
+                  <Button mnemonicParsing="false" onAction="#onEditClicked" prefHeight="35.0" prefWidth="120.0" text="Edit Driver" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <TableView fx:id="driversTable" onMouseClicked="#selectDriver">
+                    <columns>
+                      <TableColumn fx:id="driverIdCol" prefWidth="35.0" text="Id" />
+                      <TableColumn fx:id="driversNameCol" prefWidth="247.99999237060547" text="Name" />
+                        <TableColumn fx:id="driversCarCol" minWidth="0.0" prefWidth="326.2222595214844" text="Car" />
+                        <TableColumn fx:id="driversColorCol" prefWidth="75.0" text="Color" />
+                    </columns>
+                  </TableView>
+                  <VBox fx:id="vbColors" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

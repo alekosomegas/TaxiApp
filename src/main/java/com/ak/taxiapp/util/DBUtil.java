@@ -7,6 +7,7 @@ public class DBUtil {
     private static final String DATABASE_USERNAME  = "root";
     private static final String DATABASE_PASSWORD  = "2121";
 
+
     private static Connection conn = null;
 
     public static void dbConnect() throws SQLException {

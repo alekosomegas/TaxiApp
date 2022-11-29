@@ -7,6 +7,7 @@ import com.ak.taxiapp.controller.driver.NewDriverDialogControler;
 import com.ak.taxiapp.controller.invoice.NewInvoiceDialogController;
 import com.ak.taxiapp.controller.ride.NewRideDialogController;
 import com.ak.taxiapp.model.invoice.Invoice;
+import com.ak.taxiapp.util.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -46,7 +47,7 @@ public class TaxiApplication extends Application {
         try {
             //First, load root layout from RootLayout.fxml
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("RootLayout.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("fxml/RootLayout.fxml"));
             rootLayout = loader.load();
             rootLayoutController = loader.getController();
             //Second, show the scene containing the root layout.
@@ -79,23 +80,24 @@ public class TaxiApplication extends Application {
         and returns its controller instance.
      */
     public static void showClientDbView() {
-        show("ClientDbView.fxml");
+        show("fxml/client/ClientDbView.fxml");
     }
 
     public static void showRidesView() {
-        show("RidesView.fxml");
+        show("fxml/ride/RidesView.fxml");
+
     }
 
     public static void showDriversView() {
-        show("DriversView.fxml");
+        show("fxml/driver/DriversView.fxml");
     }
 
     public static void showCarsView() {
-        show("CarsView.fxml");
+        show("fxml/car/CarsView.fxml");
     }
 
     public static void showRidesByClientView() {
-        show("RidesByClientView.fxml");
+        show("fxml/ride/RidesByClientView.fxml");
     }
 
     public static void showCalendarView(String view) {show(view);}
@@ -136,14 +138,14 @@ public class TaxiApplication extends Application {
     }
 
     public static void showNewRideDialog() {
-        showDialog("NewRideDialog.fxml");
+        showDialog("fxml/ride/NewRideDialog.fxml");
         showRidesView();
     }
 
     public static int showNewClientDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("NewClientDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("fxml/client/NewClientDialog.fxml"));
             DialogPane dialogPane = loader.load();
 
             Dialog<ButtonType> dialog = new Dialog<>();
@@ -164,14 +166,14 @@ public class TaxiApplication extends Application {
     }
 
     public static void showNewCarDialog() {
-        showDialog("NewCarDialog.fxml");
+        showDialog("fxml/car/NewCarDialog.fxml");
         showCarsView();
     }
     // UPDATE CAR
     public static void showEditCarDialog(HashMap<String,String> values) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("NewCarDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("fxml/car/NewCarDialog.fxml"));
             DialogPane dialogPane = loader.load();
             NewCarDialogController controller = loader.getController();
             controller.setValues(values);
@@ -193,7 +195,7 @@ public class TaxiApplication extends Application {
     public static void showEditDriverDialog(HashMap<String,String> values) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("NewDriverDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("fxml/driver/NewDriverDialog.fxml"));
             DialogPane dialogPane = loader.load();
             NewDriverDialogControler controller = loader.getController();
             controller.setValues(values);
@@ -214,7 +216,7 @@ public class TaxiApplication extends Application {
     public static void showEditClientDialog(HashMap<String,String> values) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("NewClientDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("fxml/client/NewClientDialog.fxml"));
             DialogPane dialogPane = loader.load();
             NewClientDialogController controller = loader.getController();
             controller.setValues(values);
@@ -236,7 +238,7 @@ public class TaxiApplication extends Application {
     public static void showEditRideDialog(HashMap<String,String> values) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("NewRideDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("fxml/ride/NewRideDialog.fxml"));
             DialogPane dialogPane = loader.load();
             NewRideDialogController controller = loader.getController();
             controller.setValues(values);
@@ -257,7 +259,7 @@ public class TaxiApplication extends Application {
     public static void showNewDriverDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("NewDriverDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("fxml/driver/NewDriverDialog.fxml"));
             DialogPane dialogPane = loader.load();
 
             Dialog<ButtonType> dialog = new Dialog<>();
@@ -278,7 +280,7 @@ public class TaxiApplication extends Application {
     public static void showNewInvoice(Invoice invoice) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("NewInvoiceDialog.fxml"));
+            loader.setLocation(TaxiApplication.class.getResource("fxml/invoice/NewInvoiceDialog.fxml"));
             DialogPane dialogPane = loader.load();
 
             Dialog<ButtonType> dialog = new Dialog<>();

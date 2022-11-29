@@ -1,5 +1,6 @@
-package com.ak.taxiapp.controller;
+package com.ak.taxiapp.util;
 
+import com.ak.taxiapp.controller.RootLayoutController;
 import javafx.fxml.Initializable;
 
 import java.net.URL;

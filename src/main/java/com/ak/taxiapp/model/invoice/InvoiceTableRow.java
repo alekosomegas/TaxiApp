@@ -4,8 +4,6 @@ package com.ak.taxiapp.model.invoice;
 
 import com.ak.taxiapp.model.ride.Ride;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
@@ -18,6 +16,7 @@ public class InvoiceTableRow {
     // ------------------------------------------------------------------ //
     //region// ---------------------------- VARIABLES --------------------------- //
 
+    private IntegerProperty id;
     private StringProperty date;
     private StringProperty passenger;
     private StringProperty from;
@@ -25,6 +24,9 @@ public class InvoiceTableRow {
     private StringProperty to;
     private IntegerProperty price;
     private StringProperty notes;
+
+    private IntegerProperty fkRideId;
+    private Ride ride;
 
     //endregion
     // ------------------------------------------------------------------ //
@@ -40,13 +42,13 @@ public class InvoiceTableRow {
         this.price = ride.ridesTotalProperty();
         this.notes = ride.ridesNotesProperty();
 
-        allData.add(String.valueOf(date));
-        allData.add(String.valueOf(passenger));
-        allData.add(String.valueOf(from));
-        allData.add(String.valueOf(stops));
-        allData.add(String.valueOf(to));
-        allData.add(String.valueOf(price));
-        allData.add(String.valueOf(notes));
+        allData.add(getDate());
+        allData.add(getPassenger());
+        allData.add(getFrom());
+        allData.add(getStops());
+        allData.add(getTo());
+        allData.add(String.valueOf(getPrice()));
+        allData.add(getNotes());
     }
 
 
@@ -109,7 +111,67 @@ public class InvoiceTableRow {
         return notes.get();
     }
 
+    public Ride getRide() {
+        return ride;
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public int getFkRideId() {
+        return fkRideId.get();
+    }
+
+    public IntegerProperty fkRideIdProperty() {
+        return fkRideId;
+    }
+
     public StringProperty notesProperty() {
         return notes;
+    }
+
+    public void setDate(String date) {
+        this.date.set(date);
+    }
+
+    public void setPassenger(String passenger) {
+        this.passenger.set(passenger);
+    }
+
+    public void setFrom(String from) {
+        this.from.set(from);
+    }
+
+    public void setStops(String stops) {
+        this.stops.set(stops);
+    }
+
+    public void setTo(String to) {
+        this.to.set(to);
+    }
+
+    public void setPrice(int price) {
+        this.price.set(price);
+    }
+
+    public void setNotes(String notes) {
+        this.notes.set(notes);
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
+    }
+
+    public void setRide(Ride ride) {
+        this.ride = ride;
+    }
+
+    public void setFkRideId(int fkRideId) {
+        this.fkRideId.set(fkRideId);
     }
 }

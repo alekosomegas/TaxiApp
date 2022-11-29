@@ -1,7 +1,7 @@
 package com.ak.taxiapp.controller.calendar;
 
 import com.ak.taxiapp.TaxiApplication;
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -68,7 +68,7 @@ public class CalendarWeekViewController extends Controller {
     }
 
     public void onbtnDayClicked() {
-        TaxiApplication.showCalendarView("CalendarDayView.fxml");
+        TaxiApplication.showCalendarView("fxml/calendar/CalendarDayView.fxml");
     }
 
     public void onbtnMonthClicked() {

@@ -7,7 +7,6 @@ import com.ak.taxiapp.model.ride.Ride;
 import javafx.collections.ObservableList;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 // endregion

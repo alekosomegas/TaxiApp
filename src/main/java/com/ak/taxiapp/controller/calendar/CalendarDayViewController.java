@@ -3,7 +3,7 @@ package com.ak.taxiapp.controller.calendar;
 //region// ----------------------------- IMPORTS ---------------------------- //
 
 import com.ak.taxiapp.TaxiApplication;
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.model.ride.RideDAO;
 import com.ak.taxiapp.model.calendar.*;
@@ -234,7 +234,7 @@ public class CalendarDayViewController extends Controller {
 
     // ------------------------------------------------------------------ //
     public void onbtnWeekClicked() {
-        TaxiApplication.showCalendarView("CalendarWeekView.fxml");
+        TaxiApplication.showCalendarView("fxml/calendar/CalendarWeekView.fxml");
     }
 
     // ------------------------------------------------------------------ //

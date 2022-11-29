@@ -3,7 +3,7 @@ package com.ak.taxiapp.model.calendar;
 //region// ----------------------------- IMPORTS ---------------------------- //
 
 import com.ak.taxiapp.controller.calendar.CalendarDayViewController;
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 import javafx.scene.control.Label;
 
 import java.time.LocalDate;

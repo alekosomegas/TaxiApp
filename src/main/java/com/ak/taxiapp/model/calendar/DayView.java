@@ -3,7 +3,7 @@ package com.ak.taxiapp.model.calendar;
 //region// ----------------------------- IMPORTS ---------------------------- //
 
 import com.ak.taxiapp.controller.calendar.CalendarDayViewController;
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 
 import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.model.ride.RideDAO;

@@ -73,9 +73,6 @@ public class RideDAO {
     // ------------------------------------------------------------------ //
     //region// ---------------------- SQL QUERIES METHODS ----------------------- //
 
-
-
-    // ------------------------------------------------------------------ //
     /**
      * Selects all the data/rows(result set) from the rides' table in the database.
      * Calls the getRidesList to create a ride object for each result of the SQL query.
@@ -163,8 +160,6 @@ public class RideDAO {
                             +ridesCredit+ "', '"
                             +ridesNotes+ "', '"
                             +ridesPassenger+ "'";
-
-        System.out.println(ridesPassenger);
 
         String updateStatement =
                 "INSERT INTO rides (RIDES_DATE, RIDES_TIME_START, RIDES_TIME_END, " +

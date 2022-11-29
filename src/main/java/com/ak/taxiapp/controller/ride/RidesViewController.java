@@ -3,7 +3,7 @@ package com.ak.taxiapp.controller.ride;
 //region// ----------------------------- IMPORTS ---------------------------- //
 
 import com.ak.taxiapp.TaxiApplication;
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.model.ride.RideDAO;
 import javafx.collections.ObservableList;

@@ -3,7 +3,7 @@ package com.ak.taxiapp.controller.ride;
 // ------------------------------------------------------------------ //
 //region// ----------------------------- IMPORTS ---------------------------- //
 
-import com.ak.taxiapp.controller.Controller;
+import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.car.Car;
 import com.ak.taxiapp.model.car.CarDAO;
 import com.ak.taxiapp.model.client.Client;
