@@ -300,6 +300,20 @@ public class RideDAO {
         return "ERROR";
     }
 
+    public static ObservableList<Ride> searchById(String ridesId) throws SQLException {
+        String selectStatement = "SELECT * FROM rides WHERE RIDES_ID = " + "'" +ridesId+"'";
+        try {
+            ResultSet rs = DBUtil.dbExecuteQuery(selectStatement);
+            //Send ResultSet to the getClientList method and get client object
+            ObservableList<Ride> ridesList = getRidesList(rs);
+
+            return ridesList;
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has failed: " + e);
+            throw e;
+        }
+    }
+
     //endregion
     // ------------------------------------------------------------------ //
 

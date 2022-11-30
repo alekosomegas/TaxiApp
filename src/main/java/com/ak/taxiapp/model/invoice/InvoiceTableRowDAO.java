@@ -59,13 +59,13 @@ public class InvoiceTableRowDAO {
         return list;
     }
 
-    public static void insert(Integer invoiceId, String invoiceDate, Integer invoiceRideId) {
-        String values = "'" +invoiceId+ "', "
-                            +invoiceDate+ "', "
-                            +invoiceRideId+ "'";
+    public static void insert(String invoiceId, String invoiceDate, String invoiceRideIds) {
+        String values = "'" +invoiceId+ "', '"
+                            +invoiceDate+ "', '"
+                            +invoiceRideIds+ "'";
 
         String updateStatement =
-                "INSERT INTO invoices (INVOICE_ID, INVOICE_DATE, INVOICE_RIDE_ID" +
+                "INSERT INTO invoices (INVOICES_ID, INVOICES_DATE, INVOICES_RIDES_IDS)" +
                         " VALUES (" +values+ ");";
         try {
             DBUtil.dbExecuteUpdate(updateStatement);
@@ -77,7 +77,7 @@ public class InvoiceTableRowDAO {
     public static void update(HashMap<String, String> values) {
         String updateStatement = "UPDATE invoice SET " +
                 " INVOICE_DATE = " + "'" +values.get("invoiceDateCol")+ "'" +
-                " INVOICE_RIDE_ID" + "'" +values.get("invoiceRideCol") + "';";
+                " INVOICE_RIDES_ID" + "'" +values.get("invoiceRideCol") + "';";
 
         try {
             DBUtil.dbExecuteUpdate(updateStatement);
@@ -87,9 +87,9 @@ public class InvoiceTableRowDAO {
     }
 
     private static void setValuesFromRsData(ResultSet resultSet, InvoiceTableRow invoiceTableRow) throws SQLException {
-        invoiceTableRow.setId(resultSet.getInt("INVOICE_ID"));
+//        invoiceTableRow.setId(resultSet.getInt("INVOICE_ID"));
         invoiceTableRow.setDate(resultSet.getString("INVOICE_DATE"));
-        invoiceTableRow.setFkRideId(resultSet.getInt("INVOICE_RIDE_ID"));
+        invoiceTableRow.setFkRideId(resultSet.getInt("INVOICE_RIDES_IDS"));
     }
 
     }

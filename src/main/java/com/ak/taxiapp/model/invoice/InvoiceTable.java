@@ -94,6 +94,20 @@ public class InvoiceTable {
         return total;
     }
 
+    public static Integer findTotal(ObservableList<Ride> allRides) {
+        int total = 0;
+        for (Ride ride : allRides) {
+            total += ride.getRidesTotal();
+        }
+        return total;
+    }
 
 
+    public String getRidesIds() {
+        StringBuilder ids = new StringBuilder();
+        for (InvoiceTableRow row : getAllRows()) {
+            ids.append(row.getFkRideId() + " ");
+        }
+        return ids.toString();
+    }
 }

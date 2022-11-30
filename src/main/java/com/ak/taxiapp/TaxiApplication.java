@@ -102,6 +102,8 @@ public class TaxiApplication extends Application {
 
     public static void showCalendarView(String view) {show(view);}
 
+    public static void showInvoicesView() {show("fxml/invoice/InvoiceView.fxml");}
+
 
     private static void showAndWaitNewDialog(Optional<ButtonType> result, FXMLLoader loader, Dialog<ButtonType> dialog) throws SQLException {
         if (result.get() == ButtonType.OK) {

@@ -1,5 +1,6 @@
 package com.ak.taxiapp.controller.invoice;
 
+import com.ak.taxiapp.model.invoice.InvoiceTableRowDAO;
 import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.calendar.CalendarModel;
 import com.ak.taxiapp.model.invoice.Invoice;
@@ -69,6 +70,11 @@ public class NewInvoiceDialogController extends Controller {
     @Override
     public void insert() throws Exception {
         onDateAction();
+        try {
+            InvoiceTableRowDAO.insert(invoice.getId(), invoice.getDateString(), invoiceTable.getRidesIds());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         new GeneratePDF(invoice);
     }
 

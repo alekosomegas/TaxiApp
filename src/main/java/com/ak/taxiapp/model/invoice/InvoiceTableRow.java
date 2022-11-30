@@ -4,6 +4,7 @@ package com.ak.taxiapp.model.invoice;
 
 import com.ak.taxiapp.model.ride.Ride;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
@@ -16,7 +17,6 @@ public class InvoiceTableRow {
     // ------------------------------------------------------------------ //
     //region// ---------------------------- VARIABLES --------------------------- //
 
-    private IntegerProperty id;
     private StringProperty date;
     private StringProperty passenger;
     private StringProperty from;
@@ -25,7 +25,7 @@ public class InvoiceTableRow {
     private IntegerProperty price;
     private StringProperty notes;
 
-    private IntegerProperty fkRideId;
+    private IntegerProperty fkRideId = new SimpleIntegerProperty();
     private Ride ride;
 
     //endregion
@@ -41,6 +41,7 @@ public class InvoiceTableRow {
         this.to = ride.ridesToProperty();
         this.price = ride.ridesTotalProperty();
         this.notes = ride.ridesNotesProperty();
+        this.fkRideId.setValue(ride.getRides_id());
 
         allData.add(getDate());
         allData.add(getPassenger());
@@ -115,14 +116,6 @@ public class InvoiceTableRow {
         return ride;
     }
 
-    public int getId() {
-        return id.get();
-    }
-
-    public IntegerProperty idProperty() {
-        return id;
-    }
-
     public int getFkRideId() {
         return fkRideId.get();
     }
@@ -161,10 +154,6 @@ public class InvoiceTableRow {
 
     public void setNotes(String notes) {
         this.notes.set(notes);
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
     }
 
     public void setRide(Ride ride) {

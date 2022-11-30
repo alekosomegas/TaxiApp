@@ -76,4 +76,7 @@ public class RootLayoutController extends Controller {
         TaxiApplication.showCalendarView("fxml/calendar/CalendarDayView.fxml");
     }
 
+    public void onBtnInvoicesView() {
+        TaxiApplication.showInvoicesView();
+    }
 }
