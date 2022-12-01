@@ -48,8 +48,8 @@ public class InvoiceTableRow {
         allData.add(getFrom());
         allData.add(getStops());
         allData.add(getTo());
-        allData.add(String.valueOf(getPrice()));
         allData.add(getNotes());
+        allData.add(String.valueOf(getPrice()));
     }
 
 

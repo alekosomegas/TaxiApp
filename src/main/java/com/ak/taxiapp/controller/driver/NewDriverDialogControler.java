@@ -46,4 +46,5 @@ public class NewDriverDialogControler extends Controller {
         selectedDriverValues.put("driversColorCol", cpColorPicker.getValue().toString());
         DriverDAO.update(selectedDriverValues);
     }
+
 }

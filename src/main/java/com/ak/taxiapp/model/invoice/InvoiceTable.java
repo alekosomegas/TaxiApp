@@ -20,7 +20,7 @@ public class InvoiceTable {
     //region// ---------------------------- VARIABLES --------------------------- //
 
     private final ArrayList<String> HEADERS = new ArrayList<>(Arrays.asList(
-            "Date", "Passenger", "From", "Stops", "To", "Price", "Notes"));
+            "Date", "Passenger", "From", "Stops", "To", "Notes", "Price"));
 
 //    private int numOfRows;
     private ObservableList<InvoiceTableRow> allRows = FXCollections.observableArrayList();

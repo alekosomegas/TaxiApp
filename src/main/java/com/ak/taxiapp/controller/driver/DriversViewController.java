@@ -5,11 +5,17 @@ import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.driver.Driver;
 import com.ak.taxiapp.model.driver.DriverDAO;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.effect.ColorInput;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Callback;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -26,19 +32,28 @@ public class DriversViewController extends Controller {
 
     @FXML
     private void initialize() throws SQLException {
+        driversTable.setEditable(true);
         driverIdCol.setCellValueFactory(cellData -> cellData.getValue().driver_idProperty().asObject());
         driversNameCol.setCellValueFactory(cellData -> cellData.getValue().driver_nameProperty());
         driversCarCol.setCellValueFactory(cellData -> cellData.getValue().driver_carProperty().asObject());
         driversColorCol.setCellValueFactory(cellData -> cellData.getValue().driver_colorProperty());
+
+        driversColorCol.setCellFactory(new Callback<TableColumn<Driver, String>, TableCell<Driver, String>>() {
+            @Override
+            public TableCell<Driver, String> call(TableColumn<Driver, String> driverStringTableColumn) {
+                return new TableCell<Driver, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (!empty) {
+                            int index = indexProperty().getValue() < 0 ? 0 : indexProperty().getValue();
+                            String col = driverStringTableColumn.getTableView().getItems().get(index).getDriver_color();
+                            setStyle("-fx-background-color: " + col.replace("0x", "#"));
+                        }
+                    }
+                };
+            }
+        });
         search();
-
-        int rows = driversTable.getItems().size();
-        for (int i = 0; i < rows; i++) {
-            Rectangle rec = new Rectangle(15,15,Color.valueOf(driversColorCol.getCellData(i)));
-            vbColors.getChildren().add(rec);
-            rec.setTranslateY(25);
-
-        }
 
     }
 
