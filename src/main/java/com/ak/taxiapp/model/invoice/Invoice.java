@@ -142,6 +142,10 @@ public class Invoice {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         return formatter.format(date);
     }
+    public String getDatePrint() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(date);
+    }
 
     public String getYearString() {
         return String.valueOf(date.getYear() + 1900);

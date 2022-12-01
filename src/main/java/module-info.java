@@ -6,6 +6,7 @@ module com.ak.taxiapp {
     requires org.jetbrains.annotations;
     requires layout;
     requires kernel;
+    requires io;
 
 
     opens com.ak.taxiapp to javafx.fxml;
