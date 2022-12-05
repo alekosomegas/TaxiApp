@@ -78,7 +78,7 @@ public class CalendarModel {
      * Calendar's first day of the week is Sunday, ind =1. This method adjusts
      * the values so Monday will be ind=1 and Sunday ind =6 etc.
      * @param i Calendar.DAY_OF_THE_WEEK
-     * @return correct index when monday ois first day of the week instead of sun
+     * @return correct index where monday as first day of the week instead of sunday
      */
     private int adjustDayIndex(int i) {
         if (i == 1) { return 6;
@@ -95,6 +95,16 @@ public class CalendarModel {
         Date prevDate = calendar.getTime();
         LocalDate date;
         setSelectedDate(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DATE));
+        date = getSelectedDate();
+        calendar.setTime(prevDate);
+        return date;
+    }
+
+    public LocalDate getMondayOfSelectedWeek() {
+        Date prevDate = calendar.getTime();
+        LocalDate date;
+        // remove the number od days form monday
+        calendar.add(Calendar.DAY_OF_MONTH, -adjustDayIndex(calendar.get(Calendar.DAY_OF_WEEK)));
         date = getSelectedDate();
         calendar.setTime(prevDate);
         return date;

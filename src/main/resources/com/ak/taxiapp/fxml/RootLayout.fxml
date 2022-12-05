@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,13 +8,173 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bpRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.RootLayoutController">
+<BorderPane fx:id="bpRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="900.0" prefWidth="1400.0" stylesheets="@../style/stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.RootLayoutController">
+   <bottom>
+      <AnchorPane prefHeight="25.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <left>
+      <AnchorPane BorderPane.alignment="TOP_LEFT">
+         <children>
+            <HBox>
+               <children>
+                  <VBox prefWidth="220.0" styleClass="side_bar">
+                     <children>
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="145.0" prefWidth="220.0">
+                           <children>
+                              <ImageView fx:id="ivLogo" fitHeight="70.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/sidebar/company_logo_inversed.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane layoutX="20.0" layoutY="10.0" prefHeight="6.0" prefWidth="210.0" />
+                              <Label style="-fx-font-weight: 900;" text="Allure" textFill="WHITE">
+                                 <font>
+                                    <Font name="Roboto Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label opacity="0.6" text="Taxi" textFill="WHITE">
+                                 <font>
+                                    <Font name="Roboto" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                        <Separator prefHeight="10.0" prefWidth="200.0" />
+                        <Button fx:id="dashboardViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnDashboardView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button--selected" text="Dashboard">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/sidebar_selected/baseline-home-24px.png" />
+                                 </image>
+                                 <styleClass>
+                                    <String fx:value="side_bar__button__icon" />
+                                    <String fx:value="side_bar__button__icon--selected" />
+                                 </styleClass>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Roboto" size="12.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button fx:id="calendarViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnCalendarView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Calendar" textAlignment="JUSTIFY">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/baseline-event-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="ridesViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnRidesView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Rides">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/baseline-swap_calls-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="expensesViewBtn" graphicTextGap="30.0" layoutX="20.0" layoutY="1212.0" mnemonicParsing="false" onAction="#onBtnExpensesView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Expenses">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/baseline-account_balance_wallet-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="invoicesViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnInvoicesView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Invoices">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/baseline-description-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="fleetViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnCarsView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Fleet">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/baseline-build-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="clientsViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnClientsView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Clients">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/baseline-supervisor_account-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="driversViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnDriversView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Drivers">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/baseline-local_taxi-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="reportsViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnReportsView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Reports">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/baseline-assessment-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button graphicTextGap="2.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="210.0" styleClass="side_bar__button" text="Rides by Driver" visible="false" />
+                        <Button fx:id="BtnRidesByClient" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onBtnRidesByClient" prefHeight="45.0" prefWidth="210.0" styleClass="side_bar__button" text="Rides by Client" visible="false" />
+                        <Pane prefHeight="20.0" />
+                        <Button fx:id="databaseViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnDatabaseView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Database">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/baseline-dns-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="settingsViewBtn" graphicTextGap="30.0" mnemonicParsing="false" onAction="#onBtnSettingsView" prefHeight="45.0" prefWidth="220.0" styleClass="side_bar__button" text="Settings">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="side_bar__button__icon">
+                                 <image>
+                                    <Image url="@../icons/sidebar/icon-action-settings_24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Pane layoutX="10.0" layoutY="764.0" prefHeight="110.0" prefWidth="220.0" />
+                     </children>
+                  </VBox>
+                  <Pane prefWidth="50.0" styleClass="side_bar__divider" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </left>
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar maxHeight="25.0" prefHeight="25.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -33,30 +194,7 @@
         </menus>
       </MenuBar>
    </top>
-   <left>
-      <Pane maxWidth="150.0" minWidth="150.0" prefWidth="150.0" styleClass="bg-grey" BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0">
-               <children>
-                  <Button fx:id="ridesViewBtn" mnemonicParsing="false" onAction="#onBtnRidesView" prefHeight="25.0" prefWidth="150.0" text="Rides " />
-                  <Button fx:id="clientsViewBtn" mnemonicParsing="false" onAction="#onBtnClientsView" prefWidth="150.0" text="Clients" />
-                  <Button fx:id="CarsViewBtn" mnemonicParsing="false" onAction="#onBtnCarsView" prefWidth="150.0" text="Cars" />
-                  <Button fx:id="driversViewBtn" mnemonicParsing="false" onAction="#onBtnDriversView" prefHeight="25.0" prefWidth="150.0" text="Drivers" />
-                  <Separator prefWidth="200.0" />
-                  <Button fx:id="BtnRidesByClient" mnemonicParsing="false" onAction="#onBtnRidesByClient" prefHeight="25.0" prefWidth="150.0" text="Rides by Client" />
-                  <Button layoutX="20.0" layoutY="149.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Rides by Driver" />
-                  <Separator layoutX="20.0" layoutY="141.0" prefWidth="200.0" />
-                  <Button fx:id="BtnCalendar" layoutX="20.0" layoutY="149.0" mnemonicParsing="false" onAction="#onBtnCalendarView" prefHeight="25.0" prefWidth="150.0" text="Calendar" />
-                  <Button fx:id="BtnInvoices" layoutX="20.0" layoutY="218.0" mnemonicParsing="false" onAction="#onBtnInvoicesView" prefHeight="25.0" prefWidth="150.0" text="Invoices" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </VBox>
-         </children>
-      </Pane>
-   </left>
-   <bottom>
-      <Label fx:id="resultArea" text="Label" BorderPane.alignment="CENTER" />
-   </bottom>
+   <right>
+      <AnchorPane prefWidth="50.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>

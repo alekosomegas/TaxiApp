@@ -76,6 +76,7 @@ public class MiniMonthCalendar extends CalendarComponent{
         for (int j = 1; j < 7; j++) {
             for (int i = 0; i < 7; i++) {
                 Label label = new Label();
+                label.getStyleClass().add("mini_calendar--text");
                 MonthLabel monthLabel = new MonthLabel(label, i, j);
                 monthLabelAList.add(monthLabel);
 
@@ -122,6 +123,7 @@ public class MiniMonthCalendar extends CalendarComponent{
             // if the label is the first of the last row set the deleteLastRow to true
             if (isFirstDayOfLastRow(lastDay, monthLabel) || deleteLastRow) {
                 deleteLastRow = true;
+                //TODO:fix
                 monthLabel.removeAllStyles();
                 monthLabel.getLabel().setText(" ");
             }
@@ -130,6 +132,7 @@ public class MiniMonthCalendar extends CalendarComponent{
         // return to previous selected date, keep in current month, so it's easier to change month
         displayedCalendar.getCalendar().setTime(prevDate);
         updateMiniMonthLabels(0,0);
+        highlightSelectedWeek();
     }
 
     // ------------------------------------------------------------------ //
@@ -162,7 +165,7 @@ public class MiniMonthCalendar extends CalendarComponent{
      */
     private void setStyleIfToday(MonthLabel monthLabel) {
         if (monthLabel.getDate().compareTo(calendarModel.getTodayDate()) == 0) {
-            monthLabel.getLabel().getStyleClass().add("today");
+            monthLabel.getLabel().getStyleClass().add("mini_calendar--today");
         }
     }
 
@@ -173,7 +176,7 @@ public class MiniMonthCalendar extends CalendarComponent{
     private void setStyleForOtherMonthLabels(
             LocalDate firstDay, LocalDate lastDay, MonthLabel monthLabel) {
         if (isOtherMonth(firstDay,lastDay,monthLabel)) {
-            monthLabel.getLabel().getStyleClass().add("otherMonth");
+            monthLabel.getLabel().getStyleClass().add("mini_calendar--other_month");
         }
     }
 
@@ -230,9 +233,9 @@ public class MiniMonthCalendar extends CalendarComponent{
         // sets the selection to today, when is used the first time
         if(selectedMonthLabel == null) {
             selectedMonthLabel = monthLabel;}
-        selectedMonthLabel.getLabel().getStyleClass().remove("selectedDay");
+        selectedMonthLabel.getLabel().getStyleClass().remove("mini_calendar--selected_day");
         selectedMonthLabel = monthLabel;
-        selectedMonthLabel.getLabel().getStyleClass().add("selectedDay");
+        selectedMonthLabel.getLabel().getStyleClass().add("mini_calendar--selected_day");
     }
 
     // ------------------------------------------------------------------ //
@@ -261,15 +264,20 @@ public class MiniMonthCalendar extends CalendarComponent{
         for (int i = 0; i < 7; i++) {
             monthLabelAList.get(
                             monthLabelAList.indexOf(selectedWeekMondayMothLabel) + i)
-                    .getLabel().getStyleClass().remove("selectedWeek");
+                    .getLabel().getStyleClass().remove("mini_calendar--selected_week");
         }
         // sets the new selection
         selectedWeekMondayMothLabel = findMondayOfSelectedWeek();
+        //Only if the date of the month label monday is the same of the week display date
+        if (selectedWeekMondayMothLabel.getDate().compareTo(
+                calendarModel.getMondayOfSelectedWeek()) != 0 ){
+                return;
+        }
         // adds the style to the new selected monday and +6 days
         for (int i = 0; i < 7; i++) {
             monthLabelAList.get(
                             monthLabelAList.indexOf(selectedWeekMondayMothLabel) + i)
-                    .getLabel().getStyleClass().add("selectedWeek");
+                    .getLabel().getStyleClass().add("mini_calendar--selected_week");
         }
     }
 

@@ -4,6 +4,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+
 //TODO:TIDY
 public class WeekButton {
 
@@ -16,7 +18,7 @@ public class WeekButton {
         this.index = index;
         this.toggleButton = toggleButton;
         this.toggleButton.setToggleGroup(toggleGroup);
-
+        this.toggleButton.getStyleClass().add("week_display__button");
 //        toggleButton.setText(date.getDayOfWeek().toString());
     }
 
@@ -25,6 +27,11 @@ public class WeekButton {
     }
 
     public void setDate(LocalDate date) {
+        if (date.isEqual(LocalDate.now())) {
+            toggleButton.getStyleClass().add("week_display__button--today");
+        } else {
+            toggleButton.getStyleClass().remove("week_display__button--today");
+        }
         this.date = date;
     }
     public ToggleButton getToggleButton() {
@@ -32,9 +39,12 @@ public class WeekButton {
     }
 
     public void highlight() {
-        toggleButton.getStyleClass().add("selectedDay");
+        toggleButton.getStyleClass().add("week_display__button--selected");
+        toggleButton.getStyleClass().remove("week_display__button");
     }
     public void dehighlight() {
-        toggleButton.getStyleClass().remove("selectedDay");
+        toggleButton.getStyleClass().remove("week_display__button--selected");
+        // prevent hovering over selected button
+        toggleButton.getStyleClass().add("week_display__button");
     }
 }

@@ -76,8 +76,9 @@ public class DayView extends CalendarComponent {
         // create 24 lines and labels
         for (int i = 0; i < 25; i++) {
             Label lblTextHour = new Label();
+            lblTextHour.getStyleClass().add("hour_text");
             Line line = new Line(
-                    0,SPACING*i -ADJFACTSPACING,250,SPACING*i -ADJFACTSPACING);
+                    0,SPACING*i -ADJFACTSPACING,450,SPACING*i -ADJFACTSPACING);
             line.setStroke(Color.LIGHTGRAY);
 
             textHour = ":00";

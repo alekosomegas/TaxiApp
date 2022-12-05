@@ -43,8 +43,12 @@ public class MonthLabel {
         this.row = y;
     }
 
+    /**
+     * Resets to base style only
+     */
     public void removeAllStyles() {
         this.label.getStyleClass().clear();
+        this.label.getStyleClass().add("mini_calendar--text");
     }
 
 }

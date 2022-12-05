@@ -31,6 +31,8 @@ public class TaxiApplication extends Application {
     public static RootLayoutController rootLayoutController;
 
 
+
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         //1) Declare a primary stage (Everything will be on this stage)
@@ -41,8 +43,24 @@ public class TaxiApplication extends Application {
         initRootLayout();
         //3) Display the EmployeeOperations View
 //        showClientDbView();
+        initLayouts();
 
     }
+
+    private void initLayouts() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(TaxiApplication.class.getResource("fxml/calendar/CalendarDayView.fxml"));
+
+            Layouts.layout = loader.load();
+            Layouts.calendarDayViewController = loader.getController();
+            Layouts.calendarDayViewController.setRootLayoutController(rootLayoutController);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void initRootLayout() {
         try {
             //First, load root layout from RootLayout.fxml
@@ -52,11 +70,11 @@ public class TaxiApplication extends Application {
             rootLayoutController = loader.getController();
             //Second, show the scene containing the root layout.
             Scene scene = new Scene(rootLayout); //We are sending rootLayout to the Scene.
-            scene.getStylesheets().add("stylesheet.css");
             primaryStage.setScene(scene); //Set the scene in primary stage.
             //Third, show the primary stage
             primaryStage.show(); //Display the primary stage
         } catch (IOException e) {
+            System.out.println();
             e.printStackTrace();
         }
     }
@@ -100,7 +118,10 @@ public class TaxiApplication extends Application {
         show("fxml/ride/RidesByClientView.fxml");
     }
 
-    public static void showCalendarView(String view) {show(view);}
+    public static void showCalendarView(String view) {
+      rootLayout.setCenter(Layouts.layout);
+//        show(view);
+    }
 
     public static void showInvoicesView() {show("fxml/invoice/InvoiceView.fxml");}
 

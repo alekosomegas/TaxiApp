@@ -85,7 +85,7 @@ public class GeneratePDF {
         PdfCanvas canvas = new PdfCanvas(page);
 
         canvas.setStrokeColor(ColorConstants.DARK_GRAY)
-                .setLineWidth(0.5f)
+                .setLineWidth(1f)
                 .moveTo(leftMargin,100)
                 .lineTo(pageWidth - rightMargin, 100);
 

@@ -1,0 +1,296 @@
+.root {
+  -fx-background-color:  #121212;
+  /*     -fx-background-color: grey;*/
+
+}
+
+/* ------------------------------------------------------------------------
+/* Side Bar
+/* ------------------------------------------------------------------------ */
+.side_bar {
+    -fx-background-color:  #2F2F2F;
+}
+
+.side_bar__divider {
+    -fx-background-color:  #000000;
+}
+
+.side_bar__button {
+    -fx-graphic-text-gap: 40;
+    -fx-background-color:  #2F2F2F;
+    -fx-alignment: center-left;
+    -fx-text-fill: #FFFFFF60;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+    -fx-font-weight: 700;
+}
+
+.side_bar__button--selected {
+    -fx-graphic-text-gap: 40;
+    -fx-background-color:  #BB86FC30;
+    -fx-alignment: center-left;
+    -fx-text-fill: #BB86FC;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+    -fx-font-weight: 700;
+}
+
+.side_bar__button:hover {
+    -fx-background-color:  #3F3F3F;
+}
+
+.side_bar__button__icon {
+    -fx-translate-x: 10;
+    -fx-opacity:  0.6;
+}
+.side_bar__button__icon--selected {
+    -fx-opacity:  1;
+}
+
+.button__primary {
+    -fx-background-color: #BB86FC;
+    -fx-background-radius: 24;
+    -fx-pref-height: 45;
+    -fx-pref-width: 100;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+    -fx-font-weight: 700;
+    -fx-graphic-text-gap: 5;
+}
+
+.button__primary:hover {
+    -fx-background-color: #03DAC5;
+}
+
+.button__secondary {
+    -fx-background-color: #2F2F2F;
+    -fx-background-radius: 24;
+    -fx-border-radius: 24;
+    -fx-border-color: #03DAC5;
+    -fx-pref-height: 45;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+    -fx-font-weight: 700;
+    -fx-text-fill: #03DAC5;
+    -fx-graphic-text-gap: 5;
+}
+.button__secondary:hover {
+    -fx-background-color: #BB86FC20;
+
+}
+
+.tabs {
+    -fx-background-color:  #2F2F2F;
+}
+
+.tabs__button {
+    -fx-background-color:  #2F2F2F;
+    -fx-text-fill: #FFFFFF60;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+    -fx-font-weight: 700;
+    -fx-graphic-text-gap: 10;
+}
+
+.tabs__button--selected {
+    -fx-background-color:  #2F2F2F;
+    -fx-text-fill: #BB86FC;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+    -fx-font-weight: 700;
+    -fx-graphic-text-gap: 10;
+
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #BB86FC;;
+}
+.tabs__button:hover {
+    -fx-background-color:  #3F3F3F;
+}
+
+.pane--container {
+    -fx-background-color:  #2F2F2F;
+    -fx-background-radius: 6;
+}
+
+.small_calendar--button {
+    -fx-background-color: #FFFFFF60;
+    -fx-background-radius: 15em;
+    -fx-min-width: 15;
+    -fx-min-height: 15;
+    -fx-max-width: 15;
+    -fx-max-height: 15;
+}
+
+.small_calendar--button: hover {
+        -fx-background-color: #FFFFFF;
+}
+
+
+
+
+/* ------------------------------------------------------------------------
+/* Mini calendar labels
+/* ------------------------------------------------------------------------ */
+/* base */
+ .mini_calendar--text {
+       -fx-font-family: "Roboto";
+       -fx-text-fill: #FFFFFF80;
+       -fx-font-size: 16;
+       -fx-font-weight: 700;
+       -fx-text-alignment: center;
+       -fx-alignment: center;
+ }
+
+ .mini_calendar--text:hover {
+     -fx-text-fill: white;
+ }
+
+.mini_calendar--other_month {
+    -fx-text-fill: #FFFFFF30;
+}
+
+.mini_calendar--selected_week {
+   -fx-text-fill: #BB86FC60;
+}
+
+.mini_calendar--today {
+    -fx-text-fill: #03DAC5;
+}
+
+.mini_calendar--selected_day {
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+
+        -fx-background-color: #BB86FC;
+        -fx-background-radius: 30em;
+        -fx-min-width: 30;
+        -fx-min-height: 30;
+        -fx-max-width: 30;
+        -fx-max-height: 30;
+    }
+}
+
+/* ------------------------------------------------------------------------ */
+
+
+
+
+
+ .small_calendar_week_text {
+      -fx-font-family: "Roboto";
+      -fx-text-fill: #FFFFFF80;
+      -fx-font-size: 12;
+      -fx-font-weight: 500;
+ }
+
+
+ .month_display{
+     -fx-font-family: "Roboto";
+     -fx-text-fill: #FFFFFF80;
+     -fx-font-size: 24;
+     -fx-font-weight: 800;
+
+ }
+
+
+
+
+/* ------------------------------------------------------------------------
+/* Week Display
+/* ------------------------------------------------------------------------ */
+.week_display__button {
+        -fx-min-width: 40;
+        -fx-min-height: 40;
+        -fx-max-width: 40;
+        -fx-max-height: 40;
+
+    -fx-text-fill: #FFFFFF80;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 11;
+    -fx-font-weight: 700;
+
+    -fx-background-color: #2F2F2F;
+    -fx-background-radius: 6;
+    -fx-border-color: #FFFFFF80;
+    -fx-border-radius: 6;
+}
+
+.week_display__button: hover {
+    -fx-background-color: #BB86FC20;
+}
+.week_display__button: pressed {
+    -fx-background-color: #BB86FC60;
+}
+
+.week_display__button--today {
+    -fx-text-fill: #03DAC5;
+}
+
+.week_display__button--selected {
+        -fx-min-width: 40;
+        -fx-min-height: 40;
+        -fx-max-width: 40;
+        -fx-max-height: 40;
+
+    -fx-text-fill: black;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 11;
+    -fx-font-weight: 700;
+
+    -fx-background-color: #BB86FC;
+    -fx-background-radius: 6;
+    -fx-border-color: #FFFFFF80;
+    -fx-border-radius: 6;
+}
+
+/* ------------------------------------------------------------------------
+/* General
+/* ------------------------------------------------------------------------ */
+
+.text-fill--white {
+    -fx-font-family: "Roboto";
+    -fx-text-fill: white;
+}
+
+.separator:horizontal .line {
+    -fx-background-color: #FFFFFF20;
+    -fx-pref-height: 1;
+    -fx-border-color: null ;
+
+}
+
+
+.page_tittle {
+    -fx-font-family: "Roboto";
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 20;
+    -fx-font-weight: 700;
+ }
+
+ .button: pressed {
+       -fx-background-color: #BB86FC60;
+ }
+
+ /* ------------------------------------------------------------------------
+ /* day view
+ /* ------------------------------------------------------------------------ */
+ /* base */
+ .hour_text {
+     -fx-font-family: "Roboto";
+     -fx-text-fill: #FFFFFF60;
+     -fx-font-size: 11;
+
+ }
+
+ .scroll-bar {
+    -fx-background-color: #2F2F2F;
+ }
+
+.increment-button, .decrement-button, .corner {
+ -fx-opacity: 0;
+}
+
+.thumb {
+    -fx-background-color: #FFFFFF50;
+    -fx-background-radius: 50;
+}

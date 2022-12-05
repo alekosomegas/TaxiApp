@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,153 +18,270 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="850.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.calendar.CalendarDayViewController">
+<AnchorPane prefHeight="850.0" prefWidth="1080.0" stylesheets="@../../style/stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.calendar.CalendarDayViewController">
    <children>
       <VBox spacing="5.0">
          <children>
-            <HBox maxWidth="850.0" minWidth="850.0" prefWidth="850.0" spacing="5.0">
+            <VBox spacing="15.0">
                <children>
-                  <Button fx:id="btnDayView" mnemonicParsing="false" onAction="#onbtnDayClicked" prefHeight="35.0" prefWidth="120.0" text="Day View" />
-                  <Button fx:id="btnWeekView" mnemonicParsing="false" onAction="#onbtnWeekClicked" prefHeight="35.0" prefWidth="120.0" text="Week View" />
-                  <Button fx:id="btnMonthView" mnemonicParsing="false" onAction="#onbtnMonthClicked" prefHeight="35.0" prefWidth="120.0" text="Month View" />
+                  <Label styleClass="page_tittle" text="Calendar Day Planner" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1080.0" styleClass="tabs">
+                     <children>
+                        <Button fx:id="btnDayView" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onbtnDayClicked" prefHeight="75.0" prefWidth="120.0" styleClass="tabs__button--selected" text="DAY" textAlignment="CENTER">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/selected/baseline-calendar_today-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnWeekView" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onbtnWeekClicked" prefHeight="75.0" prefWidth="120.0" styleClass="tabs__button" text="WEEK" textAlignment="CENTER">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/baseline-date_range-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnMonthView" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onbtnMonthClicked" prefHeight="75.0" prefWidth="120.0" styleClass="tabs__button" text="MONTH" textAlignment="CENTER">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/baseline-today-24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
-            <HBox>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </VBox>
+            <HBox prefWidth="1080.0" spacing="15.0">
                <children>
                   <VBox>
                      <children>
-                        <VBox>
+                        <Pane prefHeight="25.0" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="255.0" spacing="55.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onBtnTodayClicked" text="Today" />
-                              <HBox alignment="CENTER" />
+                              <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" styleClass="button__primary" text="NEW" wrapText="true">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/icon-content-add_24px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#onBtnTodayClicked" styleClass="button__secondary" text="Go to Today" />
                            </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="500.0" spacing="15.0">
+                           <children>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="small_calendar_week_text" text="M" textAlignment="CENTER" textFill="#ffffff9a" />
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="small_calendar_week_text" text="T" textAlignment="CENTER" textFill="#ffffff9a" />
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="small_calendar_week_text" text="W" textAlignment="CENTER" textFill="#ffffff9a" />
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="small_calendar_week_text" text="T" textAlignment="CENTER" textFill="#ffffff9a" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="small_calendar_week_text" text="F" textAlignment="CENTER" textFill="#ffffff9a" />
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="small_calendar_week_text" text="S" textAlignment="CENTER" textFill="#ffffff9a" />
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="small_calendar_week_text" text="S" textAlignment="CENTER" textFill="#ffffff9a" />
+                           </children>
+                        </HBox>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="500.0" styleClass="pane--container">
+                           <children>
+                              <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="500.0" spacing="30.0">
+                                 <children>
+                                    <Button fx:id="btnPrev" mnemonicParsing="false" onAction="#onPrevWeekClicked" styleClass="small_calendar--button">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/baseline-arrow_left-24px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <HBox fx:id="hbDayBtns" alignment="CENTER" spacing="15.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </HBox>
+                                    <Button fx:id="btnNext" mnemonicParsing="false" onAction="#onNextWeekClicked" styleClass="small_calendar--button">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/baseline-arrow_right-24px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox spacing="15.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="255.0" styleClass="pane--container">
+                           <children>
+                              <Label fx:id="lblSelectedDay" alignment="CENTER" contentDisplay="CENTER" styleClass="text-fill--white" text="Day, date month year" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="255.0" spacing="5.0" styleClass="pane--container">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#onPrevMonth" styleClass="small_calendar--button">
+                                             <font>
+                                                <Font size="8.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../icons/baseline-arrow_left-24px.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Label fx:id="lblMonth" alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Month" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                             <styleClass>
+                                                <String fx:value="mini_calendar--text" />
+                                                <String fx:value="text-fill--white" />
+                                             </styleClass>
+                                          </Label>
+                                          <Button mnemonicParsing="false" onAction="#onNextMonth" styleClass="small_calendar--button">
+                                             <font>
+                                                <Font size="8.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../icons/baseline-arrow_right-24px.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#onPrevYear" styleClass="small_calendar--button">
+                                             <font>
+                                                <Font size="8.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../icons/baseline-arrow_left-24px.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Label fx:id="lblYear" alignment="CENTER" prefWidth="80.0" text="Year" textFill="WHITE">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                             <styleClass>
+                                                <String fx:value="mini_calendar--text" />
+                                                <String fx:value="text-fill--white" />
+                                             </styleClass>
+                                          </Label>
+                                          <Button mnemonicParsing="false" onAction="#onNextYear" styleClass="small_calendar--button">
+                                             <font>
+                                                <Font size="8.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../icons/baseline-arrow_right-24px.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <GridPane fx:id="gpMonth" alignment="CENTER" hgap="5.0" vgap="5.0">
+                                <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="25.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label alignment="CENTER" styleClass="small_calendar_week_text" text="M" textAlignment="CENTER" textFill="#ffffff9a" />
+                                    <Label alignment="CENTER" styleClass="small_calendar_week_text" text="T" textFill="#ffffff9a" GridPane.columnIndex="1" />
+                                    <Label alignment="CENTER" styleClass="small_calendar_week_text" text="W" textFill="#ffffff9a" GridPane.columnIndex="2" />
+                                    <Label alignment="CENTER" styleClass="small_calendar_week_text" text="T" textFill="#ffffff9a" GridPane.columnIndex="3" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" styleClass="small_calendar_week_text" text="F" textAlignment="CENTER" textFill="#ffffff9a" GridPane.columnIndex="4" />
+                                    <Label alignment="CENTER" styleClass="small_calendar_week_text" text="S" textFill="#ffffff9a" GridPane.columnIndex="5" />
+                                    <Label alignment="CENTER" styleClass="small_calendar_week_text" text="S" textFill="#ffffff9a" GridPane.columnIndex="6" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="-20.0" />
+                           </padding>
                         </VBox>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <Label text="Filters" />
                            </children>
                         </Pane>
-                        <Pane layoutX="10.0" layoutY="35.0">
-                           <children>
-                              <VBox alignment="CENTER" spacing="5.0">
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                       <children>
-                                          <HBox alignment="CENTER" spacing="5.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#onPrevMonth" text="&lt;&lt;">
-                                                   <font>
-                                                      <Font size="8.0" />
-                                                   </font>
-                                                </Button>
-                                                <Label fx:id="lblMonth" alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="Month" textAlignment="CENTER">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                </Label>
-                                                <Button mnemonicParsing="false" onAction="#onNextMonth" text="&gt;&gt;">
-                                                   <font>
-                                                      <Font size="8.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#onPrevYear" text="&lt;&lt;">
-                                                   <font>
-                                                      <Font size="8.0" />
-                                                   </font>
-                                                </Button>
-                                                <Label fx:id="lblYear" alignment="CENTER" prefWidth="80.0" text="Year">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                </Label>
-                                                <Button mnemonicParsing="false" onAction="#onNextYear" text="&gt;&gt;">
-                                                   <font>
-                                                      <Font size="8.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </HBox>
-                                    <GridPane fx:id="gpMonth" alignment="CENTER" hgap="5.0" vgap="5.0">
-                                      <columnConstraints>
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="25.0" />
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Label text="M" textAlignment="CENTER" />
-                                          <Label text="T" GridPane.columnIndex="1" />
-                                          <Label text="W" GridPane.columnIndex="2" />
-                                          <Label text="T" GridPane.columnIndex="3" />
-                                          <Label text="F" GridPane.columnIndex="4" />
-                                          <Label text="S" GridPane.columnIndex="5" />
-                                          <Label text="S" GridPane.columnIndex="6" />
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </VBox>
-                           </children>
-                        </Pane>
+                        <Pane layoutX="10.0" layoutY="35.0" />
                      </children>
                   </VBox>
-                  <VBox spacing="5.0">
+                  <VBox spacing="5.0" style="-fx-background-radius: 6;" styleClass="pane--container">
                      <children>
-                        <HBox alignment="CENTER" spacing="30.0">
-                           <children>
-                              <Label text="M" textAlignment="CENTER" />
-                              <Label layoutX="10.0" layoutY="10.0" text="T" />
-                              <Label layoutX="21.0" layoutY="10.0" text="W" />
-                              <Label layoutX="28.0" layoutY="10.0" text="T" />
-                              <Label layoutX="39.0" layoutY="10.0" text="F" />
-                              <Label layoutX="46.0" layoutY="10.0" text="S" />
-                              <Label layoutX="52.0" layoutY="10.0" text="S" />
-                           </children>
-                           <padding>
-                              <Insets left="20.0" right="20.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="15.0">
-                           <children>
-                              <Button fx:id="btnPrev" mnemonicParsing="false" onAction="#onPrevWeekClicked" text="&lt;&lt;" />
-                              <HBox fx:id="hbDayBtns" />
-                              <Button fx:id="btnNext" mnemonicParsing="false" onAction="#onNextWeekClicked" text="&gt;&gt;" />
-                           </children>
-                        </HBox>
-                        <ScrollPane prefHeight="350.0" prefWidth="300.0">
+                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-radius: 6;" styleClass="pane--container">
                           <content>
-                            <AnchorPane>
+                            <AnchorPane style="-fx-background-radius: 6;" styleClass="pane--container">
                                  <children>
-                                    <StackPane fx:id="spDayView">
+                                    <StackPane fx:id="spDayView" style="-fx-background-radius: 6;" styleClass="pane--container">
                                        <children>
-                                          <HBox fx:id="hbBoxArea" translateX="50.0" />
-                                          <HBox fx:id="hbDayView" spacing="5.0" StackPane.alignment="TOP_LEFT">
+                                          <HBox fx:id="hbBoxArea" style="-fx-background-radius: 6;" translateX="50.0" />
+                                          <HBox fx:id="hbDayView" spacing="5.0" styleClass="pane--container" StackPane.alignment="TOP_LEFT">
                                              <children>
-                                                <Pane fx:id="pnTimes" />
-                                                <Pane fx:id="pnLines" />
+                                                <Pane fx:id="pnTimes" styleClass="pane--container" />
+                                                <Pane fx:id="pnLines" styleClass="pane--container" translateX="15.0" />
                                              </children></HBox>
                                        </children>
                                     </StackPane>
@@ -174,13 +294,6 @@
                   <VBox>
                      <children>
                         <HBox alignment="CENTER">
-                           <children>
-                              <Label fx:id="lblSelectedDay" text="Day, date month year" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="19.0" />
-                                 </font>
-                              </Label>
-                           </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -199,6 +312,9 @@
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>

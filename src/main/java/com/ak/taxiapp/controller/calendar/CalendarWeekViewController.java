@@ -44,8 +44,8 @@ public class CalendarWeekViewController extends Controller {
             lblDay.getStyleClass().clear();
             lblDate.getStyleClass().clear();
             if (tempCalendar.getTime().equals(calendar.getTime())) {
-                lblDate.getStyleClass().add("today");
-                lblDay.getStyleClass().add("today");
+                lblDate.getStyleClass().add("week_display__button--today");
+                lblDay.getStyleClass().add("week_display__button--today");
             }
         }
 
@@ -91,8 +91,8 @@ public class CalendarWeekViewController extends Controller {
             gridPaneDaysArray[i].getStyleClass().clear();
             gridPaneDatesArray[i].getStyleClass().clear();
             if(tempCalendar.getTime().equals(calendar.getTime())) {
-                gridPaneDaysArray[i].getStyleClass().add("today");
-                gridPaneDatesArray[i].getStyleClass().add("today");
+                gridPaneDaysArray[i].getStyleClass().add("week_display__button--today");
+                gridPaneDatesArray[i].getStyleClass().add("week_display__button--today");
             }
             if(i==0) {
                 lblMonth.setText(monthYearFormat.format(tempCalendar.getTime()));
@@ -114,8 +114,8 @@ public class CalendarWeekViewController extends Controller {
             gridPaneDaysArray[i].getStyleClass().clear();
             gridPaneDatesArray[i].getStyleClass().clear();
             if(tempCalendar.getTime().equals(calendar.getTime())) {
-                gridPaneDaysArray[i].getStyleClass().add("today");
-                gridPaneDatesArray[i].getStyleClass().add("today");
+                gridPaneDaysArray[i].getStyleClass().add("week_display__button--today");
+                gridPaneDatesArray[i].getStyleClass().add("week_display__button--today");
             }
 
             if(i==0) {
