@@ -21,4 +21,8 @@ public class Controller {
     public void insert() throws Exception {
 
     }
+
+    public void updateView() {
+
+    }
 }

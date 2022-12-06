@@ -47,6 +47,19 @@ public class DriverDAO {
             throw e;
         }
     }
+    public static Driver searchDriverByName(String driverName) throws SQLException {
+        String selectStatement = "SELECT * FROM drivers WHERE DRIVERS_NAME=" + "'"+driverName+"'";
+        // Execute SELECT statement
+        try {
+            // Get ResultSet from dbExecuteQuery method
+            ResultSet rs = DBUtil.dbExecuteQuery(selectStatement);
+            // Send ResultSet to the getClientFromResultSet method and get client object
+            return getDriverFromResultSet(rs);
+        } catch (SQLException e) {
+            System.out.println("While searching a driver with " + driverName + " name, an error occurred: " + e);
+            throw e;
+        }
+    }
 
     private static Driver getDriverFromResultSet(ResultSet rs) throws SQLException {
         Driver driver = null;

@@ -1,6 +1,7 @@
 package com.ak.taxiapp;
 
 import com.ak.taxiapp.controller.*;
+import com.ak.taxiapp.controller.calendar.CalendarDayViewController;
 import com.ak.taxiapp.controller.car.NewCarDialogController;
 import com.ak.taxiapp.controller.client.NewClientDialogController;
 import com.ak.taxiapp.controller.driver.NewDriverDialogControler;
@@ -30,6 +31,8 @@ public class TaxiApplication extends Application {
     private static BorderPane rootLayout;
     public static RootLayoutController rootLayoutController;
 
+    private static Layouts layouts;
+
 
 
 
@@ -48,17 +51,8 @@ public class TaxiApplication extends Application {
     }
 
     private void initLayouts() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TaxiApplication.class.getResource("fxml/calendar/CalendarDayView.fxml"));
-
-            Layouts.layout = loader.load();
-            Layouts.calendarDayViewController = loader.getController();
-            Layouts.calendarDayViewController.setRootLayoutController(rootLayoutController);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        layouts = Layouts.getInstance();
+        layouts.addRootLController(rootLayoutController);
     }
 
     public void initRootLayout() {
@@ -98,20 +92,20 @@ public class TaxiApplication extends Application {
         and returns its controller instance.
      */
     public static void showClientDbView() {
-        show("fxml/client/ClientDbView.fxml");
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.CLIENTS));
     }
 
     public static void showRidesView() {
-        show("fxml/ride/RidesView.fxml");
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.RIDES));
 
     }
 
     public static void showDriversView() {
-        show("fxml/driver/DriversView.fxml");
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.DRIVERS));
     }
 
     public static void showCarsView() {
-        show("fxml/car/CarsView.fxml");
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.FLEET));
     }
 
     public static void showRidesByClientView() {
@@ -119,11 +113,14 @@ public class TaxiApplication extends Application {
     }
 
     public static void showCalendarView(String view) {
-      rootLayout.setCenter(Layouts.layout);
+        layouts.CONTROLLERS.get(Layouts.Pages.CALENDAR).updateView();
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.CALENDAR));
 //        show(view);
     }
 
-    public static void showInvoicesView() {show("fxml/invoice/InvoiceView.fxml");}
+    public static void showInvoicesView() {
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.INVOICES));
+    }
 
 
     private static void showAndWaitNewDialog(Optional<ButtonType> result, FXMLLoader loader, Dialog<ButtonType> dialog) throws SQLException {

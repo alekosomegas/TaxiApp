@@ -7,6 +7,7 @@ module com.ak.taxiapp {
     requires layout;
     requires kernel;
     requires io;
+    requires java.desktop;
 
 
     opens com.ak.taxiapp to javafx.fxml;

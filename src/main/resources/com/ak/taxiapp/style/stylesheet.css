@@ -271,6 +271,13 @@
        -fx-background-color: #BB86FC60;
  }
 
+.text--subHeading {
+    -fx-font-family: "Roboto";
+    -fx-text-fill: #FFFFFF80;
+    -fx-font-size: 12;
+    -fx-font-weight: 500;
+
+}
  /* ------------------------------------------------------------------------
  /* day view
  /* ------------------------------------------------------------------------ */
@@ -294,3 +301,44 @@
     -fx-background-color: #FFFFFF50;
     -fx-background-radius: 50;
 }
+
+ /* ------------------------------------------------------------------------
+ /* Calendar Rides display by driver
+
+
+.tree-view .tree-cell {
+    -fx-background-color: #2F2F2F;
+
+    -fx-text-fill: #FFFFFF80;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 11;
+ }
+
+.tree-view {
+    -fx-background-radius: 6;
+ }
+ /* ------------------------------------------------------------------------ */
+.tree_view--empty {
+    -fx-background-color: #2F2F2F;
+}
+
+.tree_view--leaf {
+    -fx-background-color: #2F2F2F;
+    -fx-text-fill: #FFFFFF80;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 11;
+}
+
+.tree_view--leaf: hover {
+    -fx-text-fill: white;
+}
+.tree_view--leaf: pressed {
+    -fx-background-color: #BB86FC60;
+}
+.tree_view--node {
+    -fx-background-color: #2F2F2F;
+    -fx-text-fill: #FFFFFF;;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 16;
+     -fx-font-weight: 700;
+ }

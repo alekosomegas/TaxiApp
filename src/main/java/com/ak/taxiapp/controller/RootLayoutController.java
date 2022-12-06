@@ -186,14 +186,14 @@ public class RootLayoutController extends Controller {
         clientsViewBtn.getGraphic().getStyleClass().add("side_bar__button__icon--selected");
         highlight(clientsViewBtn);
         TaxiApplication.showClientDbView();
-        resultArea.setText("Clients Database View");
+        setResultText("Clients Database View");
     }
     public void onBtnRidesView() {
         ridesViewBtn.setGraphic(icons.get("Rides-selected"));
         ridesViewBtn.getGraphic().getStyleClass().add("side_bar__button__icon--selected");
         highlight(ridesViewBtn);
         TaxiApplication.showRidesView();
-        resultArea.setText("Rides Database View");
+        setResultText("Rides Database View");
     }
 
     public void setResultText(String text) {

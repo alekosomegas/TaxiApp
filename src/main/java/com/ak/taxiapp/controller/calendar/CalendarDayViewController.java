@@ -3,6 +3,8 @@ package com.ak.taxiapp.controller.calendar;
 //region// ----------------------------- IMPORTS ---------------------------- //
 
 import com.ak.taxiapp.TaxiApplication;
+import com.ak.taxiapp.model.driver.Driver;
+import com.ak.taxiapp.model.driver.DriverDAO;
 import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.model.ride.RideDAO;
@@ -11,12 +13,12 @@ import com.itextpdf.layout.properties.AlignmentPropertyValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +30,7 @@ import java.util.Objects;
 // ------------------------------------------------------------------ //
 
 //TODO:TIDY
-public class CalendarDayViewController extends Controller {
+public class CalendarDayViewController extends Controller implements PropertyChangeListener {
     // ------------------------------------------------------------------ //
     //region// ---------------------------- VARIABLES --------------------------- //
 
@@ -86,8 +88,13 @@ public class CalendarDayViewController extends Controller {
         initTreeView();
 //        initBoxArea();
 
+        calendarModel.addPropertyChangeListener(this);
     }
 
+    @Override
+    public void updateView() {
+        initTreeView();
+    }
     //endregion
     // ------------------------------------------------------------------ //
 
@@ -131,26 +138,74 @@ public class CalendarDayViewController extends Controller {
 
     // ------------------------------------------------------------------ //
     private void initTreeView() {
-        TreeItem<String> rootNode =
-                new TreeItem<>("Rides By Driver");
+        tvRidesByDriver.setCellFactory(tv -> new TreeCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                this.getStyleClass().clear();
+                if (empty) {
+                    setText("");
+                    this.getStyleClass().add("tree_view--empty");
+                } else {
+                    String id = item.split("#")[0];
+                    if (Objects.equals(id, "NODE")) {
+                        item = item.split("#")[1];
+                        String color;
+
+                        try {
+                            Driver driver = DriverDAO.searchDriverByName(item);
+                            color = driver.getDriver_color().replace("0x", "#");
+                            color = color.substring(0,7);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+
+//                        this.setStyle("-fx-background-color: " +color+ "50 ;");
+                        this.getStyleClass().add("tree_view--node");
+
+                    } else {
+
+                        this.getStyleClass().add("tree_view--leaf");
+                    }
+                    setText(item);
+
+                }
+
+
+            }
+        });
+
+
+        TreeItem<String> rootNode = new TreeItem<>();
         rootNode.setExpanded(true);
         tvRidesByDriver.setRoot(rootNode);
+        tvRidesByDriver.setShowRoot(false);
 
-        for (Ride ride : Objects.requireNonNull(getRidesByDate())) {
+        for (Ride ride : Objects.requireNonNull(getRidesByDate(calendarModel.getSelectedDateString()))) {
             boolean found = false;
             TreeItem<String> leaf =
-                    new TreeItem<>(ride.getRidesFrom() +" - "+ ride.getRidesTo());
+                    new TreeItem<>(
+                            "\n"+ ride.getRidesTimeStart() + "-"+
+                                    ride.getRidesTimeEnd() + "\n"+
+                            ride.getRidesFrom() +" - "+ ride.getRidesTo()
+                                    + "\n________________________________________________");
 
             for (TreeItem<String> driverNode : rootNode.getChildren()) {
-                if (driverNode.getValue().contentEquals(ride.getRidesDriver())){
+                String driver = driverNode.getValue();
+                String id = driver.split("#")[0];
+                if(Objects.equals(id, "NODE")) {
+                    driver = driver.split("#")[1];
+                }
+                if (driver.contentEquals(ride.getRidesDriver())){
                     driverNode.getChildren().add(leaf);
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                TreeItem<String> driverNode = new TreeItem<>(
-                        ride.getRidesDriver());
+                TreeItem<String> driverNode = new TreeItem<>(ride.getRidesDriver());
+                driverNode.setValue("NODE" + "#"+ driverNode.getValue());
+                driverNode.setExpanded(true);
                 rootNode.getChildren().add(driverNode);
                 driverNode.getChildren().add(leaf);
             }
@@ -201,9 +256,9 @@ public class CalendarDayViewController extends Controller {
     // ------------------------------------------------------------------ //
     //region// ------------------------- HELPER METHODS ------------------------- //
 
-    private ObservableList<Ride> getRidesByDate(){
+    private ObservableList<Ride> getRidesByDate(String date){
         try {
-            return RideDAO.searchAllRides();
+            return RideDAO.searchRidesByDate(date);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -280,4 +335,11 @@ public class CalendarDayViewController extends Controller {
     //endregion
     // ------------------------------------------------------------------ //
 
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        Calendar calendar1 = (Calendar) evt.getNewValue();
+        System.out.println(calendar1.getTime());
+        initTreeView();
+    }
 }

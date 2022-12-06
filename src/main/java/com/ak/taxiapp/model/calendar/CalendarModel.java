@@ -2,6 +2,11 @@ package com.ak.taxiapp.model.calendar;
 // ------------------------------------------------------------------ //
 //region// ----------------------------- IMPORTS ---------------------------- //
 
+import com.ak.taxiapp.Layouts;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -36,20 +41,32 @@ public class CalendarModel {
     public LocalDate getSelectedDate() {
         return convertDate(calendar.getTime());
     }
+    public String getSelectedDateString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(calendar.getTime());
+    }
     public void changeDayBy(int adjustment) {
+        Calendar old = (Calendar) calendar.clone();
         calendar.add(Calendar.DAY_OF_MONTH, adjustment);
+        support.firePropertyChange("calendar", old, calendar);
     }
     public void setSelectedDate(int field, int value) {
+        Calendar old = (Calendar) calendar.clone();
         calendar.set(field, value);
+        support.firePropertyChange("calendar", old, calendar);
     }
     public void setSelectedDate(LocalDate localDate) {
+        Calendar old = (Calendar) calendar.clone();
         calendar.setTime(convertDate(localDate));
+        support.firePropertyChange("calendar", old, calendar);
     }
     public int getDayOfWeekIndex() {
         return adjustDayIndex(calendar.get(Calendar.DAY_OF_WEEK));
     }
     public void nextDay() {
+        Calendar old = (Calendar) calendar.clone();
         calendar.add(Calendar.DAY_OF_MONTH, 1);
+        support.firePropertyChange("calendar", old, calendar);
     }
     //endregion
     // ------------------------------------------------------------------ //
@@ -66,6 +83,9 @@ public class CalendarModel {
         // store today's date, convert to LocalDate object
         today = convertDate(calendar.getTime());
         now = LocalDateTime.now();
+
+        support = new PropertyChangeSupport(this);
+
     }
 
     //endregion
@@ -124,8 +144,20 @@ public class CalendarModel {
         return Date.from(localDate.atStartOfDay(zoneId).toInstant());
     }
 
+
     //endregion
     // ------------------------------------------------------------------ //
+
+    private PropertyChangeSupport support;
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
+    }
+
 
 
 }
