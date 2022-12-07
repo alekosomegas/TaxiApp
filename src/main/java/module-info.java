@@ -38,4 +38,15 @@ module com.ak.taxiapp {
     opens com.ak.taxiapp.controller.ride to javafx.fxml;
     exports com.ak.taxiapp.controller.invoice;
     opens com.ak.taxiapp.controller.invoice to javafx.fxml;
+
+    exports com.ak.taxiapp.controller.dashboard;
+    opens com.ak.taxiapp.controller.dashboard to javafx.fxml;
+    exports com.ak.taxiapp.controller.database;
+    opens com.ak.taxiapp.controller.database to javafx.fxml;
+    exports com.ak.taxiapp.controller.expenses;
+    opens com.ak.taxiapp.controller.expenses to javafx.fxml;
+    exports com.ak.taxiapp.controller.reports;
+    opens com.ak.taxiapp.controller.reports to javafx.fxml;
+    exports com.ak.taxiapp.controller.settings;
+    opens com.ak.taxiapp.controller.settings to javafx.fxml;
 }

@@ -253,6 +253,7 @@ public class RootLayoutController extends Controller {
         dashboardViewBtn.setGraphic(icons.get("Dashboard-selected"));
         dashboardViewBtn.getGraphic().getStyleClass().add("side_bar__button__icon--selected");
         highlight(dashboardViewBtn);
+        TaxiApplication.showDashboardView();
     }
 
     public void onBtnSettingsView(ActionEvent event) {

@@ -342,3 +342,24 @@
     -fx-font-size: 16;
      -fx-font-weight: 700;
  }
+
+  /* ------------------------------------------------------------------------
+  /* tertiary buttons
+  /* ------------------------------------------------------------------------ */
+  /* base */
+
+ .tertiary_button {
+    -fx-background-color: #03DAC5;
+        -fx-background-radius: 32em;
+        -fx-min-width: 32;
+        -fx-min-height: 32;
+        -fx-max-width: 32;
+        -fx-max-height: 32;
+ }
+  .tertiary_button:hover {
+      -fx-background-color: #03ffe6;
+  }
+
+ .text--action {
+    -fx-text-fill: #BB86FC;
+ }

@@ -5,6 +5,7 @@ import com.ak.taxiapp.controller.calendar.CalendarDayViewController;
 import com.ak.taxiapp.controller.car.NewCarDialogController;
 import com.ak.taxiapp.controller.client.NewClientDialogController;
 import com.ak.taxiapp.controller.driver.NewDriverDialogControler;
+import com.ak.taxiapp.controller.invoice.InvoiceViewController;
 import com.ak.taxiapp.controller.invoice.NewInvoiceDialogController;
 import com.ak.taxiapp.controller.ride.NewRideDialogController;
 import com.ak.taxiapp.model.invoice.Invoice;
@@ -86,7 +87,9 @@ public class TaxiApplication extends Application {
             e.printStackTrace();
         }
     }
-
+    public static void showDashboardView() {
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.DASHBOARD));
+    }
     /*
         Loads the client db view in the center of the boarder pane
         and returns its controller instance.
