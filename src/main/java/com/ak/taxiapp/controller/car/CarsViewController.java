@@ -1,5 +1,6 @@
 package com.ak.taxiapp.controller.car;
 
+import com.ak.taxiapp.Layouts;
 import com.ak.taxiapp.TaxiApplication;
 import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.car.Car;
@@ -83,5 +84,14 @@ public class CarsViewController extends Controller {
             }
         }
         TaxiApplication.showEditCarDialog(values);
+    }
+
+    @Override
+    public void updateView() {
+        try {
+            search();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

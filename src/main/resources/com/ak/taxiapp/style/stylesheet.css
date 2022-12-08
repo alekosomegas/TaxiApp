@@ -110,6 +110,12 @@
 .pane--container {
     -fx-background-color:  #2F2F2F;
     -fx-background-radius: 6;
+    -fx-border-weight: 0;
+     -fx-background-insets: 0 0 0 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #2F2F2F;
 }
 
 .small_calendar--button {
@@ -290,8 +296,10 @@
  }
 
  .scroll-bar {
-    -fx-background-color: #2F2F2F;
+    -fx-background-color: transparent;
  }
+
+
 
 .increment-button, .decrement-button, .corner {
  -fx-opacity: 0;
@@ -363,3 +371,182 @@
  .text--action {
     -fx-text-fill: #BB86FC;
  }
+
+
+  /* ------------------------------------------------------------------------
+  /* New Ride
+  /* ------------------------------------------------------------------------ */
+  /* base */
+
+ .date-picker {
+    -fx-background-color: #484848;
+    -fx-background-insets: 0 0 0 0;
+ }
+.date-picker : focused{
+ -fx-background-color: #484848;
+ -fx-border-color: #BB86FC;
+}
+.date-picker--error{
+ -fx-background-color: #484848;
+ -fx-border-color: #CF6679;
+ -fx-text-fill: #CF6679;
+}
+.date-picker--error:focused{
+ -fx-background-color: #484848;
+ -fx-border-color: #CF6679;
+ -fx-text-fill: #CF6679;
+}
+
+
+.date-picker .arrow-button {
+  -fx-background-radius:0px ;
+   -fx-background-color: #2F2F2F;
+}
+
+.date-picker .arrow-button .arrow{
+-fx-background-radius:0px ;
+-fx-background-color: #1783CC;
+}
+
+.date-picker .arrow-button:hover .arrow{
+-fx-background-radius:0px ;
+-fx-background-color: #40a9ef;
+ }
+
+.date-picker > .date-picker-display-node {
+    -fx-background-color: #484848;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+
+}
+
+.date-picker-popup  {
+    -fx-background-color: #484848;
+}
+
+.calendar-grid {
+    -fx-background-color: #484848;
+}
+
+
+.date-picker .combo-box {
+-fx-background-insets:0px ;
+-fx-border-width: 0px;
+  }
+
+ .date-picker .button {
+-fx-background-color: transparent;
+-fx-border-color:transparent;
+-fx-pref-height: 35px;
+-fx-pref-width: 35px;
+ }
+
+  .date-picker .button:hover {
+ -fx-border-color:transparent;
+ -fx-pref-height: 35px;
+ -fx-pref-width: 35px;
+  }
+
+  .date-picker .button .arrow:pressed {
+  -fx-border-color:transparent;
+  -fx-pref-height: 35px;
+  -fx-pref-width: 35px;
+   }
+
+ .date-picker .cell {
+ -fx-text-fill: #FFFFFF60;
+-fx-background-color: #232323;
+-fx-pref-width:20px ;
+-fx-pref-height:25px ;
+ }
+
+.date-picker .cell:hover {
+-fx-background-color: #1783CC;
+-fx-pref-width:20px ;
+-fx-pref-height:25px ;
+}
+
+.date-picker .cell:focused {
+-fx-background-color:#11659e;
+-fx-pref-width:20px ;
+-fx-pref-height:25px ;
+ }
+
+.button--triangle {
+    -fx-shape: "M150 0 L75 100 L225 100 Z";
+    -fx-scale-x: 0.6;
+    -fx-scale-y: 0.3;
+    -fx-background-color: #1783CC;
+}
+.button--triangle:hover {
+    -fx-background-color: #40a9ef;
+}
+
+.text-field {
+    -fx-background-color: #484848;
+    -fx-text-fill: #FFFFFF;;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-font-weight: 400;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
+
+.text-field--error {
+ -fx-background-color: #484848;
+ -fx-border-color: #CF6679;
+ -fx-border-width: 2;
+
+}
+
+
+.text-field:focused {
+ -fx-border-color: #BB86FC;
+ }
+
+/* ------------------------------------------------------------------------
+/* toggle slider buttons
+/* ------------------------------------------------------------------------ */
+.toggle_slider {
+    -fx-background-color: #484848;
+    -fx-border-radius: 34;
+    -fx-background-radius: 34;
+    -fx-min-width: 80;
+    -fx-max-width: 80;
+    -fx-min-height: 25;
+    -fx-max-height: 25;
+        -fx-text-fill: #FFFFFF;;
+        -fx-font-family: "Roboto";
+        -fx-font-size: 12;
+}
+
+.toggle_slider:selected {
+    -fx-background-color: red;
+    -fx-border-radius: 34;
+    -fx-background-radius: 34;
+    -fx-min-width: 80;
+    -fx-max-width: 80;
+    -fx-min-height: 25;
+    -fx-max-height: 25;
+        -fx-text-fill: #FFFFFF;;
+        -fx-font-family: "Roboto";
+        -fx-font-size: 12;
+}
+
+
+.add_button {
+    -fx-background-color:#2F2F2F;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 6;
+    -fx-border-width: 2;
+
+    -fx-opacity: 0.2;
+}
+
+.add_button:hover {
+
+    -fx-opacity: 0.5;
+}

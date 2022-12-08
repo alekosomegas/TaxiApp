@@ -10,6 +10,7 @@ import com.ak.taxiapp.controller.invoice.NewInvoiceDialogController;
 import com.ak.taxiapp.controller.ride.NewRideDialogController;
 import com.ak.taxiapp.model.invoice.Invoice;
 import com.ak.taxiapp.util.Controller;
+import com.ak.taxiapp.util.DBUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -34,11 +35,18 @@ public class TaxiApplication extends Application {
 
     private static Layouts layouts;
 
-
-
+    @Override
+    public void init() throws Exception {
+        DBUtil.dbConnect();
+    }
+    @Override
+    public void stop() throws SQLException {
+        System.out.println("Stage is closing");
+        DBUtil.dbDisconnect();
+    }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException, SQLException {
         //1) Declare a primary stage (Everything will be on this stage)
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Taxi App");
@@ -126,6 +134,9 @@ public class TaxiApplication extends Application {
     }
 
 
+    public static void showDatabaseView() {
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.DATABASE));
+    }
     private static void showAndWaitNewDialog(Optional<ButtonType> result, FXMLLoader loader, Dialog<ButtonType> dialog) throws SQLException {
         if (result.get() == ButtonType.OK) {
             Controller controller = loader.getController();
@@ -153,7 +164,6 @@ public class TaxiApplication extends Application {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
             Optional<ButtonType> result = dialog.showAndWait();
-            dialogPane.getStylesheets().add("stylesheet.css");
             showAndWaitNewDialog(result, loader, dialog);
         } catch (IOException | SQLException e) {
             e.printStackTrace();

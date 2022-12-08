@@ -36,6 +36,7 @@ public class Ride {
     private IntegerProperty ridesTotal;
     private StringProperty ridesNotes;
     private StringProperty ridesPassenger;
+    private StringProperty ridesInvoiceId;
 
     private Driver driver;
     private LocalDate date;
@@ -73,6 +74,7 @@ public class Ride {
         this.ridesTotal = new SimpleIntegerProperty();
         this.ridesNotes = new SimpleStringProperty();
         this.ridesPassenger = new SimpleStringProperty();
+        this.ridesInvoiceId = new SimpleStringProperty();
     }
 
     // endregion
@@ -234,6 +236,18 @@ public class Ride {
 
     public void setRidesPassenger(String ridesPassenger) {
         this.ridesPassenger.set(ridesPassenger);
+    }
+
+    public String getRidesInvoiceId() {
+        return ridesInvoiceId.get();
+    }
+
+    public StringProperty ridesInvoiceIdProperty() {
+        return ridesInvoiceId;
+    }
+
+    public void setRidesInvoiceId(String ridesInvoiceId) {
+        this.ridesInvoiceId.set(ridesInvoiceId);
     }
 
     // endregion

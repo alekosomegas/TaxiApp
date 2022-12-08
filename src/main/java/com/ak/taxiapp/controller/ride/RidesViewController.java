@@ -193,5 +193,13 @@ public class RidesViewController extends Controller {
     //endregion
     // ------------------------------------------------------------------ //
 
+    @Override
+    public void updateView() {
+        try {
+            searchAllRides();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

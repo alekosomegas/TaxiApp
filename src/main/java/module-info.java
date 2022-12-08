@@ -8,6 +8,7 @@ module com.ak.taxiapp {
     requires kernel;
     requires io;
     requires java.desktop;
+    requires org.controlsfx.controls;
 
 
     opens com.ak.taxiapp to javafx.fxml;
@@ -49,4 +50,5 @@ module com.ak.taxiapp {
     opens com.ak.taxiapp.controller.reports to javafx.fxml;
     exports com.ak.taxiapp.controller.settings;
     opens com.ak.taxiapp.controller.settings to javafx.fxml;
+
 }

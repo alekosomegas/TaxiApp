@@ -1,5 +1,7 @@
 package com.ak.taxiapp.util;
 
+import com.ak.taxiapp.Layouts;
+
 import java.sql.*;
 
 public class DBUtil {
@@ -34,7 +36,7 @@ public class DBUtil {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            dbConnect();
+//            dbConnect();
             // Create statement
             statement = conn.createStatement();
             // Execute select query operation
@@ -57,7 +59,7 @@ public class DBUtil {
     public static void dbExecuteUpdate(String sqlStatement) throws SQLException {
         Statement statement = null;
         try {
-            dbConnect();
+//            dbConnect();
             statement = conn.createStatement();
             statement.executeUpdate(sqlStatement);
         } catch (SQLException e) {
@@ -68,10 +70,54 @@ public class DBUtil {
             if (statement != null) {
                 statement.close();
             }
-            dbDisconnect();
-        }
+//            dbDisconnect();
+            // Updates the view
+            String callerName = getCallerMethodName();
+            System.out.println(callerName);
+            Layouts.updateLayoutView(findPage(callerName));
+            }
     }
 
 
+    private static String getCallerMethodName()
+    {
+        return StackWalker.
+                getInstance().
+                walk(stream -> stream.skip(3).findFirst().get()).
+                getClassName();
+    }
 
+
+    private static Layouts.Pages findPage(String className) {
+
+        String str = className.substring(0, className.lastIndexOf("."));
+        String re = str.substring(str.lastIndexOf(".") + 1);
+
+        switch (re) {
+            case "ride":
+                return Layouts.Pages.RIDES;
+            case "calendar":
+                return Layouts.Pages.CALENDAR;
+            case "car":
+                return Layouts.Pages.FLEET;
+            case "dashboard":
+                return Layouts.Pages.DASHBOARD;
+            case "client":
+                return Layouts.Pages.CLIENTS;
+            case "database" :
+                return Layouts.Pages.DATABASE;
+            case "driver" :
+                return Layouts.Pages.DRIVERS;
+            case "expenses" :
+                return Layouts.Pages.EXPENSES;
+            case "invoice" :
+                return Layouts.Pages.INVOICES;
+            case "reports" :
+                return Layouts.Pages.REPORTS;
+            case "settings" :
+                return Layouts.Pages.SETTINGS;
+        }
+
+        return null;
+    }
 }

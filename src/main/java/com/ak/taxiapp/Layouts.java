@@ -27,14 +27,14 @@ public class Layouts {
         {
             put(Pages.DASHBOARD,"fxml/dashboard/"+ "DashboardLayout"    + ".fxml");
             put(Pages.CALENDAR, "fxml/calendar/" + "CalendarDayView"    + ".fxml");
-            put(Pages.RIDES,    "fxml/ride/"     + "RidesView"          + ".fxml");
+            put(Pages.RIDES,    "fxml/ride/"     + "SingleRideView"     + ".fxml");
             put(Pages.EXPENSES, "fxml/expenses/" + "ExpensesLayout"     + ".fxml");
             put(Pages.INVOICES, "fxml/invoice/"  + "InvoiceView"        + ".fxml");
             put(Pages.FLEET,    "fxml/car/"      + "CarsView"           + ".fxml");
             put(Pages.CLIENTS,  "fxml/client/"   + "ClientDbView"       + ".fxml");
             put(Pages.DRIVERS,  "fxml/driver/"   + "DriversView"        + ".fxml");
             put(Pages.REPORTS,  "fxml/reports/"  + "ReportsLayout"      + ".fxml");
-            put(Pages.DATABASE, "fxml/database/" + "DatabaseLayout"     + ".fxml");
+            put(Pages.DATABASE, "fxml/ride/" + "NewRideDialog"     + ".fxml");
             put(Pages.SETTINGS, "fxml/settings/" + "SettingsLayout"    + ".fxml");
         }
     };
@@ -49,8 +49,6 @@ public class Layouts {
     private Layouts() {
         for (Pages page : Pages.values() ) {
             try {
-                System.out.println(page);
-                System.out.println(paths.get(page));
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(TaxiApplication.class.getResource(paths.get(page)));
                 Node layout = loader.load();
@@ -70,5 +68,10 @@ public class Layouts {
             singleInstance = new Layouts();
         }
         return singleInstance;
+    }
+
+    public static void updateLayoutView(Pages page) {
+        if (singleInstance == null || page == null) {return;}
+        singleInstance.CONTROLLERS.get(page).updateView();
     }
 }

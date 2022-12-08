@@ -147,6 +147,20 @@ public class RideDAO {
                               Integer ridesCash, Integer ridesCredit,
                               String ridesNotes, String ridesPassenger) throws SQLException {
 
+        insert(ridesDate, ridesTimeStart, ridesTimeEnd,
+                ridesClientId, ridesDriverId, ridesCarId,
+                ridesFrom, ridesStops, ridesTo,
+                ridesCash, ridesCredit,
+                ridesNotes, ridesPassenger, "01/1");
+    }
+
+    public static void insert(String ridesDate, String ridesTimeStart, String ridesTimeEnd,
+                              Integer ridesClientId, Integer ridesDriverId, Integer ridesCarId,
+                              String ridesFrom, String ridesStops, String ridesTo,
+                              Integer ridesCash, Integer ridesCredit,
+                              String ridesNotes, String ridesPassenger,
+                              String ridesInvoiceId) throws SQLException {
+
         String values = "'" +ridesDate+ "', '"
                             +ridesTimeStart+ "', '"
                             +ridesTimeEnd+ "', '"
@@ -159,13 +173,14 @@ public class RideDAO {
                             +ridesCash+ "', '"
                             +ridesCredit+ "', '"
                             +ridesNotes+ "', '"
-                            +ridesPassenger+ "'";
+                            +ridesPassenger+ "', '"
+                            +ridesInvoiceId+ "'";
 
         String updateStatement =
                 "INSERT INTO rides (RIDES_DATE, RIDES_TIME_START, RIDES_TIME_END, " +
                         "RIDES_CLIENT_ID, RIDES_DRIVER_ID, RIDES_CAR_ID, RIDES_FROM," +
                         "RIDES_STOPS, RIDES_TO, RIDES_CASH, RIDES_CREDIT," +
-                        "RIDES_NOTES, RIDES_PASSENGER)" +
+                        "RIDES_NOTES, RIDES_PASSENGER, RIDES_INVOICES_ID)" +
                         " VALUES (" +values+ ");";
         try {
             DBUtil.dbExecuteUpdate(updateStatement);

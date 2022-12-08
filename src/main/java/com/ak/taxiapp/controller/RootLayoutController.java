@@ -266,6 +266,7 @@ public class RootLayoutController extends Controller {
         databaseViewBtn.setGraphic(icons.get("Database-selected"));
         databaseViewBtn.getGraphic().getStyleClass().add("side_bar__button__icon--selected");
         highlight(databaseViewBtn);
+        TaxiApplication.showDatabaseView();
     }
 
     public void onBtnReportsView(ActionEvent event) {

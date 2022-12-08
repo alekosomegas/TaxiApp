@@ -138,6 +138,7 @@ public class CalendarDayViewController extends Controller implements PropertyCha
 
     // ------------------------------------------------------------------ //
     private void initTreeView() {
+
         tvRidesByDriver.setCellFactory(tv -> new TreeCell<String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -339,7 +340,6 @@ public class CalendarDayViewController extends Controller implements PropertyCha
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         Calendar calendar1 = (Calendar) evt.getNewValue();
-        System.out.println(calendar1.getTime());
         initTreeView();
     }
 }

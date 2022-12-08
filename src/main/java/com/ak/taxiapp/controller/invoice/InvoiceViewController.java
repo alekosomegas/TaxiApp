@@ -24,6 +24,7 @@ public class InvoiceViewController extends Controller {
     public TableColumn<Invoice, Integer> tcInvoiceTotal;
     public VBox vBoxContainer;
     private ObservableList<Invoice> invoices = FXCollections.observableArrayList();
+    private ObservableList<InvoiceCard> invoiceCards = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() throws SQLException {
@@ -49,6 +50,7 @@ public class InvoiceViewController extends Controller {
     }
 
     public void createInvoiceCards() {
+        vBoxContainer.getChildren().clear();
         for (Invoice invoice : invoices) {
             HashMap<InvoiceCard.InvoiceCardFields, String> values = new HashMap<>();
             InvoiceCard invoiceCard = new InvoiceCard();
@@ -64,10 +66,20 @@ public class InvoiceViewController extends Controller {
 
 
             invoiceCard.setValues(values);
+            invoiceCards.add(invoiceCard);
             vBoxContainer.getChildren().add(invoiceCard);
         }
 
     }
 
+    @Override
+    public void updateView() {
+        try {
+            search();
+            createInvoiceCards();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
