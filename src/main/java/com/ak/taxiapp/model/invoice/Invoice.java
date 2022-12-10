@@ -139,7 +139,7 @@ public class Invoice {
     }
 
     public String getDateString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(date);
     }
     public String getDatePrint() {

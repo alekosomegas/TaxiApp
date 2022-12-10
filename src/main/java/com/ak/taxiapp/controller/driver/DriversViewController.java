@@ -17,8 +17,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class DriversViewController extends Controller {
 
@@ -30,7 +32,16 @@ public class DriversViewController extends Controller {
     public VBox vbColors;
     private Driver selectedDriver;
 
-    @FXML
+    @Override @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            initialize();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     private void initialize() throws SQLException {
         driversTable.setEditable(true);
         driverIdCol.setCellValueFactory(cellData -> cellData.getValue().driver_idProperty().asObject());

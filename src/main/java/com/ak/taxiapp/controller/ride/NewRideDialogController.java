@@ -20,11 +20,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 //endregion
 // ------------------------------------------------------------------ //
@@ -65,7 +67,17 @@ public class NewRideDialogController extends Controller {
     // ------------------------------------------------------------------ //
     //region// ---------------------------- INITIALIZE --------------------------- //
 
-    @FXML public void initialize() throws SQLException {
+
+    @Override @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            initialize();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void initialize() throws SQLException {
         initTimePicker();
         initClintIdComboBox();
         initDriverIdComboBox();

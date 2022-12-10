@@ -13,8 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 public class NewInvoiceDialogController extends Controller {
     public Label lblInvoiceNo;
@@ -35,8 +37,8 @@ public class NewInvoiceDialogController extends Controller {
     private Invoice invoice;
     private InvoiceTable invoiceTable;
 
-    @FXML
-    private void initialize() throws SQLException {
+    @Override @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 

@@ -1,13 +1,14 @@
 package com.ak.taxiapp.util;
 
 import com.ak.taxiapp.controller.RootLayoutController;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable{
     public RootLayoutController rlc;
 
     public void setRootLayoutController(RootLayoutController rlc) {
@@ -23,6 +24,11 @@ public class Controller {
     }
 
     public void updateView() {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 }

@@ -8,8 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class ClientDbController extends Controller {
     @FXML
@@ -25,6 +28,15 @@ public class ClientDbController extends Controller {
     @FXML
     private TableColumn<Client, String> clientTelCol;
     private Client selectedClient;
+
+    @Override @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            initialize();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     public void selectClient() {
@@ -63,7 +75,6 @@ public class ClientDbController extends Controller {
 
     //Initializing the controller class.
     //This method is automatically called after the fxml file has been loaded.
-    @FXML
     private void initialize() throws SQLException, ClassNotFoundException {
         /*
         The setCellValueFactory(...) that we set on the table columns are used to determine

@@ -19,12 +19,10 @@ import javafx.scene.layout.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Objects;
+import java.util.*;
 
 // endregion
 // ------------------------------------------------------------------ //
@@ -69,11 +67,18 @@ public class CalendarDayViewController extends Controller implements PropertyCha
     // ------------------------------------------------------------------ //
     //region// --------------------------- INITIALISE --------------------------- //
 
+    @Override @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            initialize();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     /**
      * Creates new instances of all the Calendar Components, calls their built method
      * and adds them to the corresponding FXML Nodes
      */
-    @FXML
     public void initialize() throws SQLException {
         // Start by creating instances of components
         loadComponents();

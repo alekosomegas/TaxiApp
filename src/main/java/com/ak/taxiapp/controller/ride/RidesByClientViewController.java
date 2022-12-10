@@ -12,10 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.IntStream;
 
 public class RidesByClientViewController extends RidesViewController{
@@ -36,7 +38,16 @@ public class RidesByClientViewController extends RidesViewController{
     private ObservableList<Ride> allRides;
 
 
-    @FXML
+    @Override @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            initialize();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     private void initialize() throws SQLException {
 
         setColumnValueFactory();

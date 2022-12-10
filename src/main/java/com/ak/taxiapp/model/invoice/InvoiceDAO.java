@@ -18,14 +18,14 @@ public class InvoiceDAO {
             Invoice invoice = new Invoice();
             invoice.setId(rs.getString("INVOICES_ID"));
 
-            String listOfRides = rs.getString("INVOICES_RIDES_IDS");
-            ride = RideDAO.searchById(findRidesId(listOfRides)).get(0);
-            invoice.setClientName(ride.getRidesClient());
+//            String listOfRides = rs.getString("INVOICES_RIDES_IDS");
+//            ride = RideDAO.searchById(findRidesId(listOfRides)).get(0);
+//            invoice.setClientName(ride.getRidesClient());
 
             invoice.setDateProperty(rs.getString("INVOICES_DATE"));
 
-            int total = InvoiceTable.findTotal(findAllRides(listOfRides));
-            invoice.setTotal(total);
+//            int total = InvoiceTable.findTotal(findAllRides(listOfRides));
+//            invoice.setTotal(total);
 
             ls.add(invoice);
         }

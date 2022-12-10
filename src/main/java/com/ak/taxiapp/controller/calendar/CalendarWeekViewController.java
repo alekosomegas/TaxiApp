@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -27,8 +28,8 @@ public class CalendarWeekViewController extends Controller {
     Calendar tempCalendar = (Calendar) calendar.clone(); // tracks the first day of the week -1
     SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMMM yyyy");
 
-    @FXML
-    public void initialize() {
+    @FXML @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         tempCalendar.add(Calendar.DAY_OF_MONTH, -day + 1); //first day -1
         lblMonth.setText(monthYearFormat.format(calendar.getTime())); // start by today's month
 

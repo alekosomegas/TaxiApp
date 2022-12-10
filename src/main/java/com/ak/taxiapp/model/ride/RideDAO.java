@@ -23,7 +23,8 @@ import java.util.HashMap;
 //endregion
 // ------------------------------------------------------------------ //
 
-public class RideDAO {
+public class
+RideDAO {
 
     // ------------------------------------------------------------------ //
     //region// ------------------------ MAIN METHODS ----------------------- //
@@ -134,6 +135,19 @@ public class RideDAO {
         }
     }
 
+    public static ObservableList<Ride> searchRidesByInvoiceId(String invoiceId) throws SQLException {
+        String selectStatement = "SELECT * FROM rides WHERE RIDES_INVOICES_ID = " + invoiceId;
+        try {
+            ResultSet rs = DBUtil.dbExecuteQuery(selectStatement);
+            //Send ResultSet to the getClientList method and get client object
+            ObservableList<Ride> ridesList = getRidesList(rs);
+
+            return ridesList;
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has failed: " + e);
+            throw e;
+        }
+    }
 
     //endregion
     // ------------------------------------------------------------------ //
@@ -327,6 +341,19 @@ public class RideDAO {
             System.out.println("SQL select operation has failed: " + e);
             throw e;
         }
+    }
+
+    public static void insert(HashMap<String, String> values) throws SQLException {
+        insert(values.get("dtDate"),
+                values.get("tfTimeStartH") +" : "+ values.get("tfTimeStartM"),
+                values.get("tfTimeEndH") +" : "+ values.get("tfTimeEndM"),
+                Integer.parseInt(values.get("searchCbClients")),
+                Integer.parseInt(values.get("searchCbDrivers")),
+                Integer.parseInt(values.get("searchCbCars")),
+                values.get("tfFrom"), values.get("tfStops"), values.get("tfTo"),
+                Integer.parseInt(values.get("tfCash")),
+                Integer.parseInt(values.get("tfCredit")), values.get("taNotes"),
+                values.get("tfPassenger"));
     }
 
     //endregion

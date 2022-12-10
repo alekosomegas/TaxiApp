@@ -1,7 +1,13 @@
 package com.ak.taxiapp.controller.ride;
 
+import com.ak.taxiapp.model.car.Car;
+import com.ak.taxiapp.model.car.CarDAO;
 import com.ak.taxiapp.model.client.Client;
 import com.ak.taxiapp.model.client.ClientDAO;
+import com.ak.taxiapp.model.driver.Driver;
+import com.ak.taxiapp.model.driver.DriverDAO;
+import com.ak.taxiapp.model.ride.Ride;
+import com.ak.taxiapp.model.ride.RideDAO;
 import com.ak.taxiapp.util.AutoCompleteTextField;
 import com.ak.taxiapp.util.Controller;
 import javafx.beans.value.ChangeListener;
@@ -10,17 +16,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.control.textfield.TextFields;
+import org.w3c.dom.Text;
 
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -38,12 +50,24 @@ public class SingleRideController extends Controller implements Initializable {
     public VBox vbItinerary;
     public VBox vbStops;
     public SearchableComboBox<String> searchCbClients;
+    public SearchableComboBox<String> searchCbDrivers;
+    public SearchableComboBox<String> searchCbCars;
     public VBox vbPassenger;
     public VBox vbClient;
+    public TextField tfDistance;
+    public TextArea taNotes;
+    public TextField tfCash;
+    public TextField tfCredit;
+    public Label lblTotal;
+    public TextField tfVAT;
+    public Label lblVAT;
+    public HBox hbContent;
     private LocalDate date;
 
+    private HashMap<String, String> values = new HashMap<>();
 
-    @Override
+
+    @Override @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         date = LocalDate.now();
         dtDate.setValue(date);
@@ -56,28 +80,54 @@ public class SingleRideController extends Controller implements Initializable {
 
         tfFrom.addEventFilter(KeyEvent.ANY, eventHandlerFrom);
 
+        tfCash.addEventFilter(KeyEvent.ANY, eventHandlerPrice);
+        tfCredit.addEventFilter(KeyEvent.ANY, eventHandlerPrice);
+
+        addListeners();
+
+
         vbStops.getChildren().add(new IteneraryStop(this));
 
-
-        ObservableList<String> clientIds = FXCollections.observableArrayList();
-        ObservableList<Client> clientsList = null;
-
-
         try {
-            clientsList = ClientDAO.searchAllClients();
+            initClientCb();
+            initDriverCb();
+            initCarCb();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        AutoCompleteTextField autoTfPassenger = new AutoCompleteTextField();
+        autoTfPassenger.setId("tfPassenger");
+        autoTfPassenger.getEntries().addAll((Arrays.asList("Tychon", "Alex", "Bob")));
+        vbPassenger.getChildren().add(autoTfPassenger);
+
+    }
+
+    private void initClientCb() throws SQLException {
+        ObservableList<String> clientIds = FXCollections.observableArrayList();
+        ObservableList<Client> clientsList = ClientDAO.searchAllClients();
         for (Client client : clientsList) {
             clientIds.add(client.getClient_id() + ". " + client.getClient_name());
         }
         searchCbClients.setItems(clientIds);
+    }
 
-        AutoCompleteTextField autoTfPassenger = new AutoCompleteTextField();
+    private void initDriverCb() throws SQLException {
+        ObservableList<String> driversIds = FXCollections.observableArrayList();
+        ObservableList<Driver> driversList = DriverDAO.searchDrivers();
+        for (Driver driver : driversList) {
+            driversIds.add(driver.getDriver_id() + ". " + driver.getDriver_name());
+        }
+        searchCbDrivers.setItems(driversIds);
+    }
 
-        autoTfPassenger.getEntries().addAll((Arrays.asList("Tychon", "Alex", "Bob")));
-        vbPassenger.getChildren().add(autoTfPassenger);
-
+    private void initCarCb() throws SQLException {
+        ObservableList<String> carsIds = FXCollections.observableArrayList();
+        ObservableList<Car> carsList = CarDAO.searchCars();
+        for (Car car : carsList) {
+            carsIds.add(car.getCar_id() + ". " + car.getCar_reg());
+        }
+        searchCbCars.setItems(carsIds);
     }
 
     public void onPrevDay(ActionEvent event) {
@@ -383,6 +433,98 @@ public class SingleRideController extends Controller implements Initializable {
         }
     };
 
+    public void addListeners() {
+        tfCredit.setOnMouseClicked(e -> tfCredit.selectAll());
+        tfCash.setOnMouseClicked(e -> tfCash.selectAll());
+
+        tfCredit.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            HBox hBox = (HBox) tfCredit.getParent();
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                // If out of focus and empty text hide euro sign
+                if (!t1 && tfCredit.getText().equals("")) {
+                    hBox.getChildren().get(0).setVisible(false);
+                    if(tfCash.getText().equals("")) {
+                        lblVAT.setText("VAT");
+                        tfVAT.setText("");
+                    }
+                }
+            }
+        });
+
+        tfCash.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            HBox hBox = (HBox) tfCash.getParent();
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                // If out of focus and empty text hide euro sign
+                if (!t1 && tfCash.getText().equals("")) {
+                    hBox.getChildren().get(0).setVisible(false);
+
+                    if(tfCredit.getText().equals("")) {
+                        lblVAT.setText("VAT");
+                        tfVAT.setText("");
+                    }
+                }
+            }
+        });
+    }
+
+
+
+    EventHandler<KeyEvent> eventHandlerPrice = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+
+            TextField textField = (TextField) event.getSource();
+            HBox hBox = (HBox) textField.getParent();
+
+            if(event.getEventType().equals(KeyEvent.KEY_TYPED)) {
+                char    charTyped = event.getCharacter().charAt(0);
+                if(!Character.isDigit(charTyped)) {
+                    event.consume();
+                } else {
+                    hBox.getChildren().get(0).setVisible(true);
+                }
+            }
+            calculateTotal();
+            calculateVAT();
+        }
+
+    };
+
+//    EventHandler<KeyEvent>
+
+    public void calculateTotal() {
+        int cash = 0;
+        int credit = 0;
+        if(!tfCash.getText().equals("")) {
+            cash = Integer.parseInt(tfCash.getText());
+        }
+        if(!tfCredit.getText().equals("")) {
+            credit = Integer.parseInt(tfCredit.getText());
+        }
+        lblTotal.setText(String.valueOf(cash+ credit));
+    }
+
+    public void calculateVAT() {
+        boolean cashOnly = false;
+        DecimalFormat f = new DecimalFormat("0.00");
+        int cash = 0;
+        int credit = 0;
+        if(!tfCash.getText().equals("")) {
+            cash = Integer.parseInt(tfCash.getText());
+        }
+        if(!tfCredit.getText().equals("")) {
+            credit = Integer.parseInt(tfCredit.getText());
+        } else {cashOnly = true;}
+        if(cashOnly) {
+            lblVAT.setText("VAT inc.");
+            tfVAT.setText(f.format(((double) cash * 9) / 109));
+        } else {
+            tfVAT.setText(f.format(((double) credit * 9) / 100));
+            lblVAT.setText("VAT add.");
+        }
+    }
     public void onRoundTrip(ActionEvent event) {
         if(tgRoundTrip.isSelected()) {
             tgRoundTrip.setText("Round Trip");
@@ -408,15 +550,106 @@ public class SingleRideController extends Controller implements Initializable {
     /**
      * Goes through all the children of the stops' container
      * calls their controller and separates
-     * the stop values with a ' /'
+     * the stop values with a ' ; '
      */
     public String getStops() {
         StringBuilder stops = new StringBuilder();
         for (int i = 0; i < vbStops.getChildren().size(); i++) {
             IteneraryStop iteneraryStop = (IteneraryStop) vbStops.getChildren().get(i);
             stops.append(iteneraryStop.getStop());
-            stops.append(" /");
+            if(i != vbStops.getChildren().size()-1) {
+                stops.append(" ; ");
+            }
         }
         return String.valueOf(stops);
+    }
+
+    private boolean isPane(Node node) {
+        // if it is not pane class
+        return node instanceof Pane;
+    }
+
+    private boolean isTextField(Node node) {
+        return node instanceof TextInputControl;
+    }
+    private boolean isCombo(Node node) {
+        return node instanceof SearchableComboBox;
+    }
+
+    public void traverse(Pane pane, int mode) {
+        for (Node node : pane.getChildren()) {
+
+            if(isPane(node)) {
+                Pane child = (Pane) node;
+                traverse(child, mode);
+            } else if (isTextField(node)) {
+                TextInputControl textField = (TextInputControl) node;
+                if (mode == 1) {
+                    textField.setText("");
+                } else {
+                    values.put(textField.getId(), textField.getText());
+                }
+            } else if (isCombo(node)) {
+                SearchableComboBox searchableComboBox = (SearchableComboBox) node;
+                if (mode == 1) {
+                    searchableComboBox.setValue(null);
+                } else {
+                    values.put(searchableComboBox.getId(),
+                            searchableComboBox.getValue().toString().split("\\.")[0]);
+                }
+            }
+        }
+    }
+
+
+    public void onClear(ActionEvent event) {
+        for (Node node : hbContent.getChildren()) {
+            Pane pane = (Pane) node;
+            traverse(pane, 1);
+        }
+
+        tfFrom.setText("");
+        tfTo.setText("");
+        vbStops.getChildren().clear();
+        lblTotal.setText("");
+        dtDate.setValue(LocalDate.now());
+
+        if (tgRoundTrip.isSelected()) {
+            vbStops.getChildren().add(new IteneraryStop(this));
+        }
+    }
+
+    public void onOK(ActionEvent event) throws SQLException {
+        for (Node node : hbContent.getChildren()) {
+            Pane pane = (Pane) node;
+            traverse(pane, 2);
+        }
+
+        values.put("tfFrom", tfFrom.getText());
+        values.put("tfTo", tfTo.getText());
+        values.put("tfStops", getStops());
+        values.put("dtDate", dtDate.getValue().toString());
+
+        // 0 id is unknown
+        if(values.get("searchCbClients").equals("")) {
+            values.put("searchCbClients", "0");
+        }
+        if(values.get("searchCbDrivers").equals("")) {
+            values.put("searchCbDrivers", "0");
+        }
+        if(values.get("searchCbCars").equals("")) {
+            values.put("searchCbCars", "0");
+        }
+        if(values.get("tfCash").equals("")) {
+            values.put("tfCash", "0");
+        }
+        if(values.get("tfCredit").equals("")) {
+            values.put("tfCredit", "0");
+        }
+
+        RideDAO.insert(values);
+    }
+
+    public void onCancel(ActionEvent event) {
     }
 }

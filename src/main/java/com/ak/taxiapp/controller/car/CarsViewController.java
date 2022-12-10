@@ -10,8 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class CarsViewController extends Controller {
     public TableView<Car> carsTable;
@@ -23,7 +25,15 @@ public class CarsViewController extends Controller {
 
     private Car selectedCar;
 
-    @FXML
+    @Override @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            initialize();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void initialize() throws SQLException {
         carsIdCol.setCellValueFactory(cellData -> cellData.getValue().car_idProperty().asObject());
         carsRegCol.setCellValueFactory(cellData -> cellData.getValue().car_regProperty());

@@ -2,6 +2,7 @@ package com.ak.taxiapp.controller.dashboard;
 
 import com.ak.taxiapp.controller.invoice.InvoiceCard;
 import com.ak.taxiapp.util.Controller;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -14,7 +15,7 @@ public class DashboardLayoutController extends Controller implements Initializab
 
     public VBox vbox;
 
-    @Override
+    @Override @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         vbox.getChildren().add(new Rectangle(110,110, Color.RED));
 

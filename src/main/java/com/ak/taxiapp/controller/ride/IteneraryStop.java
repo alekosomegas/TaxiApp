@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 
+//TODO: this should not exist, replace with a method
 public class IteneraryStop extends VBox {
     private Node view;
     private ItineraryStopController controller;

@@ -14,9 +14,11 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class RootLayoutController extends Controller {
     @FXML
@@ -43,8 +45,8 @@ public class RootLayoutController extends Controller {
     private HashMap<String, ImageView> icons = new HashMap<>(22) {
     };
 
-    @FXML
-    public void initialize() {
+    @FXML @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         this.selectedBtn = dashboardViewBtn;
         getIcons();
 
@@ -235,7 +237,7 @@ public class RootLayoutController extends Controller {
         invoicesViewBtn.setGraphic(icons.get("Invoices-selected"));
         invoicesViewBtn.getGraphic().getStyleClass().add("side_bar__button__icon--selected");
         highlight(invoicesViewBtn);
-        TaxiApplication.showInvoicesView();
+        TaxiApplication.showInvoiceView();
     }
 
     private void highlight(Button button) {

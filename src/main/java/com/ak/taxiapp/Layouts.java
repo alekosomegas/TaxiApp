@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Layouts {
+    // number of layouts/controllers
+    private final int CAPACITY = 12;
 
     private static Layouts singleInstance = null;
 
@@ -20,7 +22,7 @@ public class Layouts {
     }
 
     public enum Pages {
-        DASHBOARD, CALENDAR, RIDES, EXPENSES, INVOICES, FLEET, CLIENTS, DRIVERS, REPORTS, DATABASE, SETTINGS
+        DASHBOARD, CALENDAR, RIDES, EXPENSES, INVOICES, INVOICE, FLEET, CLIENTS, DRIVERS, REPORTS, DATABASE, SETTINGS
     }
 
     private final HashMap<Pages, String> paths= new HashMap<>() {
@@ -29,18 +31,21 @@ public class Layouts {
             put(Pages.CALENDAR, "fxml/calendar/" + "CalendarDayView"    + ".fxml");
             put(Pages.RIDES,    "fxml/ride/"     + "SingleRideView"     + ".fxml");
             put(Pages.EXPENSES, "fxml/expenses/" + "ExpensesLayout"     + ".fxml");
-            put(Pages.INVOICES, "fxml/invoice/"  + "InvoiceView"        + ".fxml");
-            put(Pages.FLEET,    "fxml/car/"      + "CarsView"           + ".fxml");
-            put(Pages.CLIENTS,  "fxml/client/"   + "ClientDbView"       + ".fxml");
-            put(Pages.DRIVERS,  "fxml/driver/"   + "DriversView"        + ".fxml");
+
+            put(Pages.INVOICES, "fxml/invoice/"  + "InvoicesListView"  + ".fxml");
+            put(Pages.INVOICE,  "fxml/invoice/"  + "SingleInvoiceView"  + ".fxml");
+
+            put(Pages.FLEET,    "fxml/car/"      + "CarsDbView"         + ".fxml");
+            put(Pages.CLIENTS,  "fxml/client/"   + "ClientsDbView"      + ".fxml");
+            put(Pages.DRIVERS,  "fxml/driver/"   + "DriversDbView"      + ".fxml");
             put(Pages.REPORTS,  "fxml/reports/"  + "ReportsLayout"      + ".fxml");
-            put(Pages.DATABASE, "fxml/ride/" + "NewRideDialog"     + ".fxml");
-            put(Pages.SETTINGS, "fxml/settings/" + "SettingsLayout"    + ".fxml");
+            put(Pages.DATABASE, "fxml/database/" + "DatabaseLayout"     + ".fxml");
+            put(Pages.SETTINGS, "fxml/settings/" + "SettingsLayout"     + ".fxml");
         }
     };
 
-    public final HashMap<Pages, Controller> CONTROLLERS = new HashMap<>(11);
-    public final HashMap<Pages, Node> LAYOUTS = new HashMap<>(11);
+    public final HashMap<Pages, Controller> CONTROLLERS = new HashMap<>(CAPACITY);
+    public final HashMap<Pages, Node> LAYOUTS = new HashMap<>(CAPACITY);
 
 
     /**
@@ -56,7 +61,9 @@ public class Layouts {
 
                 LAYOUTS.put(page, layout);
                 CONTROLLERS.put(page, controller);
-            } catch (IOException e) {
+            } catch (Exception e) {
+                System.out.println(page.toString());
+                System.out.println(paths.get(page));
                 e.printStackTrace();
             }
         }

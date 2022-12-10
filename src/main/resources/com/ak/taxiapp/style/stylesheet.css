@@ -2,6 +2,12 @@
   -fx-background-color:  #121212;
   /*     -fx-background-color: grey;*/
 
+  -fx-bg-dark: #121212;
+  -fx-bg-medium: #2F2F2F;
+  -fx-bg-light: #FFFFFF80;
+
+  -fx-selected: #BB86FC;
+  -fx-selected-dark: #302240;
 }
 
 /* ------------------------------------------------------------------------
@@ -50,7 +56,7 @@
 .button__primary {
     -fx-background-color: #BB86FC;
     -fx-background-radius: 24;
-    -fx-pref-height: 45;
+    -fx-pref-height: 35;
     -fx-pref-width: 100;
     -fx-font-family: "Roboto";
     -fx-font-size: 14;
@@ -117,6 +123,18 @@
 .scroll-pane > .viewport {
     -fx-background-color: #2F2F2F;
 }
+
+.scroll-pane-transparent {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane-transparent > .viewport {
+    -fx-background-color: -fx-bg-dark;
+}
+
+.scroll-pane-transparent > .scroll-bar {
+    -fx-background-color: #2F2F2F;
+ }
 
 .small_calendar--button {
     -fx-background-color: #FFFFFF60;
@@ -507,9 +525,43 @@
  -fx-border-color: #BB86FC;
  }
 
+.text-area {
+    -fx-background-color: #484848;
+    -fx-text-fill: #FFFFFF;;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-font-weight: 400;
+    -fx-background-radius: 4;
+    -fx-border-width: 0;
+    -fx-background-insets: 0 0 0 0;
+}
+
+.text-area .content {
+    -fx-background-color: #484848;
+    -fx-text-fill: #FFFFFF;;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-font-weight: 400;
+    -fx-background-radius: 4;
+    -fx-border-width: 0;
+    -fx-background-insets: 0 0 0 0;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: #484848;
+    -fx-text-fill: #FFFFFF;;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-font-weight: 400;
+    -fx-background-radius: 4;
+    -fx-border-radius: 6;
+    -fx-background-insets: 0 0 0 0;
+}
+
 /* ------------------------------------------------------------------------
 /* toggle slider buttons
 /* ------------------------------------------------------------------------ */
+
 .toggle_slider {
     -fx-background-color: #484848;
     -fx-border-radius: 34;
@@ -547,6 +599,154 @@
 }
 
 .add_button:hover {
-
     -fx-opacity: 0.5;
 }
+
+.label--primary {
+    -fx-background-color: #86fc86;
+    -fx-background-radius: 24;
+    -fx-pref-height: 35;
+    -fx-pref-width: 100;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 28;
+    -fx-font-weight: 700;
+    -fx-alignment: center-left;
+    -fx-graphic-text-gap: 5;
+}
+
+/* ------------------------------------------------------------------------
+/* tabs
+/* ------------------------------------------------------------------------ */
+
+
+
+.tab-pane:top > .tab-header-area > .tab-header-background{
+    -fx-background-color: #2F2F2F;
+}
+
+.tab-pane:top > .tab-header-area{
+    -fx-min-height: 75;
+    -fx-pref-height: 75;
+    -fx-max-height: 75;
+}
+
+.tab-pane:top > .tab-header-region{
+}
+
+.tab-pane:top > .tab-header-area > .headers-region{
+
+}
+
+.tab-pane:top > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: #2F2F2F;
+    -fx-min-height: 75;
+    -fx-pref-height: 75;
+    -fx-max-height: 75;
+}
+
+.tab-pane:top > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-text-fill: #FFFFFF60;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+    -fx-font-weight: 700;
+
+    -fx-min-width: 120;
+    -fx-pref-width: 120;
+    -fx-max-width: 120;
+
+    -fx-min-height: 75;
+    -fx-pref-height: 75;
+    -fx-max-height: 75;
+
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+    -fx-text-fill: #BB86FC;
+}
+
+
+.tab-pane:top > .tab-header-area > .headers-region > .tab:selected {
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #BB86FC;
+}
+.tab-pane:top > .tab-header-area > .headers-region > .tab:selected > .tab-label{
+    -fx-background-color: #2F2F2F;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #BB86FC;
+    -fx-text-fill: #BB86FC;
+        -fx-background-insets: 0 0 0 0;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+}
+
+/* ------------------------------------------------------------------------
+/* tables
+/* ------------------------------------------------------------------------ */
+
+.table-view {
+    -fx-background-color:   -fx-bg-dark;
+}
+.label--header,
+.table-view .column-header .label{
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-weight: 800;
+        -fx-text-fill: #FFFFFF;
+        -fx-font-family: "Roboto";
+        -fx-font-size: 13;
+}
+
+.table-view .column-header {
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-color: -fx-bg-dark;
+    -fx-pref-height: 50;
+}
+
+.table-cell {
+    -fx-text-fill: #FFFFFF90;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-pref-height: 25;
+    -fx-font-weight: 500;
+}
+
+.table-row-cell:selected > .table-cell{
+        -fx-text-fill: #FFFFFF;
+        -fx-background-color: derive(-fx-selected-dark, 50%);
+}
+
+.table-row-cell:hover > .table-cell{
+        -fx-text-fill: #FFFFFF;
+}
+
+
+.table-row-cell:even {
+    -fx-control-inner-background: -fx-bg-dark;
+}
+
+.table-row-cell:odd{
+    -fx-control-inner-background: derive(-fx-bg-dark, 15%);
+}
+
+.list-cell:empty,
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.list-cell,
+.table-row-cell{
+    -fx-table-cell-border-color:transparent;
+}
+
+.text--table {
+    -fx-text-fill: #FFFFFF90;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-pref-height: 25;
+    -fx-font-weight: 500;
+}
+

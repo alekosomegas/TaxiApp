@@ -13,8 +13,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class InvoiceViewController extends Controller {
     public TableView<Invoice> tvInvoiceTable;
@@ -26,7 +28,17 @@ public class InvoiceViewController extends Controller {
     private ObservableList<Invoice> invoices = FXCollections.observableArrayList();
     private ObservableList<InvoiceCard> invoiceCards = FXCollections.observableArrayList();
 
-    @FXML
+
+    @Override @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            initialize();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     private void initialize() throws SQLException {
         tcInvoiceId.setCellValueFactory(cellData -> cellData.getValue().idProperty());
         tcInvoiceDate.setCellValueFactory(cellData -> cellData.getValue().datePropertyProperty());
@@ -34,7 +46,7 @@ public class InvoiceViewController extends Controller {
         tcInvoiceTotal.setCellValueFactory(cellData -> cellData.getValue().totalProperty().asObject());
 
         search();
-        createInvoiceCards();
+
     }
 
     @FXML
@@ -42,41 +54,17 @@ public class InvoiceViewController extends Controller {
         try {
             ObservableList<Invoice> resultSet = InvoiceDAO.searchAll();
             tvInvoiceTable.setItems(resultSet);
-            invoices = resultSet;
         } catch (SQLException e){
             System.out.println("Error occurred while getting information from DB.\n" + e);
             throw e;
         }
     }
 
-    public void createInvoiceCards() {
-        vBoxContainer.getChildren().clear();
-        for (Invoice invoice : invoices) {
-            HashMap<InvoiceCard.InvoiceCardFields, String> values = new HashMap<>();
-            InvoiceCard invoiceCard = new InvoiceCard();
-
-            values.put(InvoiceCard.InvoiceCardFields.CLIENT,
-                    invoice.clientNameProperty().getValue());
-            values.put(InvoiceCard.InvoiceCardFields.DATE,
-                    invoice.getDateProperty());
-            values.put(InvoiceCard.InvoiceCardFields.TOTAL,
-                    invoice.totalProperty().getValue().toString());
-            values.put(InvoiceCard.InvoiceCardFields.ID,
-                    invoice.idProperty().getValue());
-
-
-            invoiceCard.setValues(values);
-            invoiceCards.add(invoiceCard);
-            vBoxContainer.getChildren().add(invoiceCard);
-        }
-
-    }
 
     @Override
     public void updateView() {
         try {
             search();
-            createInvoiceCards();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

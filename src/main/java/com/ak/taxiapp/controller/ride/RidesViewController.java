@@ -11,8 +11,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 //endregion
 // ------------------------------------------------------------------ //
@@ -65,7 +67,16 @@ public class RidesViewController extends Controller {
     // ------------------------------------------------------------------ //
     //region// ---------------------------- INITIALIZE --------------------------- //
 
-    @FXML
+    @Override @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            initialize();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     private void initialize() throws SQLException {
         /*
          * Sets the FXML Values to the values taken from equivalent variable of the ride object

@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.ak.taxiapp.controller.database.DatabaseLayoutController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="855.1111111111111" prefWidth="1080.0" stylesheets="@../../style/stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.database.DatabaseLayoutController">
+   <children>
+      <VBox layoutX="-2.6666667461395264">
+         <children>
+            <VBox fx:id="banner" fillWidth="false">
+               <children>
+                  <VBox fillWidth="false" spacing="15.0">
+                     <children>
+                        <Label styleClass="page_tittle" text="Databse View" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TabPane fx:id="tabPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="750.0" prefWidth="1085.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab fx:id="tabRides" onSelectionChanged="#onSelectionChanged" text="Rides">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </Tab>
+                            <Tab fx:id="tabClients" onSelectionChanged="#onSelectionChanged" text="Clients">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </Tab>
+                              <Tab fx:id="tabInvoices" onSelectionChanged="#onSelectionChanged" text="Invoices">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabCars" onSelectionChanged="#onSelectionChanged" text="Cars">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="tabDrivers" onSelectionChanged="#onSelectionChanged" text="Drivers">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </VBox>
+            <HBox fx:id="hbContent" fillHeight="false" spacing="10.0">
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <ButtonBar layoutX="884.0" layoutY="791.0" prefHeight="40.0" prefWidth="200.0" />
+   </children>
 </AnchorPane>

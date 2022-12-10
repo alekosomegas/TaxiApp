@@ -132,6 +132,9 @@ public class TaxiApplication extends Application {
     public static void showInvoicesView() {
         rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.INVOICES));
     }
+    public static void showInvoiceView() {
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.INVOICE));
+    }
 
 
     public static void showDatabaseView() {
