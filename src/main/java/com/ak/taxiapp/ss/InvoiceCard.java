@@ -1,12 +1,9 @@
-package com.ak.taxiapp.controller.invoice;
+package com.ak.taxiapp.ss;
 
 import com.ak.taxiapp.TaxiApplication;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,7 +30,7 @@ public class InvoiceCard extends HBox {
         getChildren().add(view);
     }
 
-    enum InvoiceCardFields {
+    public enum InvoiceCardFields {
         STATUS, ID, CLIENT, FROM, TO, DATE, TOTAL, NOTES
     }
     public void setValues(HashMap<InvoiceCardFields, String> values) {

@@ -276,6 +276,7 @@
     -fx-text-fill: white;
 }
 
+
 .separator:horizontal .line {
     -fx-background-color: #FFFFFF20;
     -fx-pref-height: 1;
@@ -387,8 +388,14 @@
   }
 
  .text--action {
+          -fx-font-family: "Roboto";
     -fx-text-fill: #BB86FC;
  }
+ .text--action:hover {
+     -fx-text-fill: #cba1ff;
+     -fx-font-weight: 600;
+
+  }
 
 
   /* ------------------------------------------------------------------------
@@ -512,6 +519,16 @@
     -fx-border-radius: 4;
 }
 
+.combo-box .list-cell{
+    -fx-background-color: #484848;
+    -fx-text-fill: #FFFFFF;;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-font-weight: 400;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
 
 .text-field--error {
  -fx-background-color: #484848;
@@ -613,6 +630,44 @@
     -fx-alignment: center-left;
     -fx-graphic-text-gap: 5;
 }
+
+.toggle_slider--status {
+    -fx-background-color: #2f61be;
+    -fx-border-radius: 34;
+    -fx-background-radius: 34;
+    -fx-min-width: 75;
+    -fx-max-width: 75;
+    -fx-min-height: 25;
+    -fx-max-height: 25;
+        -fx-text-fill: #FFFFFF;;
+        -fx-font-family: "Roboto";
+        -fx-font-size: 12;
+}
+
+.toggle_slider--status:disabled {
+    -fx-background-color: rgb(111,111,111);
+}
+
+.toggle_slider--status:hover {
+    -fx-background-color: -fx-selected;
+}
+
+.toggle_slider--status:selected {
+    -fx-background-color: #2f61be;
+    -fx-min-height: 32;
+    -fx-max-height: 32;
+
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 2 0 ;
+    -fx-border-color: white;
+
+        -fx-text-fill: #FFFFFF;;
+        -fx-font-family: "Roboto";
+        -fx-font-size: 12;
+        -fx-font-weight: 900;
+}
+
+
 
 /* ------------------------------------------------------------------------
 /* tabs
@@ -749,4 +804,20 @@
     -fx-pref-height: 25;
     -fx-font-weight: 500;
 }
+.text--table--white {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-pref-height: 25;
+    -fx-font-weight: 600;
+}
 
+.small-text {
+    -fx-text-fill: #FFFFFF60;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 9;
+}
+
+.row:hover {
+    -fx-background-color: -fx-selected-dark;
+}

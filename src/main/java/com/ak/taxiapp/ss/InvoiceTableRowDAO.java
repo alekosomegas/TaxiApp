@@ -1,4 +1,4 @@
-package com.ak.taxiapp.model.invoice;
+package com.ak.taxiapp.ss;
 
 import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.util.DBUtil;

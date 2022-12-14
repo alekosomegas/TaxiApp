@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -40,6 +41,7 @@ public class RootLayoutController extends Controller {
     private Button clientsViewBtn;
     @FXML private Button CarsViewBtn;
     @FXML private Button driversViewBtn;
+    @FXML public TextField tfStatusBar;
 
     private Button selectedBtn;
     private HashMap<String, ImageView> icons = new HashMap<>(22) {
@@ -237,7 +239,7 @@ public class RootLayoutController extends Controller {
         invoicesViewBtn.setGraphic(icons.get("Invoices-selected"));
         invoicesViewBtn.getGraphic().getStyleClass().add("side_bar__button__icon--selected");
         highlight(invoicesViewBtn);
-        TaxiApplication.showInvoiceView();
+        TaxiApplication.showInvoicesView();
     }
 
     private void highlight(Button button) {

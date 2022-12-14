@@ -1,14 +1,14 @@
 package com.ak.taxiapp.controller.invoice;
 
 import com.ak.taxiapp.TaxiApplication;
-import com.ak.taxiapp.custom.InvoiceRow;
+import com.ak.taxiapp.model.invoice.InvoiceRow;
 import com.ak.taxiapp.model.invoice.Invoice;
 import com.ak.taxiapp.model.invoice.InvoiceDAO;
+import com.ak.taxiapp.ss.InvoiceCard;
 import com.ak.taxiapp.util.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -18,10 +18,9 @@ import java.util.ResourceBundle;
 
 public class InvoicesListController extends Controller {
 
-    public AnchorPane apContent;
+    // the Vbox containing all the invoices
     public VBox vBoxContainer;
     private ObservableList<Invoice> invoices = FXCollections.observableArrayList();
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,15 +46,6 @@ public class InvoicesListController extends Controller {
 
     public void onTabInvoice(ActionEvent event) {
         TaxiApplication.showInvoiceView();
-    }
-
-    public void onOK(ActionEvent event) {
-    }
-
-    public void onCancel(ActionEvent event) {
-    }
-
-    public void onClear(ActionEvent event) {
     }
 
     public void createInvoiceCards() {
@@ -86,17 +76,28 @@ public class InvoicesListController extends Controller {
         vBoxContainer.getChildren().clear();
 
         for (Invoice invoice : invoices) {
+            // values to pass to InvoiceRow
             HashMap<InvoiceRow.InvoiceRowFields, String> values = new HashMap<>();
-            InvoiceRow invoiceRow = new InvoiceRow();
+            InvoiceRow invoiceRow = new InvoiceRow(invoice);
 
             values.put(InvoiceRow.InvoiceRowFields.CLIENT,
-                    invoice.clientNameProperty().getValue());
+                    invoice.getClientName());
+            values.put(InvoiceRow.InvoiceRowFields.EMAIL,
+                    invoice.getClientEmail());
+            values.put(InvoiceRow.InvoiceRowFields.TEL,
+                    invoice.getClientTel());
             values.put(InvoiceRow.InvoiceRowFields.DATE,
                     invoice.getDateProperty());
+            values.put(InvoiceRow.InvoiceRowFields.RANGE,
+                    invoice.getDateRange());
             values.put(InvoiceRow.InvoiceRowFields.TOTAL,
-                    invoice.totalProperty().getValue().toString());
+                    String.valueOf(invoice.getTotal()));
             values.put(InvoiceRow.InvoiceRowFields.ID,
                     invoice.idProperty().getValue());
+            values.put(InvoiceRow.InvoiceRowFields.STATUS,
+                    invoice.getStatusProperty());
+            values.put(InvoiceRow.InvoiceRowFields.NOTES,
+                    invoice.getNotes());
 
 
             invoiceRow.setValues(values);
@@ -109,10 +110,10 @@ public class InvoicesListController extends Controller {
     public void updateView() {
         try {
             search();
+            createInvoiceRows();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        createInvoiceCards();
     }
 
 }

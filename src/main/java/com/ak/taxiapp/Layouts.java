@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class Layouts {
     // number of layouts/controllers
-    private final int CAPACITY = 12;
+    private final int CAPACITY = 13;
 
     private static Layouts singleInstance = null;
 
@@ -22,17 +22,20 @@ public class Layouts {
     }
 
     public enum Pages {
-        DASHBOARD, CALENDAR, RIDES, EXPENSES, INVOICES, INVOICE, FLEET, CLIENTS, DRIVERS, REPORTS, DATABASE, SETTINGS
+        DASHBOARD, CALENDAR, RIDES, RIDE, EXPENSES, INVOICES, INVOICE, FLEET, CLIENTS, DRIVERS, REPORTS, DATABASE, SETTINGS
     }
 
     private final HashMap<Pages, String> paths= new HashMap<>() {
         {
             put(Pages.DASHBOARD,"fxml/dashboard/"+ "DashboardLayout"    + ".fxml");
             put(Pages.CALENDAR, "fxml/calendar/" + "CalendarDayView"    + ".fxml");
-            put(Pages.RIDES,    "fxml/ride/"     + "SingleRideView"     + ".fxml");
+
+            put(Pages.RIDES,    "fxml/ride/"     + "RidesListView"      + ".fxml");
+            put(Pages.RIDE,     "fxml/ride/"     + "SingleRideView"     + ".fxml");
+
             put(Pages.EXPENSES, "fxml/expenses/" + "ExpensesLayout"     + ".fxml");
 
-            put(Pages.INVOICES, "fxml/invoice/"  + "InvoicesListView"  + ".fxml");
+            put(Pages.INVOICES, "fxml/invoice/"  + "InvoicesListView"   + ".fxml");
             put(Pages.INVOICE,  "fxml/invoice/"  + "SingleInvoiceView"  + ".fxml");
 
             put(Pages.FLEET,    "fxml/car/"      + "CarsDbView"         + ".fxml");

@@ -127,6 +127,9 @@ public class DayCalendarRectangle {
         //TODO: condition when end time is at next day, if duration is negative,
         // somehow inform day view that need to draw another rectangle
         Duration duration = ride.getDuration();
+        if (duration == null) {
+            return 1;
+        }
         double minutes = duration.toMinutes();
 
         if(minutes < 0) {
@@ -144,11 +147,13 @@ public class DayCalendarRectangle {
      * staring time
      */
     private double calculateRecY() {
-        LocalTime time = ride.getStartDate().toLocalTime();
         double minutes = 0;
-        minutes += time.getHour() * 60 + time.getMinute();
+        if (ride.getStartDate() != null) {
+            LocalTime time = ride.getStartDate().toLocalTime();
 
-        System.out.println(minutes);
+            minutes += time.getHour() * 60 + time.getMinute();
+        }
+
 
         return DayView.SPACING / 60 * minutes - DayView.ADJFACTSPACING;
     }

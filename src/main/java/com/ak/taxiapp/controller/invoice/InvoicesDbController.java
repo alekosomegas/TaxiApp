@@ -1,29 +1,28 @@
 package com.ak.taxiapp.controller.invoice;
 
 import com.ak.taxiapp.model.invoice.*;
+import com.ak.taxiapp.ss.InvoiceCard;
 import com.ak.taxiapp.util.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class InvoiceViewController extends Controller {
+public class InvoicesDbController extends Controller {
     public TableView<Invoice> tvInvoiceTable;
     public TableColumn<Invoice, String> tcInvoiceId;
+    public TableColumn<Invoice, String> tcInvoiceDateRange;
     public TableColumn<Invoice, String> tcInvoiceDate;
     public TableColumn<Invoice, String> tcInvoiceClient;
     public TableColumn<Invoice, Integer> tcInvoiceTotal;
+    public TableColumn<Invoice, String> tcInvoiceStatus;
+    public TableColumn<Invoice, String> tcInvoiceNotes;
     public VBox vBoxContainer;
     private ObservableList<Invoice> invoices = FXCollections.observableArrayList();
     private ObservableList<InvoiceCard> invoiceCards = FXCollections.observableArrayList();
@@ -41,9 +40,12 @@ public class InvoiceViewController extends Controller {
 
     private void initialize() throws SQLException {
         tcInvoiceId.setCellValueFactory(cellData -> cellData.getValue().idProperty());
+        tcInvoiceDateRange.setCellValueFactory(cellData -> cellData.getValue().dateRangeProperty());
         tcInvoiceDate.setCellValueFactory(cellData -> cellData.getValue().datePropertyProperty());
         tcInvoiceClient.setCellValueFactory(cellData -> cellData.getValue().clientNameProperty());
         tcInvoiceTotal.setCellValueFactory(cellData -> cellData.getValue().totalProperty().asObject());
+        tcInvoiceStatus.setCellValueFactory(cellData -> cellData.getValue().statusPropertyProperty());
+        tcInvoiceNotes.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
 
         search();
 

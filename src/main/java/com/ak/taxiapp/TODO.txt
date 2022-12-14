@@ -22,12 +22,42 @@ A. RIDES VIEW
     11. Add wait functionality
     12. Add rates
     13. notes do not work
+
+
+
+    From and to display in list view:
+    if round trip show all the stops in the to field and
+        a round trip icon
+    else
+        show to destination
+
+    SingleRideController:
+    two modes, new and edit:
+    if edit mode
+        load all info (stops)
+        ok button renamed to update
+        add a new 'add new ride' button (start with existing ride, alter and save)
+    else
+        as is now
+
+    Alerts and input validation
+    Autocomplete text fields
+    FILTERS
+    New Client dialog
+    Status and saved
+    Delete
+
 ---------------------------------------------------------------------
 
 =====================================================================
 B. CLIENTS VIEW
 ---------------------------------------------------------------------
 1.  Add passengers list, include name if used more than 2? times
+
+2.  New ride button
+3.  Fix now line
+4.  Add color box and filter in tree view for each driver
+5.  Click on ride to edit
 ---------------------------------------------------------------------
 
 =====================================================================
@@ -100,3 +130,17 @@ K. SETTINGS
 2.  Split percentage for drivers
 3.  Rates values, per km per hour
 ---------------------------------------------------------------------
+
+=====================================================================
+L. INVOICE
+---------------------------------------------------------------------
+1.  Notes prevent null from showing
+2.  Fix headers
+3.  Reset status buttons at populate
+4.  Make text in rectangle more visible
+5.  Remove and add rides
+6.  Show all rides not in invoice
+7.  Filters
+8.  Delete from database only
+---------------------------------------------------------------------
+

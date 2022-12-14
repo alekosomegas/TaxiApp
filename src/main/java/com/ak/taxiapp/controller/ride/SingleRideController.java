@@ -1,11 +1,14 @@
 package com.ak.taxiapp.controller.ride;
 
+import com.ak.taxiapp.TaxiApplication;
 import com.ak.taxiapp.model.car.Car;
 import com.ak.taxiapp.model.car.CarDAO;
 import com.ak.taxiapp.model.client.Client;
 import com.ak.taxiapp.model.client.ClientDAO;
 import com.ak.taxiapp.model.driver.Driver;
 import com.ak.taxiapp.model.driver.DriverDAO;
+import com.ak.taxiapp.model.invoice.Invoice;
+import com.ak.taxiapp.model.invoice.InvoiceDAO;
 import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.model.ride.RideDAO;
 import com.ak.taxiapp.util.AutoCompleteTextField;
@@ -594,8 +597,14 @@ public class SingleRideController extends Controller implements Initializable {
                 if (mode == 1) {
                     searchableComboBox.setValue(null);
                 } else {
-                    values.put(searchableComboBox.getId(),
-                            searchableComboBox.getValue().toString().split("\\.")[0]);
+                    if (searchableComboBox.getValue() != null) {
+                        values.put(searchableComboBox.getId(),
+                                searchableComboBox.getValue().toString().split("\\.")[0]);
+                    } else {
+                        values.put(searchableComboBox.getId(),
+                                "");
+                    }
+
                 }
             }
         }
@@ -647,9 +656,90 @@ public class SingleRideController extends Controller implements Initializable {
             values.put("tfCredit", "0");
         }
 
+
+
+        if(belongsToInvoice()) {
+            // find invoice id
+            // search for all open invoices of client, no need to add since it is already tagged
+            // TODO: handle multiple open invoices
+            // TODO: generate id
+            // TODO: stat number for id
+            ObservableList<Invoice> openInvoices = InvoiceDAO.searchByClientIdAndStatus(getClientId(), Invoice.Status.OPEN);
+            ObservableList<Invoice> totalInvoices = InvoiceDAO.searchByClientId(getClientId());
+
+            String rest;
+            String id = getClientId() + "/";
+            if(openInvoices.size() == 0) {
+                // create new invoice
+                Invoice newInvoice = new Invoice(ClientDAO.searchClientById(getClientId()));
+                newInvoice.setStatus(Invoice.Status.OPEN);
+                // last + one
+                rest = String.format("%03d", totalInvoices.size()+1);
+                id = id + rest;
+                newInvoice.setId(id);
+
+                InvoiceDAO.insert(newInvoice);
+
+
+            } else {
+                // last one
+                rest = String.format("%03d", totalInvoices.size());
+                id = id + rest;
+            }
+
+            values.put("id", id);
+
+            // add if exist
+            // create new with id from Invoice.generateId()
+        }
+
         RideDAO.insert(values);
+
     }
 
     public void onCancel(ActionEvent event) {
+    }
+
+    //TODO: disable credit field, enable only if client is selected
+    public boolean belongsToInvoice() {
+        // If credit and client exist
+        if (!tfCredit.getText().equals("")  &&
+            !searchCbClients.getValue().equals("")) {
+            return true;
+        }
+        return false;
+    }
+
+    private void validateInputs() {
+
+    }
+
+    private String getClientId() {
+        return searchCbClients.getValue().split("\\.")[0];
+    }
+
+
+    public void onTabList(ActionEvent event) {
+        TaxiApplication.showRidesView();
+    }
+
+    public void populateData(Ride ride) {
+        dtDate.setValue(ride.getDate());
+        tfTimeStartH.setText(ride.getRidesTimeStart().split(":")[0]);
+        tfTimeStartM.setText(ride.getRidesTimeStart().split(":")[1]);
+        tfTimeEndH.setText(ride.getRidesTimeEnd().split(":")[0]);
+        tfTimeEndM.setText(ride.getRidesTimeEnd().split(":")[1]);
+        tfFrom.setText(ride.getRidesFrom());
+        tfTo.setText(ride.getRidesTo());
+        taNotes.setText(ride.getRidesNotes());
+        tfCash.setText(String.valueOf(ride.getRidesCash()));
+        tfCredit.setText(String.valueOf(ride.getRidesCredit()));
+        searchCbClients.setValue(ride.getRidesClientId() +". "+ ride.getRidesClient());
+        searchCbDrivers.setValue(ride.getRidesDriverId() +". "+ ride.getRidesDriver());
+        searchCbCars.setValue(ride.getRidesCarId() +". "+ ride.getRidesCar());
+
+        calculateTotal();
+        calculateVAT();
+
     }
 }

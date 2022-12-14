@@ -1,0 +1,1 @@
+java -jar C:\Users\Alexandros\Documents\TaxiApp\out\artifacts\TaxiApp_jar\TaxiApp.jar

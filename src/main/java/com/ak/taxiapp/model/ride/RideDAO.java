@@ -2,6 +2,7 @@ package com.ak.taxiapp.model.ride;
 // ------------------------------------------------------------------ //
 //region// ----------------------------- IMPORTS ---------------------------- //
 
+import com.ak.taxiapp.TaxiApplication;
 import com.ak.taxiapp.model.calendar.CalendarModel;
 import com.ak.taxiapp.model.car.CarDAO;
 import com.ak.taxiapp.model.client.ClientDAO;
@@ -40,27 +41,34 @@ RideDAO {
         ObservableList<Ride> ridesList = FXCollections.observableArrayList();
         // goes through all the data/rows in the result set
         while (resultSet.next()) {
-            // creates a new ride
-            Ride ride = new Ride();
-            // populates it with values taken from the columns of the result set
-            setRideValuesFromRsData(resultSet, ride);
+            try {
+                // creates a new ride
+                Ride ride = new Ride();
+                // populates it with values taken from the columns of the result set
+                setRideValuesFromRsData(resultSet, ride);
 
-            if (ClientDAO.searchClientById(String.valueOf(ride.getRidesClientId())) != null) {
-                ride.setRidesClient(ClientDAO.searchClientById(String.valueOf(ride.getRidesClientId())).getClient_name());
-            }
-            if (DriverDAO.searchDriverById(String.valueOf(ride.getRidesDriverId())) != null) {
-                ride.setRidesDriver(DriverDAO.searchDriverById(String.valueOf(ride.getRidesDriverId())).getDriver_name());
-            }
-            ride.setRidesCar(CarDAO.searchCarById(ride.getRidesCarId()).getCar_reg());
-            ride.setRidesDuration(calculateDuration(ride));
-            ride.setRidesTotal(ride.getRidesCash() + ride.getRidesCredit());
-            //Add client to ObservableList
-            ridesList.add(ride);
+                if (ClientDAO.searchClientById(String.valueOf(ride.getRidesClientId())) != null) {
+                    ride.setRidesClient(ClientDAO.searchClientById(String.valueOf(ride.getRidesClientId())).getClient_name());
+                }
+                if (DriverDAO.searchDriverById(String.valueOf(ride.getRidesDriverId())) != null) {
+                    ride.setRidesDriver(DriverDAO.searchDriverById(String.valueOf(ride.getRidesDriverId())).getDriver_name());
+                }
+                if (CarDAO.searchCarById(ride.getRidesCarId()) != null) {
+                    ride.setRidesCar(CarDAO.searchCarById(ride.getRidesCarId()).getCar_reg());
+                }
+//            ride.setRidesDuration(calculateDuration(ride));
+                ride.setRidesTotal(ride.getRidesCash() + ride.getRidesCredit());
+                //Add client to ObservableList
+                ridesList.add(ride);
 
-            ride.setDriver(
-                    DriverDAO.searchDriverById(String.valueOf(ride.getRidesDriverId()))
-            );
-            ride.setDate(LocalDate.parse(ride.getRidesDate()));
+                ride.setDriver(
+                        DriverDAO.searchDriverById(String.valueOf(ride.getRidesDriverId()))
+                );
+                ride.setDate(LocalDate.parse(ride.getRidesDate()));
+            }catch (Exception e) {
+                System.out.println("ERROR in creating ride, check inputs and database");
+                e.printStackTrace();
+            }
 
         }
         return ridesList;
@@ -136,7 +144,7 @@ RideDAO {
     }
 
     public static ObservableList<Ride> searchRidesByInvoiceId(String invoiceId) throws SQLException {
-        String selectStatement = "SELECT * FROM rides WHERE RIDES_INVOICES_ID = " + invoiceId;
+        String selectStatement = "SELECT * FROM rides WHERE RIDES_INVOICES_ID ='" + invoiceId+ "';";
         try {
             ResultSet rs = DBUtil.dbExecuteQuery(selectStatement);
             //Send ResultSet to the getClientList method and get client object
@@ -145,6 +153,7 @@ RideDAO {
             return ridesList;
         } catch (SQLException e) {
             System.out.println("SQL select operation has failed: " + e);
+            System.out.println(selectStatement);
             throw e;
         }
     }
@@ -198,6 +207,7 @@ RideDAO {
                         " VALUES (" +values+ ");";
         try {
             DBUtil.dbExecuteUpdate(updateStatement);
+            TaxiApplication.rootLayoutController.tfStatusBar.setText("Ride inserted");
         } catch (SQLException e) {
             System.out.println("Error occurred while INSERT operation: " + e);
             throw e;
@@ -266,6 +276,7 @@ RideDAO {
         ride.setRidesCredit(resultSet.getInt("RIDES_CREDIT"));
         ride.setRidesNotes(resultSet.getString("RIDES_NOTES"));
         ride.setRidesPassenger(resultSet.getString("RIDES_PASSENGER"));
+        ride.setRidesInvoiceId(resultSet.getString("RIDES_INVOICES_ID"));
     }
 
     private static String calculateDuration(Ride rd) {
@@ -353,7 +364,8 @@ RideDAO {
                 values.get("tfFrom"), values.get("tfStops"), values.get("tfTo"),
                 Integer.parseInt(values.get("tfCash")),
                 Integer.parseInt(values.get("tfCredit")), values.get("taNotes"),
-                values.get("tfPassenger"));
+                values.get("tfPassenger"),
+                values.get("id"));
     }
 
     //endregion

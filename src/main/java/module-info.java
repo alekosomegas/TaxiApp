@@ -50,5 +50,7 @@ module com.ak.taxiapp {
     opens com.ak.taxiapp.controller.reports to javafx.fxml;
     exports com.ak.taxiapp.controller.settings;
     opens com.ak.taxiapp.controller.settings to javafx.fxml;
+    exports com.ak.taxiapp.ss;
+    opens com.ak.taxiapp.ss to javafx.fxml;
 
 }

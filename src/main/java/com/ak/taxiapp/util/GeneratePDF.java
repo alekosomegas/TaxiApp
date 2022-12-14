@@ -3,35 +3,29 @@ package com.ak.taxiapp.util;
 //region// ----------------------------- IMPORTS ---------------------------- //
 
 import com.ak.taxiapp.model.invoice.Invoice;
-import com.ak.taxiapp.model.invoice.InvoiceTable;
-import com.ak.taxiapp.model.invoice.InvoiceTableRow;
+import com.ak.taxiapp.model.ride.Ride;
+import com.ak.taxiapp.ss.InvoiceTable;
+import com.ak.taxiapp.ss.InvoiceTableRow;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.properties.HorizontalAlignment;
-import com.itextpdf.layout.properties.TabAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.io.image.ImageDataFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import com.itextpdf.layout.borders.Border;
 
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
-
-import static com.itextpdf.kernel.pdf.PdfName.Color;
-import static com.itextpdf.kernel.pdf.PdfName.ca;
 
 // endregion
 // ------------------------------------------------------------------ //
@@ -60,7 +54,7 @@ public class GeneratePDF {
 
     public GeneratePDF(Invoice invoice) throws Exception {
         this.invoice = invoice;
-        this.invoiceTable = invoice.getInvoiceTable();
+//        this.invoiceTable = invoice.getInvoiceTable();
         builtFileName();
         buildDateDirectories();
 
@@ -224,13 +218,15 @@ public class GeneratePDF {
     }
 
     private Table table() {
-        Table table = new Table(UnitValue.createPercentArray(invoiceTable.getNumOfColumns())).useAllAvailableWidth();
+        Table table = new Table(UnitValue.createPercentArray(7)).useAllAvailableWidth();
 
-        int TOTAL_ROWS = 25;
+//        int TOTAL_ROWS = 25;
         float ROW_HEIGHT = 12;
-        int emptyRows = TOTAL_ROWS - invoiceTable.getAllRows().size();
+//        int emptyRows = TOTAL_ROWS - invoiceTable.getAllRows().size();
 
-        for (String header : invoiceTable.getHEADERS()) {
+        String[] headers = {"Date", "Passenger", "From", "Stops", "To", "Notes", "Price"};
+
+        for (String header : headers) {
             Cell cell = new Cell();
             Paragraph paragraph2 = new Paragraph(header);
             paragraph2.setFontSize(9);
@@ -242,33 +238,44 @@ public class GeneratePDF {
             cell.setHeight(ROW_HEIGHT);
             table.addCell(cell);
         }
-        for (InvoiceTableRow row : invoiceTable.getAllRows()) {
+
+        for (Ride ride : invoice.getRides()) {
+            ArrayList<String> allData = new ArrayList<>(7);
+            allData.add(ride.getRidesDate());
+            allData.add(ride.getRidesPassenger());
+            allData.add(ride.getRidesFrom());
+            allData.add(ride.getRidesStops());
+            allData.add(ride.getRidesTo());
+            allData.add(ride.getRidesNotes());
+            allData.add(String.valueOf(ride.getRidesTotal()));
+
             for (int i = 0; i < 7; i++) {
                 Cell cell = new Cell();
                 cell.setBorder(Border.NO_BORDER);
                 cell.setHeight(ROW_HEIGHT);
-                Paragraph paragraph1 = new Paragraph(row.getAllData().get(i));
+                Paragraph paragraph1 = new Paragraph(allData.get(i));
                 paragraph1.setFontSize(9);
                 cell.add(paragraph1);
-                if (invoiceTable.getAllRows().indexOf(row) % 2 != 0) {
+                if (invoice.getRides().indexOf(ride) % 2 != 0) {
                     cell.setBackgroundColor(ColorConstants.LIGHT_GRAY);
                 }
                 table.addCell(cell);
             }
         }
 
-//        for (int i = 0; i < 1; i++) {
-//            Cell cell = new Cell(0,7);
-//            cell.setBorder(Border.NO_BORDER);
-//            cell.setHeight(ROW_HEIGHT);
-//            table.addCell(cell);
-//        }
-//
-//        for (int i = 0; i < emptyRows; i++) {
-//            Cell cell = new Cell(0,7);
-//            cell.setBorder(Border.NO_BORDER);
-//            cell.setHeight(ROW_HEIGHT);
-//            table.addCell(cell);
+//        for (InvoiceTableRow row : invoiceTable.getAllRows()) {
+//            for (int i = 0; i < 7; i++) {
+//                Cell cell = new Cell();
+//                cell.setBorder(Border.NO_BORDER);
+//                cell.setHeight(ROW_HEIGHT);
+//                Paragraph paragraph1 = new Paragraph(row.getAllData().get(i));
+//                paragraph1.setFontSize(9);
+//                cell.add(paragraph1);
+//                if (invoiceTable.getAllRows().indexOf(row) % 2 != 0) {
+//                    cell.setBackgroundColor(ColorConstants.LIGHT_GRAY);
+//                }
+//                table.addCell(cell);
+//            }
 //        }
 
         Cell emptyCells = new Cell(0,5);
@@ -295,7 +302,7 @@ public class GeneratePDF {
         Cell subtotal = new Cell();
         subtotal.setBorder(Border.NO_BORDER);
         subtotal.setHeight(ROW_HEIGHT);
-        Paragraph txSubtotal = new Paragraph("€ " + invoiceTable.getTotal());
+        Paragraph txSubtotal = new Paragraph("€ " + invoice.getTotal());
         txSubtotal.setFontSize(9);
         subtotal.add(txSubtotal);
         table.addCell(subtotal);
@@ -316,7 +323,7 @@ public class GeneratePDF {
         Cell vat = new Cell();
         vat.setBorder(Border.NO_BORDER);
         vat.setHeight(ROW_HEIGHT);
-        Paragraph txVat = new Paragraph("€ " + f.format((double)invoiceTable.getTotal() * (double)9/100) );
+        Paragraph txVat = new Paragraph("€ " + f.format((double) invoice.getTotal() * (double)9/100) );
         txVat.setFontSize(9);
         vat.add(txVat);
         table.addCell(vat);
@@ -334,14 +341,12 @@ public class GeneratePDF {
         Cell total = new Cell();
         total.setBorder(Border.NO_BORDER);
         total.setHeight(ROW_HEIGHT);
-        Paragraph txTotal = new Paragraph("€ " + f.format((double)invoiceTable.getTotal() * (double)109/100));
+        Paragraph txTotal = new Paragraph("€ " + f.format((double) invoice.getTotal() * (double)109/100));
         txTotal.setFontSize(9);
         txTotal.setBold();
         total.add(txTotal);
         table.addCell(total);
 
-//        table.addFooterCell("Total");
-//        table.addFooterCell(String.valueOf(invoiceTable.getTotal()));
         return table;
     }
 

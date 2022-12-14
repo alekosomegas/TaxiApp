@@ -1,4 +1,4 @@
-package com.ak.taxiapp.controller.invoice;
+package com.ak.taxiapp.ss;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

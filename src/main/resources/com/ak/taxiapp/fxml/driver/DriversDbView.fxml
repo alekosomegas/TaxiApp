@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefWidth="850.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.driver.DriversViewController">
+<AnchorPane prefWidth="1100.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.driver.DriversViewController">
    <children>
-      <VBox prefWidth="850.0" spacing="5.0">
+      <VBox maxWidth="1100.0" minWidth="1100.0" prefWidth="1100.0" spacing="5.0">
          <children>
             <HBox prefWidth="850.0" spacing="5.0">
                <children>
@@ -20,15 +20,15 @@
             </HBox>
             <HBox>
                <children>
-                  <TableView fx:id="driversTable" onMouseClicked="#selectDriver">
+                  <TableView fx:id="driversTable" maxWidth="1100.0" minWidth="1100.0" onMouseClicked="#selectDriver" prefHeight="600.0" prefWidth="1100.0">
                     <columns>
-                      <TableColumn fx:id="driverIdCol" prefWidth="35.0" text="Id" />
+                      <TableColumn fx:id="driverIdCol" prefWidth="28.0" text="Id" />
                       <TableColumn fx:id="driversNameCol" prefWidth="247.99999237060547" text="Name" />
                         <TableColumn fx:id="driversCarCol" minWidth="0.0" prefWidth="326.2222595214844" text="Car" />
                         <TableColumn fx:id="driversColorCol" prefWidth="75.0" text="Color" />
+                        <TableColumn prefWidth="418.0" />
                     </columns>
                   </TableView>
-                  <VBox fx:id="vbColors" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
                </children>
             </HBox>
          </children>

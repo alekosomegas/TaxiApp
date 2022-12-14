@@ -1,14 +1,17 @@
 package com.ak.taxiapp;
 
 import com.ak.taxiapp.controller.*;
-import com.ak.taxiapp.controller.calendar.CalendarDayViewController;
 import com.ak.taxiapp.controller.car.NewCarDialogController;
 import com.ak.taxiapp.controller.client.NewClientDialogController;
 import com.ak.taxiapp.controller.driver.NewDriverDialogControler;
-import com.ak.taxiapp.controller.invoice.InvoiceViewController;
+import com.ak.taxiapp.controller.invoice.InvoicesListController;
 import com.ak.taxiapp.controller.invoice.NewInvoiceDialogController;
+import com.ak.taxiapp.controller.invoice.SingleInvoiceController;
 import com.ak.taxiapp.controller.ride.NewRideDialogController;
+import com.ak.taxiapp.controller.ride.RidesViewController;
+import com.ak.taxiapp.controller.ride.SingleRideController;
 import com.ak.taxiapp.model.invoice.Invoice;
+import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.util.DBUtil;
 import javafx.application.Application;
@@ -30,7 +33,7 @@ public class TaxiApplication extends Application {
     //This is our PrimaryStage (It contains everything)
     private Stage primaryStage;
     //This is the BorderPane of RootLayout
-    private static BorderPane rootLayout;
+    public static BorderPane rootLayout;
     public static RootLayoutController rootLayoutController;
 
     private static Layouts layouts;
@@ -51,6 +54,7 @@ public class TaxiApplication extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Taxi App");
         primaryStage.setMaximized(false);
+        primaryStage.setResizable(false);
         //2) Initialize RootLayout
         initRootLayout();
         //3) Display the EmployeeOperations View
@@ -111,6 +115,17 @@ public class TaxiApplication extends Application {
 
     }
 
+    public static void showRideView() {
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.RIDE));
+
+    }
+
+    public static void showRideView(Ride ride) {
+        SingleRideController controller = (SingleRideController) layouts.CONTROLLERS.get(Layouts.Pages.RIDE);
+        controller.populateData(ride);
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.RIDE));
+
+    }
     public static void showDriversView() {
         rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.DRIVERS));
     }
@@ -130,12 +145,19 @@ public class TaxiApplication extends Application {
     }
 
     public static void showInvoicesView() {
+        InvoicesListController controller = (InvoicesListController) layouts.CONTROLLERS.get(Layouts.Pages.INVOICES);
+        controller.updateView();
         rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.INVOICES));
     }
     public static void showInvoiceView() {
         rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.INVOICE));
     }
 
+    public static void showInvoiceEditView(Invoice invoice) throws SQLException {
+        SingleInvoiceController controller = (SingleInvoiceController) layouts.CONTROLLERS.get(Layouts.Pages.INVOICE);
+        controller.populateData(invoice);
+        rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.INVOICE));
+    }
 
     public static void showDatabaseView() {
         rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.DATABASE));

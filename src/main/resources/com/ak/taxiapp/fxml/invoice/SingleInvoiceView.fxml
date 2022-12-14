@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
@@ -10,12 +11,12 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -78,13 +79,13 @@
                      <children>
                         <VBox alignment="CENTER" layoutY="176.0" styleClass="pane--container">
                            <children>
-                              <TableView fx:id="tvInvoiceRidesTable" maxHeight="420.0" maxWidth="730.0" minHeight="420.0" minWidth="730.0" prefHeight="420.0" prefWidth="730.0">
+                              <TableView fx:id="tvInvoiceRidesTable" maxHeight="420.0" maxWidth="710.0" minHeight="420.0" minWidth="710.0" prefHeight="420.0" prefWidth="710.0">
                                 <columns>
                                   <TableColumn fx:id="tcInvoiceRideDate" maxWidth="90.0" prefWidth="90.0" resizable="false" text="Date" />
                                   <TableColumn fx:id="tcInvoiceRidePassenger" prefWidth="130.0" text="Passenger" />
                                     <TableColumn fx:id="tcInvoiceRideItinerary" prefWidth="230.0" text="Itinerary" />
                                     <TableColumn fx:id="tcInvoiceRidePrice" prefWidth="70.0" text="Price" />
-                                    <TableColumn fx:id="tcInvoiceRideNotes" prefWidth="130.0" text="Notes" />
+                                    <TableColumn fx:id="tcInvoiceRideNotes" prefWidth="110.0" text="Notes" />
                                     <TableColumn fx:id="tcInvoiceRideEdit" prefWidth="40.0" />
                                     <TableColumn fx:id="tcInvoiceRideRemove" prefWidth="40.0" />
                                 </columns>
@@ -98,7 +99,7 @@
                            <children>
                               <HBox fx:id="ConInvoiceNum" alignment="CENTER_LEFT" spacing="5.0" styleClass="pane--container">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="25.0" styleClass="text-fill--white" text="Invoice No.">
+                                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="70.0" styleClass="text-fill--white" text="Invoice No.">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
@@ -111,7 +112,7 @@
                               </HBox>
                               <HBox fx:id="ConInvoiceNum1" alignment="CENTER_LEFT" spacing="5.0" styleClass="pane--container">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="25.0" styleClass="text-fill--white" text="Client :        ">
+                                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="70.0" styleClass="text-fill--white" text="Client:       ">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
@@ -122,9 +123,9 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </HBox>
-                              <HBox fx:id="ConInvoiceNum11" alignment="CENTER_LEFT" layoutX="10.0" layoutY="50.0" spacing="5.0" styleClass="pane--container">
+                              <HBox fx:id="ConInvoiceNum11" alignment="CENTER_LEFT" layoutY="50.0" spacing="5.0" styleClass="pane--container">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="25.0" styleClass="text-fill--white" text="From :         ">
+                                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="70.0" styleClass="text-fill--white" text="From:        ">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
@@ -135,9 +136,9 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </HBox>
-                              <HBox fx:id="ConInvoiceNum111" alignment="CENTER_LEFT" layoutX="10.0" layoutY="91.0" spacing="5.0" styleClass="pane--container">
+                              <HBox fx:id="ConInvoiceNum111" alignment="CENTER_LEFT" layoutY="91.0" spacing="5.0" styleClass="pane--container">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="25.0" styleClass="text-fill--white" text="Till:             ">
+                                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="70.0" styleClass="text-fill--white" text="Till:             ">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
@@ -150,9 +151,9 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox layoutX="293.0" spacing="10.0">
+                        <VBox layoutX="293.0" prefWidth="430.0" spacing="10.0">
                            <children>
-                              <VBox fx:id="vbDate" fillWidth="false" spacing="10.0">
+                              <VBox fx:id="vbDate" fillWidth="false" prefWidth="431.0" spacing="10.0">
                                  <children>
                                     <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="230.0" styleClass="pane--container" translateX="-2.0">
                                        <children>
@@ -198,10 +199,10 @@
                                  <children>
                                     <VBox prefHeight="165.0" prefWidth="230.0" spacing="10.0" styleClass="pane--container">
                                        <children>
-                                          <VBox styleClass="text-field">
+                                          <VBox prefWidth="410.0" styleClass="text-field">
                                              <children>
                                                 <Label styleClass="text--subHeading" text="Notes" />
-                                                <TextArea fx:id="taNotes" prefHeight="200.0" prefWidth="430.0" />
+                                                <TextArea fx:id="taNotes" prefHeight="200.0" prefWidth="390.0" />
                                              </children>
                                              <padding>
                                                 <Insets bottom="2.0" left="2.0" right="2.0" />
@@ -216,25 +217,40 @@
                               </VBox>
                            </children>
                         </VBox>
-                        <VBox fx:id="vbActions" alignment="TOP_RIGHT" fillWidth="false" layoutX="764.0" minWidth="287.0" prefHeight="156.0" prefWidth="287.0" spacing="10.0" styleClass="pane--container">
+                        <VBox fx:id="vbActions" alignment="TOP_CENTER" fillWidth="false" layoutX="736.0" minWidth="287.0" prefHeight="156.0" prefWidth="340.0" spacing="10.0" styleClass="pane--container">
                            <padding>
                               <Insets left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <children>
-                              <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <HBox prefWidth="353.0">
                                  <children>
-                                    <FlowPane hgap="10.0" vgap="10.0">
-                                       <children>
-                                          <ToggleButton fx:id="tgRoundTrip1" mnemonicParsing="false" selected="true" styleClass="toggle_slider" text="Settled" />
-                                          <ToggleButton fx:id="tgRoundTrip2" mnemonicParsing="false" selected="true" styleClass="toggle_slider" text="Paid" />
-                                          <ToggleButton fx:id="tgRoundTrip11" mnemonicParsing="false" selected="true" styleClass="toggle_slider" text="Save" />
-                                       </children>
-                                    </FlowPane>
+                                    <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="70.0" styleClass="text-fill--white" text="Status">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="8.0">
+                                 <children>
+                                    <ToggleButton fx:id="tgOpen" mnemonicParsing="false" onAction="#onStatusChanged" selected="true" styleClass="toggle_slider--status" text="Open">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tgStatus" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="tgClosed" mnemonicParsing="false" onAction="#onStatusChanged" text="Closed" toggleGroup="$tgStatus">
+                                       <styleClass>
+                                          <String fx:value="toggle_slider--status" />
+                                          <String fx:value="toggle_slider--status--next" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="tgIssued" disable="true" mnemonicParsing="false" onAction="#onStatusChanged" styleClass="toggle_slider--status" text="Issued" toggleGroup="$tgStatus" />
+                                    <ToggleButton fx:id="tgPaid" disable="true" mnemonicParsing="false" onAction="#onStatusChanged" styleClass="toggle_slider--status" text="Paid" toggleGroup="$tgStatus" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox fx:id="vbTotal" fillWidth="false" layoutX="609.0" layoutY="-4.0" maxWidth="130.0" minHeight="-Infinity" minWidth="130.0" prefHeight="63.0" prefWidth="130.0">
+                        <VBox fx:id="vbTotal" fillWidth="false" layoutX="600.0" layoutY="-4.0" maxWidth="130.0" minHeight="-Infinity" minWidth="130.0" prefHeight="63.0" prefWidth="130.0">
                            <children>
                               <Label alignment="TOP_LEFT" styleClass="text--subHeading" text="Total">
                                  <VBox.margin>

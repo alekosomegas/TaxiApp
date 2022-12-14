@@ -151,7 +151,5 @@ public class RidesByClientViewController extends RidesViewController{
     }
 
     public void generateInvoice() {
-        Invoice invoice = new Invoice(client, allRides, new Date());
-        TaxiApplication.showNewInvoice(invoice);
     }
 }

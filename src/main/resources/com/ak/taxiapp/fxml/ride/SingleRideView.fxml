@@ -39,7 +39,7 @@
                         </Label>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1085.0" styleClass="tabs">
                            <children>
-                              <Button fx:id="tabOverview" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="75.0" prefWidth="120.0" styleClass="tabs__button" text="LIST" textAlignment="CENTER" wrapText="true">
+                              <Button fx:id="tabOverview" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTabList" prefHeight="75.0" prefWidth="120.0" styleClass="tabs__button" text="LIST" textAlignment="CENTER" wrapText="true">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                                        <image>

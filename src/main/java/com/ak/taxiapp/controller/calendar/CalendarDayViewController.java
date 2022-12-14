@@ -9,16 +9,13 @@ import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.model.ride.RideDAO;
 import com.ak.taxiapp.model.calendar.*;
-import com.itextpdf.layout.properties.AlignmentPropertyValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;

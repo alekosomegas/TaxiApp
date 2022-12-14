@@ -1,6 +1,5 @@
 package com.ak.taxiapp.controller.dashboard;
 
-import com.ak.taxiapp.controller.invoice.InvoiceCard;
 import com.ak.taxiapp.util.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

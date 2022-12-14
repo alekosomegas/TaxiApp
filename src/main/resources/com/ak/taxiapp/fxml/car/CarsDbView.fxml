@@ -7,25 +7,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefWidth="850.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.car.CarsViewController">
+<AnchorPane prefWidth="1100.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.car.CarsViewController">
    <children>
-      <VBox prefWidth="850.0" spacing="5.0">
+      <VBox prefWidth="1100.0" spacing="5.0">
          <children>
             <HBox prefWidth="850.0" spacing="5.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="New Car"  onAction="#onNewCarClicked"/>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Delete Car" onAction="#deleteSelectedCar" />
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Edit Car" onAction="#onEditCarClicked" />
+                  <Button mnemonicParsing="false" onAction="#onNewCarClicked" prefHeight="35.0" prefWidth="120.0" text="New Car" />
+                  <Button mnemonicParsing="false" onAction="#deleteSelectedCar" prefHeight="35.0" prefWidth="120.0" text="Delete Car" />
+                  <Button mnemonicParsing="false" onAction="#onEditCarClicked" prefHeight="35.0" prefWidth="120.0" text="Edit Car" />
                </children>
             </HBox>
-            <TableView fx:id="carsTable" prefWidth="850.0" onMouseClicked="#selectCar">
+            <TableView fx:id="carsTable" maxWidth="1100.0" minWidth="1100.0" onMouseClicked="#selectCar" prefHeight="600.0" prefWidth="1100.0">
               <columns>
-                <TableColumn fx:id="carsIdCol" prefWidth="35.0" text="Id" />
+                <TableColumn fx:id="carsIdCol" prefWidth="28.0" text="Id" />
                 <TableColumn fx:id="carsRegCol" prefWidth="244.44445037841797" text="Registration" />
                   <TableColumn fx:id="carsMakeCol" prefWidth="204.88894653320312" text="Make" />
                   <TableColumn fx:id="carsModelCol" prefWidth="160.0" text="Model" />
+                  <TableColumn fx:id="carsYear" minWidth="2.6666259765625" prefWidth="103.111083984375" text="Year" />
                   <TableColumn fx:id="carsMilCol" minWidth="2.6666259765625" prefWidth="103.111083984375" text="Milage" />
+                  <TableColumn minWidth="2.6666259765625" prefWidth="253.0" />
               </columns>
             </TableView>
          </children>

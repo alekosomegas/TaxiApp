@@ -1,0 +1,53 @@
+<component name="ArtifactManager">
+  <artifact name="TaxiApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TaxiApp_jar</output-path>
+    <root id="root">
+      <element id="archive" name="TaxiApp.jar">
+        <element id="module-output" name="TaxiApp" />
+      </element>
+      <element id="library" level="project" name="Maven: de.rpgframework:itextpdf:4.2.0" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:19" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/styled-xml-parser-7.2.4.jar" />
+      <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-common:17-r1" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-font-roboto:10.0-r1" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-fxml:17-r1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:19" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/mysql-connector-java-8.0.30.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/layout-7.2.4.jar" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-controls:17-r1" />
+      <element id="library" level="project" name="Maven: org.bouncycastle:bcmail-jdk15on:1.46" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:19" />
+      <element id="library" level="project" name="Maven: org.controlsfx:controlsfx-samples:11.1.2" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/forms-7.2.4.jar" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-all:10.0-r1" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-agenda:10.0-r1" />
+      <element id="library" level="project" name="Maven: org.controlsfx:controlsfx:11.1.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:19" />
+      <element id="library" level="project" name="Maven: org.controlsfx:fxsampler:1.0.12-SNAPSHOT" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/svg-7.2.4.jar" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-icalendaragenda:10.0-r1" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-gauge-linear:10.0-r1" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:2.0.4" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:19" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:19" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/pdftest-7.2.4.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/controlsfx-11.1.2.jar" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-icalendarfx:10.0-r1" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/commons-7.2.4.jar" />
+      <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.46" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/sign-7.2.4.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/kernel-7.2.4.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/pdfa-7.2.4.jar" />
+      <element id="library" level="project" name="Maven: org.jfxtras:jfxtras-menu:10.0-r1" />
+      <element id="library" level="project" name="Maven: com.itextpdf:font-asian:7.2.3" />
+      <element id="library" level="project" name="Maven: com.itextpdf:itextpdf:5.5.13.3" />
+      <element id="library" level="project" name="Maven: org.bouncycastle:bctsp-jdk15on:1.46" />
+      <element id="library" level="project" name="Maven: org.jetbrains:annotations:23.0.0" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/io-7.2.4.jar" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/itext7jars/barcodes-7.2.4.jar" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:19" />
+    </root>
+  </artifact>
+</component>

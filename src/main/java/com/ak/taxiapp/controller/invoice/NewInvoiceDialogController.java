@@ -1,11 +1,11 @@
 package com.ak.taxiapp.controller.invoice;
 
-import com.ak.taxiapp.model.invoice.InvoiceTableRowDAO;
+import com.ak.taxiapp.ss.InvoiceTableRowDAO;
 import com.ak.taxiapp.util.Controller;
 import com.ak.taxiapp.model.calendar.CalendarModel;
 import com.ak.taxiapp.model.invoice.Invoice;
-import com.ak.taxiapp.model.invoice.InvoiceTable;
-import com.ak.taxiapp.model.invoice.InvoiceTableRow;
+import com.ak.taxiapp.ss.InvoiceTable;
+import com.ak.taxiapp.ss.InvoiceTableRow;
 import com.ak.taxiapp.util.GeneratePDF;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -14,7 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 

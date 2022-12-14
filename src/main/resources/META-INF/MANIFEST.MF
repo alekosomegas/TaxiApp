@@ -1,3 +1,17 @@
 Manifest-Version: 1.0
-Main-Class: com.ak.taxiapp.TaxiApplication
+Main-Class: com.ak.taxiapp.Launcher
+Class-Path: itextpdf-4.2.0.jar javafx-graphics-19-win.jar styled-xml-par
+ ser-7.2.4.jar log4j-1.2.17.jar jfxtras-common-17-r1.jar jfxtras-font-ro
+ boto-10.0-r1.jar jfxtras-fxml-17-r1.jar javafx-controls-19.jar javafx-b
+ ase-19-win.jar mysql-connector-java-8.0.30.jar layout-7.2.4.jar jfxtras
+ -controls-17-r1.jar bcmail-jdk15on-1.46.jar javafx-graphics-19.jar cont
+ rolsfx-samples-11.1.2.jar forms-7.2.4.jar jfxtras-all-10.0-r1.jar jfxtr
+ as-agenda-10.0-r1.jar controlsfx-11.1.2.jar javafx-base-19.jar svg-7.2.
+ 4.jar jfxtras-icalendaragenda-10.0-r1.jar jfxtras-gauge-linear-10.0-r1.
+ jar slf4j-api-2.0.4.jar javafx-fxml-19-win.jar javafx-controls-19-win.j
+ ar pdftest-7.2.4.jar controlsfx-11.1.2.jar jfxtras-icalendarfx-10.0-r1.
+ jar commons-7.2.4.jar bcprov-jdk15on-1.46.jar sign-7.2.4.jar kernel-7.2
+ .4.jar pdfa-7.2.4.jar jfxtras-menu-10.0-r1.jar font-asian-7.2.3.jar ite
+ xtpdf-5.5.13.3.jar bctsp-jdk15on-1.46.jar annotations-23.0.0.jar io-7.2
+ .4.jar barcodes-7.2.4.jar javafx-fxml-19.jar
 

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="855.1111111111111" prefWidth="1080.0" stylesheets="@../../style/stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.invoice.InvoicesListController">
+<AnchorPane prefHeight="855.1111111111111" prefWidth="1080.0" stylesheets="@../../style/stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.ride.RidesListController">
    <children>
       <VBox layoutX="-2.6666667461395264">
          <children>
@@ -22,7 +22,7 @@
                      <children>
                         <VBox fillWidth="false" spacing="15.0">
                            <children>
-                              <Label styleClass="page_tittle" text="Invoice Overview" textAlignment="CENTER" textFill="WHITE">
+                              <Label styleClass="page_tittle" text="Rides Overview" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -38,11 +38,11 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onTabInvoice" prefHeight="75.0" prefWidth="120.0" styleClass="tabs__button" text="INVOICE" textAlignment="CENTER">
+                                    <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onTabRide" prefHeight="75.0" prefWidth="120.0" styleClass="tabs__button" text="RIDE" textAlignment="CENTER">
                                        <graphic>
                                           <ImageView fitHeight="24.0" fitWidth="24.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../icons/sidebar/baseline-description-24px.png" />
+                                                <Image url="@../../icons/sidebar/baseline-swap_calls-24px.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -62,16 +62,18 @@
                   </VBox>
                </children>
             </VBox>
-            <HBox fx:id="hBHeaders" alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <HBox fx:id="hBHeaders" alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="58.0" styleClass="label--header" text="Invoice Number" wrapText="true" />
-                  <Label layoutX="531.0" layoutY="35.0" prefHeight="50.0" prefWidth="150.0" styleClass="label--header" text="Client" wrapText="true" />
-                  <Label layoutX="560.0" layoutY="35.0" prefHeight="50.0" prefWidth="150.0" styleClass="label--header" text="Date of Issue" wrapText="true" />
-                  <Label layoutX="589.0" layoutY="35.0" prefHeight="50.0" prefWidth="150.0" styleClass="label--header" text="Price" wrapText="true" />
-                  <Label layoutX="618.0" layoutY="35.0" prefHeight="50.0" prefWidth="58.0" styleClass="label--header" text="Notes" wrapText="true" />
+                  <Label alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="110.0" styleClass="label--header" text="Date" wrapText="true" />
+                  <Label layoutX="531.0" layoutY="35.0" prefHeight="50.0" prefWidth="160.0" styleClass="label--header" text="Driver" wrapText="true" />
+                  <Label layoutX="580.0" layoutY="35.0" prefHeight="50.0" prefWidth="160.0" styleClass="label--header" text="Client" wrapText="true" />
+                  <Label layoutX="589.0" layoutY="35.0" prefHeight="50.0" prefWidth="160.0" styleClass="label--header" text="Itinerary" wrapText="true" />
+                  <Label layoutX="618.0" layoutY="35.0" prefHeight="50.0" prefWidth="70.0" styleClass="label--header" text="Price" wrapText="true" />
+                  <Label layoutX="620.0" layoutY="60.0" prefHeight="50.0" prefWidth="70.0" styleClass="label--header" text="Invoice" wrapText="true" />
+                  <Label layoutX="690.0" layoutY="60.0" prefHeight="50.0" prefWidth="70.0" styleClass="label--header" text="Notes" wrapText="true" />
                </children>
                <padding>
-                  <Insets left="75.0" />
+                  <Insets left="20.0" />
                </padding>
             </HBox>
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="400.0" minHeight="400.0" prefHeight="400.0" styleClass="scroll-pane-transparent">

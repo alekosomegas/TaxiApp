@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,7 +20,10 @@
 
 <BorderPane fx:id="bpRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="900.0" prefWidth="1400.0" stylesheets="@../style/stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ak.taxiapp.controller.RootLayoutController">
    <bottom>
-      <AnchorPane prefHeight="25.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="25.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="tfStatusBar" editable="false" layoutX="270.0" prefHeight="25.0" prefWidth="1129.0" style="-fx-background-radius: 0;" />
+         </children></AnchorPane>
    </bottom>
    <left>
       <AnchorPane BorderPane.alignment="TOP_LEFT">
@@ -164,7 +168,14 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Pane layoutX="10.0" layoutY="764.0" prefHeight="110.0" prefWidth="220.0" />
+                        <Pane layoutX="10.0" layoutY="764.0" prefHeight="110.0" prefWidth="220.0">
+                           <children>
+                              <Label fx:id="lblVersion" layoutX="14.0" layoutY="84.0" text="v0.12" textFill="#ffffffb4">
+                                 <font>
+                                    <Font size="8.0" />
+                                 </font>
+                              </Label>
+                           </children></Pane>
                      </children>
                   </VBox>
                   <Pane prefWidth="50.0" styleClass="side_bar__divider" />
