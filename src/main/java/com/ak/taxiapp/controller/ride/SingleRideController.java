@@ -12,7 +12,10 @@ import com.ak.taxiapp.model.invoice.InvoiceDAO;
 import com.ak.taxiapp.model.ride.Ride;
 import com.ak.taxiapp.model.ride.RideDAO;
 import com.ak.taxiapp.util.AutoCompleteTextField;
+import com.ak.taxiapp.util.AutoTFLocation;
+import com.ak.taxiapp.util.AutoTFPassenger;
 import com.ak.taxiapp.util.Controller;
+import com.itextpdf.kernel.colors.Lab;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -65,9 +68,19 @@ public class SingleRideController extends Controller implements Initializable {
     public TextField tfVAT;
     public Label lblVAT;
     public HBox hbContent;
+    public Label lblTitle;
+    public Button btnOk;
+    public Button btnNewRide;
+    public VBox vbFrom;
+    public VBox vbTo;
     private LocalDate date;
 
     private HashMap<String, String> values = new HashMap<>();
+
+    // state of view, add new ride or edit existing
+    private Boolean editMode = false;
+    private Ride ride;
+
 
 
     @Override @FXML
@@ -99,10 +112,14 @@ public class SingleRideController extends Controller implements Initializable {
             throw new RuntimeException(e);
         }
 
-        AutoCompleteTextField autoTfPassenger = new AutoCompleteTextField();
+        AutoCompleteTextField autoTfPassenger = new AutoTFPassenger();
         autoTfPassenger.setId("tfPassenger");
-        autoTfPassenger.getEntries().addAll((Arrays.asList("Tychon", "Alex", "Bob")));
         vbPassenger.getChildren().add(autoTfPassenger);
+
+//        AutoCompleteTextField autoTfFrom = new AutoTFLocation();
+//        autoTfFrom.setId("tfFrom");
+//        vbFrom.getChildren().add(autoTfFrom);
+
 
     }
 
@@ -541,8 +558,11 @@ public class SingleRideController extends Controller implements Initializable {
         }
     }
 
-    public void onAddStop(ActionEvent event) {
+    public void onAddStop() {
         vbStops.getChildren().add(new IteneraryStop(this));
+    }
+    public void onAddStop(String stop) {
+        vbStops.getChildren().add(new IteneraryStop(this, stop));
     }
 
     public void removeStop(IteneraryStop stop) {
@@ -561,7 +581,7 @@ public class SingleRideController extends Controller implements Initializable {
             IteneraryStop iteneraryStop = (IteneraryStop) vbStops.getChildren().get(i);
             stops.append(iteneraryStop.getStop());
             if(i != vbStops.getChildren().size()-1) {
-                stops.append(" ; ");
+                stops.append(" # ");
             }
         }
         return String.valueOf(stops);
@@ -628,42 +648,31 @@ public class SingleRideController extends Controller implements Initializable {
         }
     }
 
-    public void onOK(ActionEvent event) throws SQLException {
-        for (Node node : hbContent.getChildren()) {
-            Pane pane = (Pane) node;
-            traverse(pane, 2);
-        }
+    public void onOK() throws SQLException {
 
-        values.put("tfFrom", tfFrom.getText());
-        values.put("tfTo", tfTo.getText());
-        values.put("tfStops", getStops());
-        values.put("dtDate", dtDate.getValue().toString());
+        builtValues();
 
-        // 0 id is unknown
-        if(values.get("searchCbClients").equals("")) {
-            values.put("searchCbClients", "0");
-        }
-        if(values.get("searchCbDrivers").equals("")) {
-            values.put("searchCbDrivers", "0");
-        }
-        if(values.get("searchCbCars").equals("")) {
-            values.put("searchCbCars", "0");
-        }
-        if(values.get("tfCash").equals("")) {
-            values.put("tfCash", "0");
-        }
-        if(values.get("tfCredit").equals("")) {
-            values.put("tfCredit", "0");
-        }
+        builtInvoiceValue();
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(" ");
+        alert.setHeaderText("Insert new Ride");
+        alert.setContentText("Save new ride to database?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get().equals(ButtonType.OK)) {
+            TaxiApplication.showRidesView();
+            if (editMode) {
+                RideDAO.update(values);
+            } else {
+                RideDAO.insert(values);
+            }
+        }
+    }
 
-
+    private void builtInvoiceValue() throws SQLException {
         if(belongsToInvoice()) {
             // find invoice id
             // search for all open invoices of client, no need to add since it is already tagged
-            // TODO: handle multiple open invoices
-            // TODO: generate id
-            // TODO: stat number for id
             ObservableList<Invoice> openInvoices = InvoiceDAO.searchByClientIdAndStatus(getClientId(), Invoice.Status.OPEN);
             ObservableList<Invoice> totalInvoices = InvoiceDAO.searchByClientId(getClientId());
 
@@ -691,10 +700,40 @@ public class SingleRideController extends Controller implements Initializable {
 
             // add if exist
             // create new with id from Invoice.generateId()
+        } else {
+            values.put("id", "0");
+        }
+    }
+
+    private void builtValues() {
+        for (Node node : hbContent.getChildren()) {
+            Pane pane = (Pane) node;
+            traverse(pane, 2);
         }
 
-        RideDAO.insert(values);
+        values.put("tfFrom", tfFrom.getText());
+        values.put("tfTo", tfTo.getText());
+        values.put("tfStops", getStops());
+        values.put("dtDate", dtDate.getValue().toString());
 
+        // 0 id is unknown
+        if(values.get("searchCbClients").equals("")) {
+            values.put("searchCbClients", "0");
+        }
+        if(values.get("searchCbDrivers").equals("")) {
+            values.put("searchCbDrivers", "0");
+        }
+        if(values.get("searchCbCars").equals("")) {
+            values.put("searchCbCars", "0");
+        }
+        if(values.get("tfCash").equals("")) {
+            values.put("tfCash", "0");
+        }
+        if(values.get("tfCredit").equals("")) {
+            values.put("tfCredit", "0");
+        }
+        values.put("ridesId",
+                ride == null ? null : String.valueOf(ride.getRides_id()));
     }
 
     public void onCancel(ActionEvent event) {
@@ -703,8 +742,8 @@ public class SingleRideController extends Controller implements Initializable {
     //TODO: disable credit field, enable only if client is selected
     public boolean belongsToInvoice() {
         // If credit and client exist
-        if (!tfCredit.getText().equals("")  &&
-            !searchCbClients.getValue().equals("")) {
+        if (( !tfCredit.getText().equals("") && !tfCredit.getText().equals("0") ) &&
+            !searchCbClients.getValue().equals("") && !searchCbClients.getValue().equals("0. None")) {
             return true;
         }
         return false;
@@ -719,27 +758,96 @@ public class SingleRideController extends Controller implements Initializable {
     }
 
 
-    public void onTabList(ActionEvent event) {
+    public void onTabList() {
         TaxiApplication.showRidesView();
     }
 
     public void populateData(Ride ride) {
+        this.ride = ride;
+
         dtDate.setValue(ride.getDate());
-        tfTimeStartH.setText(ride.getRidesTimeStart().split(":")[0]);
-        tfTimeStartM.setText(ride.getRidesTimeStart().split(":")[1]);
-        tfTimeEndH.setText(ride.getRidesTimeEnd().split(":")[0]);
-        tfTimeEndM.setText(ride.getRidesTimeEnd().split(":")[1]);
-        tfFrom.setText(ride.getRidesFrom());
-        tfTo.setText(ride.getRidesTo());
-        taNotes.setText(ride.getRidesNotes());
-        tfCash.setText(String.valueOf(ride.getRidesCash()));
-        tfCredit.setText(String.valueOf(ride.getRidesCredit()));
-        searchCbClients.setValue(ride.getRidesClientId() +". "+ ride.getRidesClient());
-        searchCbDrivers.setValue(ride.getRidesDriverId() +". "+ ride.getRidesDriver());
-        searchCbCars.setValue(ride.getRidesCarId() +". "+ ride.getRidesCar());
+        try {
+            tfTimeStartH.setText(ride.getRidesTimeStart().split(" : ")[0]);
+            tfTimeStartM.setText(ride.getRidesTimeStart().split(" : ")[1]);
+            tfTimeEndH.setText(ride.getRidesTimeEnd().split(" : ")[0]);
+            tfTimeEndM.setText(ride.getRidesTimeEnd().split(" : ")[1]);
+            tfFrom.setText(ride.getRidesFrom());
+            tfTo.setText(ride.getRidesTo());
+            taNotes.setText(ride.getRidesNotes());
+            tfCash.setText(String.valueOf(ride.getRidesCash()));
+            tfCredit.setText(String.valueOf(ride.getRidesCredit()));
+            searchCbClients.setValue(ride.getRidesClientId() + ". " + ride.getRidesClient());
+            searchCbDrivers.setValue(ride.getRidesDriverId() + ". " + ride.getRidesDriver());
+            searchCbCars.setValue(ride.getRidesCarId() + ". " + ride.getRidesCar());
 
-        calculateTotal();
-        calculateVAT();
+            calculateTotal();
+            calculateVAT();
 
+            vbStops.getChildren().clear();
+            String[] stops = ride.getRidesStops().split(", ");
+            for (String stop : stops) {
+                onAddStop(stop);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void switchToEditMode() {
+        editMode = true;
+
+        lblTitle.setText("Edit Ride with Id:  " + ride.getRides_id());
+        btnOk.setText("Update");
+
+        btnNewRide.setVisible(true);
+
+        btnOk.setOnAction(event -> {
+            builtValues();
+            try {
+                builtInvoiceValue();
+                RideDAO.updateRide(values);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public void switchToNewMode() {
+        editMode = false;
+
+        lblTitle.setText("Add new Ride");
+        btnOk.setText("Ok");
+
+        btnNewRide.setVisible(false);
+
+        btnOk.setOnAction(event -> {
+            onNewRide();
+        });
+    }
+
+    public void onNewRide() {
+        try {
+            onOK();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void onDelete() {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Please confirm you want to delete this ride");
+        alert.setContentText("Ride id: " + ride.getRides_id());
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get().equals(ButtonType.OK)) {
+            try {
+                RideDAO.deleteRideWithId(ride.getRides_id());
+                TaxiApplication.showRidesView();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

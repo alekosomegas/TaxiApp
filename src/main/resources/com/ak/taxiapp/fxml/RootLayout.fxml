@@ -170,7 +170,7 @@
                         </Button>
                         <Pane layoutX="10.0" layoutY="764.0" prefHeight="110.0" prefWidth="220.0">
                            <children>
-                              <Label fx:id="lblVersion" layoutX="14.0" layoutY="84.0" text="v0.12" textFill="#ffffffb4">
+                              <Label fx:id="lblVersion" layoutX="14.0" layoutY="84.0" textFill="#ffffffb4">
                                  <font>
                                     <Font size="8.0" />
                                  </font>

@@ -154,7 +154,7 @@ public class Ride {
     }
 
     public String getRidesStops() {
-        return ridesStops.get();
+        return ridesStops.get().replaceAll(" # ", ", ");
     }
 
     public StringProperty ridesStopsProperty() {
@@ -250,6 +250,10 @@ public class Ride {
         this.ridesInvoiceId.set(ridesInvoiceId);
     }
 
+
+    public boolean isRoundTrip() {
+        return getRidesFrom().equals(getRidesTo());
+    };
     // endregion
     // ------------------------------------------------------------------ //
 

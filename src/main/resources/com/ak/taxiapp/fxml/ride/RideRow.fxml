@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox fx:id="hbRowContainer" alignment="CENTER_LEFT" maxHeight="90.0" maxWidth="1050.0" minHeight="90.0" minWidth="1050.0" prefHeight="90.0" prefWidth="1050.0" spacing="10.0" style="-fx-border-color: white; -fx-border-width: 0 0 2 0;" styleClass="row" stylesheets="@../../style/stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
@@ -38,14 +39,19 @@
             <Label fx:id="lblPassenger" styleClass="text--table" text="Name" />
          </children>
       </VBox>
-      <VBox alignment="CENTER_LEFT" layoutX="105.0" layoutY="14.0" maxHeight="80.0" maxWidth="150.0" minHeight="80.0" minWidth="150.0" prefHeight="80.0" prefWidth="150.0">
+      <StackPane alignment="TOP_RIGHT">
          <children>
-            <Label layoutX="10.0" layoutY="25.0" styleClass="small-text" text="From" />
-            <Label fx:id="lblStart" styleClass="text--table" text="Start" />
-            <Label layoutX="10.0" layoutY="38.0" styleClass="small-text" text="To" />
-            <Label fx:id="lblFinish" styleClass="text--table" text="Finish" />
+            <Label fx:id="lblRoundTrip" alignment="CENTER" styleClass="toggle_slider--status" text="Round Trip" />
+            <VBox alignment="CENTER_LEFT" maxHeight="80.0" maxWidth="150.0" minHeight="80.0" minWidth="150.0" prefHeight="80.0" prefWidth="150.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="25.0" styleClass="small-text" text="From" />
+                  <Label fx:id="lblStart" styleClass="text--table" text="Start" />
+                  <Label layoutX="10.0" layoutY="38.0" styleClass="small-text" text="To" />
+                  <Label fx:id="lblFinish" styleClass="text--table" text="Finish" />
+               </children>
+            </VBox>
          </children>
-      </VBox>
+      </StackPane>
       <VBox alignment="CENTER_LEFT" layoutX="770.0" layoutY="15.0" maxHeight="80.0" maxWidth="60.0" minHeight="80.0" minWidth="60.0" prefHeight="80.0" prefWidth="60.0">
          <children>
             <Label layoutX="10.0" layoutY="22.0" styleClass="small-text" text="Credit" />
@@ -95,7 +101,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../icons/baseline-print-24px.png" />
+                        <Image url="@../../icons/baseline-delete-24px.png" />
                      </image>
                   </ImageView>
                </graphic>

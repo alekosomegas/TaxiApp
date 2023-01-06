@@ -4,11 +4,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Side;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -43,10 +44,12 @@ public class AutoCompleteTextField extends TextField
                 } else
                 {
                     LinkedList<String> searchResult = new LinkedList<>();
-                    searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
+                    String input = getText().toLowerCase();
+                    searchResult.addAll(entries.subSet(input, input + Character.MAX_VALUE));
                     if (entries.size() > 0)
                     {
                         populatePopup(searchResult);
+
                         if (!entriesPopup.isShowing())
                         {
                             entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);

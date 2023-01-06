@@ -58,12 +58,26 @@ public class RideRow extends HBox {
         controller.setLblCredit(values.get(RideRowFields.CREDIT));
         controller.setLblDate(values.get(RideRowFields.DATE));
         controller.setLblDriver(values.get(RideRowFields.DRIVER));
-        controller.setLblFinish(values.get(RideRowFields.FINISH));
         controller.setLblNotes(values.get(RideRowFields.NOTES));
         controller.setLblInvoiceNo(values.get(RideRowFields.INVOICE));
         controller.setLblTime(values.get(RideRowFields.TIME));
         controller.setLblPassenger(values.get(RideRowFields.PASSENGER));
         controller.setLblStart(values.get(RideRowFields.START));
+
+        if (ride.isRoundTrip()) {
+            controller.lblRoundTrip.setVisible(true);
+            controller.setLblFinish(ride.getRidesStops());
+        } else {
+            if (ride.getRidesStops().length() != 0) {
+                controller.lblRoundTrip.setText("Stops");
+                controller.lblRoundTrip.setVisible(true);
+                controller.setLblFinish(values.get(RideRowFields.FINISH));
+            } else {
+                controller.lblRoundTrip.setVisible(false);
+                controller.setLblFinish(values.get(RideRowFields.FINISH));
+            }
+        }
+
     }
 
 }

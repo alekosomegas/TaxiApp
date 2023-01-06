@@ -44,6 +44,9 @@ public class ItineraryStopController implements Initializable {
     public String getStop() {
         return tfStop.getText();
     }
+    public void setTfStop(String text) {
+        tfStop.setText(text);
+    }
 
 
 }

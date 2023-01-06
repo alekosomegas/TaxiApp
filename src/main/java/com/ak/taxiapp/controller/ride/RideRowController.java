@@ -6,7 +6,6 @@ import com.ak.taxiapp.util.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -27,6 +26,7 @@ public class RideRowController extends Controller {
     @FXML public Label lblCash;
     @FXML public Label lblInvoiceNo;
     @FXML public HBox hbRowContainer;
+    @FXML public Label lblRoundTrip;
     @FXML
     public Label lblNotes;
 

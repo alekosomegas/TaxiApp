@@ -8,6 +8,7 @@ import com.ak.taxiapp.controller.invoice.InvoicesListController;
 import com.ak.taxiapp.controller.invoice.NewInvoiceDialogController;
 import com.ak.taxiapp.controller.invoice.SingleInvoiceController;
 import com.ak.taxiapp.controller.ride.NewRideDialogController;
+import com.ak.taxiapp.controller.ride.RidesListController;
 import com.ak.taxiapp.controller.ride.RidesViewController;
 import com.ak.taxiapp.controller.ride.SingleRideController;
 import com.ak.taxiapp.model.invoice.Invoice;
@@ -24,6 +25,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -111,11 +113,15 @@ public class TaxiApplication extends Application {
     }
 
     public static void showRidesView() {
+        RidesListController controller = (RidesListController) layouts.CONTROLLERS.get(Layouts.Pages.RIDES);
+        controller.updateView();
         rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.RIDES));
 
     }
 
     public static void showRideView() {
+        SingleRideController controller = (SingleRideController) layouts.CONTROLLERS.get(Layouts.Pages.RIDE);
+        controller.switchToNewMode();
         rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.RIDE));
 
     }
@@ -123,6 +129,7 @@ public class TaxiApplication extends Application {
     public static void showRideView(Ride ride) {
         SingleRideController controller = (SingleRideController) layouts.CONTROLLERS.get(Layouts.Pages.RIDE);
         controller.populateData(ride);
+        controller.switchToEditMode();
         rootLayout.setCenter(layouts.LAYOUTS.get(Layouts.Pages.RIDE));
 
     }

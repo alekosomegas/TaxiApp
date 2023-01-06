@@ -3,6 +3,7 @@ package com.ak.taxiapp.model.ride;
 //region// ----------------------------- IMPORTS ---------------------------- //
 
 import com.ak.taxiapp.TaxiApplication;
+import com.ak.taxiapp.model.Formatter;
 import com.ak.taxiapp.model.calendar.CalendarModel;
 import com.ak.taxiapp.model.car.CarDAO;
 import com.ak.taxiapp.model.client.ClientDAO;
@@ -15,11 +16,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 //endregion
 // ------------------------------------------------------------------ //
@@ -226,6 +227,7 @@ RideDAO {
         }
     }
 
+    // from database view
     public static void update(HashMap<String, String> values) throws SQLException {
         String updateStatement = "UPDATE rides SET " +
                 "  RIDES_DATE = " + "'" +values.get("ridesDateCol")+ "'" +
@@ -368,6 +370,144 @@ RideDAO {
                 values.get("id"));
     }
 
+    // to be used from single ride edit mode
+    public static void updateRide(HashMap<String, String> values) throws SQLException {
+//        insert(values.get("dtDate"),
+//                values.get("tfTimeStartH") +" : "+ values.get("tfTimeStartM"),
+//                values.get("tfTimeEndH") +" : "+ values.get("tfTimeEndM"),
+//                Integer.parseInt(values.get("searchCbClients")),
+//                Integer.parseInt(values.get("searchCbDrivers")),
+//                Integer.parseInt(values.get("searchCbCars")),
+//                values.get("tfFrom"), values.get("tfStops"), values.get("tfTo"),
+//                Integer.parseInt(values.get("tfCash")),
+//                Integer.parseInt(values.get("tfCredit")), values.get("taNotes"),
+//                values.get("tfPassenger"),
+//                values.get("id"));
+
+        String updateStatement = "UPDATE rides SET " +
+                "  RIDES_DATE = " + "'" +values.get("dtDate")+ "'" +
+                ", RIDES_TIME_START = " + "'" +values.get("tfTimeStartH") +" : "+ values.get("tfTimeStartM")+ "'" +
+                ", RIDES_TIME_END = " + "'" +values.get("tfTimeEndH") +" : "+ values.get("tfTimeEndM")+ "'" +
+
+                ", RIDES_CLIENT_ID = " + "'" +values.get("searchCbClients") + "'" +
+
+                ", RIDES_FROM = " + "'" +values.get("tfFrom")+ "'" +
+                ", RIDES_CASH = " + "'" +values.get("tfCash")+ "'" +
+
+                ", RIDES_DRIVER_ID = " + "'" +values.get("searchCbDrivers")+ "'" +
+                ", RIDES_CAR_ID = " + "'" +values.get("searchCbCars")+ "'" +
+
+                ", RIDES_TO = " + "'" +values.get("tfTo")+ "'" +
+                ", RIDES_STOPS = " + "'" +values.get("tfStops")+ "'" +
+                ", RIDES_CREDIT = " + "'" +values.get("tfCredit")+ "'" +
+                ", RIDES_PASSENGER = " + "'" +values.get("tfPassenger")+ "'" +
+                ", RIDES_NOTES = " + "'" +values.get("taNotes")+ "'" +
+                ", RIDES_INVOICES_ID = " + "'" +values.get("id")+ "'" +
+
+                " WHERE RIDES_ID = " + "'" +values.get("ridesId")+ "'" + ";";
+        try {
+            DBUtil.dbExecuteUpdate(updateStatement);
+        } catch (SQLException e) {
+            System.out.println("Error occurred while UPDATE operation. " + e);
+            throw e;
+        }
+    }
+
+    public static Collection<String> searchAllPassengers() throws SQLException {
+        String selectStatement = "SELECT DISTINCT RIDES_PASSENGER FROM rides WHERE RIDES_PASSENGER != \"\";";
+        try {
+            ResultSet rs = DBUtil.dbExecuteQuery(selectStatement);
+            ObservableList<String> passengersList = FXCollections.observableArrayList();
+            while (rs.next()) {
+                passengersList.add(rs.getString("RIDES_PASSENGER"));
+            }
+            return passengersList;
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has failed: " + e);
+            throw e;
+        }
+    }
+
+    public static Collection<String> searchAllLocations() throws SQLException {
+        String selectStatement = "SELECT DISTINCT RIDES_FROM, RIDES_TO FROM rides WHERE RIDES_FROM !=\"\" ;";
+        try {
+            ResultSet rs = DBUtil.dbExecuteQuery(selectStatement);
+            Set<String> list = new HashSet<>();
+            while (rs.next()) {
+                list.add(rs.getString("RIDES_FROM").toLowerCase());
+                list.add(rs.getString("RIDES_TO").toLowerCase());
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has failed: " + e);
+            throw e;
+        }
+    }
+
+    public static ObservableList<Ride> searchByMonth(int year, int month) throws SQLException {
+        String selectStatement = "SELECT * FROM rides WHERE DATE_FORMAT(RIDES_DATE, '%Y-%m') = '"+year+"-"+month+"' ;";
+
+        try {
+            ResultSet rs = DBUtil.dbExecuteQuery(selectStatement);
+            return getRidesList(rs);
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has failed: " + e);
+            throw e;
+        }
+    }
+
+    private static String getQueryStatement(String period) {
+        String today = Formatter.DATE_DB.format(LocalDate.now());
+        LocalDate ldtoday = LocalDate.now();
+        LocalDate start = ldtoday.with(DayOfWeek.MONDAY);
+        LocalDate end = start.plusDays(7);
+
+        switch (period) {
+            case "Today":
+                return "RIDES_DATE=" + "'" +today+ "'";
+            case "Week":
+                return "DATE_FORMAT(RIDES_DATE, '%Y-%m-%d') BETWEEN " +
+                        "'" +start.format(Formatter.DATE_DB)+ "' AND '" +end.format(Formatter.DATE_DB) +"'";
+            case "Month":
+                return "DATE_FORMAT(RIDES_DATE, '%Y-%m') = ";
+        }
+        System.out.println("Error");
+        return "";
+    }
+    public static ObservableList<Ride> searchByMonthClientDriver(int year, String month, String clientId, String driverId, String period) throws SQLException {
+
+        String selectStatement = "SELECT * FROM rides WHERE " +
+                getQueryStatement(period);
+        if (period.equals("Month")) {selectStatement = selectStatement + " '"+year+"-"+month+"' ";}
+
+        System.out.println(selectStatement);
+        if(clientId.equals("") && driverId.equals("")) {
+            selectStatement = selectStatement + ";";
+        }
+        if(clientId.equals("") && !driverId.equals("")) {
+            selectStatement = selectStatement +
+            "AND RIDES_DRIVER_ID= " +"'"+driverId+"'" +
+            ";";
+        }
+        if(!clientId.equals("") && driverId.equals("")) {
+            selectStatement = selectStatement +
+            "AND RIDES_CLIENT_ID= " +"'"+clientId+"'" + ";";
+        }
+        if(!clientId.equals("") && !driverId.equals("")) {
+            selectStatement = selectStatement +
+            "AND RIDES_CLIENT_ID= " +"'"+clientId+"'" +
+            "AND RIDES_DRIVER_ID= " +"'"+driverId+"'" +
+            ";";
+        }
+
+        try {
+            ResultSet rs = DBUtil.dbExecuteQuery(selectStatement);
+            return getRidesList(rs);
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has failed: " + e);
+            throw e;
+        }
+    }
     //endregion
     // ------------------------------------------------------------------ //
 

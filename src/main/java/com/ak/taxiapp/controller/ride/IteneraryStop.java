@@ -37,6 +37,26 @@ public class IteneraryStop extends VBox {
         getChildren().add(view);
     }
 
+    public IteneraryStop(SingleRideController singleRideController, String stop) {
+        super();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(TaxiApplication.class.getResource(FXMLPATH));
+
+        controller = new ItineraryStopController();
+        loader.setController(controller);
+        this.singleRideController = singleRideController;
+        controller.iteneraryStop = this;
+
+        try {
+            view = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        getChildren().add(view);
+        controller.setTfStop(stop);
+    }
+
     public void onRemoveStop() {
         singleRideController.removeStop(this);
     }

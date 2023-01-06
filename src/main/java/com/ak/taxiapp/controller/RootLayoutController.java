@@ -34,6 +34,7 @@ public class RootLayoutController extends Controller {
     public Button reportsViewBtn;
     public Button databaseViewBtn;
     public Button settingsViewBtn;
+    public Label lblVersion;
 
     @FXML
     private Button ridesViewBtn;
@@ -52,6 +53,7 @@ public class RootLayoutController extends Controller {
         this.selectedBtn = dashboardViewBtn;
         getIcons();
 
+        lblVersion.setText("V.0.2.0");
 
     }
 

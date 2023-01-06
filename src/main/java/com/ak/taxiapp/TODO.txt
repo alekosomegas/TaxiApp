@@ -9,43 +9,25 @@ GENERAL
 =====================================================================
 A. RIDES VIEW
 ---------------------------------------------------------------------
-1.  Something is wrong when updating ride the driver disappears.
-2.  Fix the date parsing for updating
-3.  Set the stops' functionality
+
+
     4.  Set all the input validations and default behaviour
     5.  Change rides cell from the table by double click
     6.  Undo for deleting and/or dialog for confirmation
     7.  Set automatic selection of car based on driver
-    8. Cash and credit error fix
-    9. selecting a ride works only if yuo click somewhere else first
-    10. Resize when adding stop
+
     11. Add wait functionality
     12. Add rates
-    13. notes do not work
 
 
-
-    From and to display in list view:
-    if round trip show all the stops in the to field and
-        a round trip icon
-    else
-        show to destination
-
-    SingleRideController:
-    two modes, new and edit:
-    if edit mode
-        load all info (stops)
-        ok button renamed to update
-        add a new 'add new ride' button (start with existing ride, alter and save)
-    else
-        as is now
 
     Alerts and input validation
     Autocomplete text fields
     FILTERS
     New Client dialog
     Status and saved
-    Delete
+
+    DATABASE ALL in lowerCase
 
 ---------------------------------------------------------------------
 
